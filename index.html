@@ -9,15 +9,14 @@
 <title>Life RPG - Sổ Tay Kỷ Luật Cá Nhân</title>
 <style>
 /* =========================================================================
-   1. BIẾN CSS, CHẾ ĐỘ SÁNG/TỐI & PHONG CÁCH MINECRAFT PIXEL ĐỒNG BỘ 100%
+   1. BIẾN CSS, CHẾ ĐỘ SÁNG/TỐI & PHONG CÁCH MINECRAFT PIXEL
    ========================================================================= */
 :root {
   --primary: #2563eb;
   --bg: #f1f5f9;
-  --card-bg: rgba(255, 255, 255, 0.95);
-  --sub-bg: #f8fafc;
+  --card-bg: rgba(255, 255, 255, 0.94);
   --text: #0f172a;
-  --text-muted: #475569;
+  --text-muted: #64748b;
   --border: #cbd5e1;
   --danger: #dc2626;
   --success: #16a34a;
@@ -31,73 +30,28 @@
 
 [data-theme="dark"] {
   --bg: #0f172a;
-  --card-bg: rgba(30, 41, 59, 0.95);
-  --sub-bg: #1e293b;
+  --card-bg: rgba(30, 41, 59, 0.94);
   --text: #f8fafc;
   --text-muted: #94a3b8;
   --border: #334155;
   --bg-overlay: rgba(15, 23, 42, 0.65);
 }
 
-/* Chế độ Khối Pixel kiểu Minecraft - Đồng bộ toàn bộ Card, Cẩm nang, AI Box & Chữ */
-[data-style="minecraft"] {
-  --bg: #2b2b2b;
-  --card-bg: #c6c6c6;
-  --sub-bg: #b2b2b2;
-  --text: #111111;
-  --text-muted: #333333;
-  --border: #555555;
-  --primary: #388e3c;
-  --danger: #b71c1c;
-  --success: #1b5e20;
-  --warning: #e65100;
-  --purple: #4a148c;
-}
-
+/* Chế độ Khối Pixel kiểu Minecraft (Bật trong Cài đặt) */
 [data-style="minecraft"] * {
   border-radius: 0px !important;
   font-family: "Courier New", Consolas, monospace !important;
 }
-
 [data-style="minecraft"] .card,
 [data-style="minecraft"] #topHeader {
-  background: var(--card-bg) !important;
-  color: var(--text) !important;
+  background: #c6c6c6 !important;
+  color: #1a1a1a !important;
   border-top: 3px solid #ffffff !important;
   border-left: 3px solid #ffffff !important;
   border-right: 3px solid #555555 !important;
   border-bottom: 3px solid #555555 !important;
   box-shadow: 0 0 0 2px #000000 !important;
 }
-
-[data-style="minecraft"] .sub-panel,
-[data-style="minecraft"] .rpg-stat-card,
-[data-style="minecraft"] .rpg-master-box,
-[data-style="minecraft"] .ai-box,
-[data-style="minecraft"] .cal-cell,
-[data-style="minecraft"] .stat-pill {
-  background: var(--sub-bg) !important;
-  color: var(--text) !important;
-  border-top: 2px solid #888888 !important;
-  border-left: 2px solid #888888 !important;
-  border-right: 2px solid #ffffff !important;
-  border-bottom: 2px solid #ffffff !important;
-}
-
-[data-style="minecraft"] .manual-section,
-[data-style="minecraft"] .manual-section li,
-[data-style="minecraft"] .manual-section strong,
-[data-style="minecraft"] .manual-section em,
-[data-style="minecraft"] .ai-box,
-[data-style="minecraft"] .ai-box li {
-  color: #111111 !important;
-}
-
-[data-style="minecraft"] .manual-section h4 {
-  color: #1b5e20 !important;
-  text-decoration: underline;
-}
-
 [data-style="minecraft"] .btn,
 [data-style="minecraft"] .nav-btn,
 [data-style="minecraft"] .sub-tab {
@@ -110,25 +64,10 @@
   border-bottom: 2px solid #3b3b3b !important;
   box-shadow: 0 0 0 1px #000000 !important;
 }
-
 [data-style="minecraft"] .nav-btn.active,
-[data-style="minecraft"] .sub-tab.active,
-[data-style="minecraft"] .btn-success {
+[data-style="minecraft"] .sub-tab.active {
   background: #52a535 !important;
 }
-
-[data-style="minecraft"] .btn-danger {
-  background: #b71c1c !important;
-}
-
-[data-style="minecraft"] .btn-purple {
-  background: #6a1b9a !important;
-}
-
-[data-style="minecraft"] .btn-warn {
-  background: #e65100 !important;
-}
-
 [data-style="minecraft"] input,
 [data-style="minecraft"] select,
 [data-style="minecraft"] textarea,
@@ -150,7 +89,7 @@ html, body {
   font-size: var(--font-size);
   background-color: var(--bg);
   color: var(--text);
-  line-height: 1.48;
+  line-height: 1.45;
   overflow-x: hidden;
   min-height: 100vh;
 }
@@ -199,17 +138,15 @@ html, body {
 }
 
 .stat-pill {
-  background: var(--sub-bg);
-  border: 1px solid var(--border);
+  background: rgba(128,128,128,0.08);
   padding: 4px 5px;
   border-radius: 7px;
   text-align: center;
   min-width: 0;
-  color: var(--text);
 }
 
 .stat-label {
-  font-size: 0.68rem;
+  font-size: 0.66rem;
   color: var(--text-muted);
   white-space: nowrap;
   overflow: hidden;
@@ -219,12 +156,11 @@ html, body {
 
 .stat-val {
   font-weight: 700;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   display: block;
-  color: var(--text);
 }
 
 .mini-progress {
@@ -243,6 +179,7 @@ html, body {
   transition: width 0.25s;
 }
 
+/* Dải nút ngang chọn chức năng ở đầu trang (Kiểu 1) */
 #topNav {
   display: flex;
   overflow-x: auto;
@@ -268,7 +205,7 @@ html, body {
   padding: 7px 11px;
   border-radius: 8px;
   border: 1px solid var(--border);
-  background: var(--sub-bg);
+  background: var(--bg);
   color: var(--text);
   font-size: 0.8rem;
   font-weight: 600;
@@ -286,7 +223,7 @@ html, body {
 }
 
 /* =========================================================================
-   3. KHUNG NỘI DUNG & COMPONENT DÙNG CHUNG (ĐỒNG BỘ MÀU CHỮ & CỠ CHỮ)
+   3. KHUNG NỘI DUNG & COMPONENT DÙNG CHUNG
    ========================================================================= */
 #mainContainer {
   max-width: 920px;
@@ -306,28 +243,26 @@ html, body {
   padding: 9px 12px;
   border-radius: var(--radius);
   margin-bottom: 10px;
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
   border: 1px solid transparent;
-  color: var(--text);
 }
 
 .banner-warn {
-  background: rgba(217, 119, 6, 0.16);
+  background: rgba(217, 119, 6, 0.14);
   border-color: var(--warning);
 }
 
 .banner-danger {
-  background: rgba(220, 38, 38, 0.16);
+  background: rgba(220, 38, 38, 0.14);
   border-color: var(--danger);
 }
 
 .card {
   background: var(--card-bg);
-  color: var(--text);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 12px;
@@ -335,17 +270,8 @@ html, body {
   box-shadow: 0 1px 3px rgba(0,0,0,0.03);
 }
 
-.sub-panel {
-  background: var(--sub-bg);
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 12px;
-  margin-bottom: 12px;
-}
-
 .card-title {
-  font-size: 1rem;
+  font-size: 0.98rem;
   font-weight: 700;
   margin-bottom: 10px;
   display: flex;
@@ -353,7 +279,6 @@ html, body {
   align-items: center;
   gap: 8px;
   flex-wrap: wrap;
-  color: var(--text);
 }
 
 .form-group { margin-bottom: 9px; }
@@ -379,7 +304,7 @@ html, body {
 
 label {
   display: block;
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 600;
   margin-bottom: 3px;
   color: var(--text-muted);
@@ -394,10 +319,10 @@ select,
 textarea {
   width: 100%;
   padding: 9px 10px;
-  font-size: 0.94rem;
+  font-size: 0.92rem;
   border: 1px solid var(--border);
   border-radius: 8px;
-  background: var(--sub-bg);
+  background: var(--bg);
   color: var(--text);
   font-family: inherit;
 }
@@ -425,8 +350,8 @@ textarea {
 }
 
 .btn:active { opacity: 0.85; }
-.btn-sm { padding: 5px 9px; min-height: 30px; font-size: 0.78rem; border-radius: 6px; }
-.btn-outline { background: var(--sub-bg); border-color: var(--border); color: var(--text); }
+.btn-sm { padding: 5px 9px; min-height: 30px; font-size: 0.76rem; border-radius: 6px; }
+.btn-outline { background: transparent; border-color: var(--border); color: var(--text); }
 .btn-danger { background: var(--danger); color: #fff; }
 .btn-success { background: var(--success); color: #fff; }
 .btn-warn { background: var(--warning); color: #fff; }
@@ -437,24 +362,23 @@ textarea {
   display: inline-block;
   padding: 2px 7px;
   border-radius: 6px;
-  font-size: 0.75rem;
+  font-size: 0.73rem;
   font-weight: 600;
 }
 
-.badge-high { background: rgba(220,38,38,0.16); color: var(--danger); }
-.badge-medium { background: rgba(217,119,6,0.16); color: var(--warning); }
-.badge-low { background: rgba(22,163,74,0.16); color: var(--success); }
-.badge-purple { background: rgba(124,58,237,0.16); color: var(--purple); }
-.badge-blue { background: rgba(37,99,235,0.16); color: var(--primary); }
+.badge-high { background: rgba(220,38,38,0.15); color: var(--danger); }
+.badge-medium { background: rgba(217,119,6,0.15); color: var(--warning); }
+.badge-low { background: rgba(22,163,74,0.15); color: var(--success); }
+.badge-purple { background: rgba(124,58,237,0.15); color: var(--purple); }
+.badge-blue { background: rgba(37,99,235,0.15); color: var(--primary); }
 
 /* Hệ thống Bảng Level RPG */
 .rpg-master-box {
-  background: var(--sub-bg);
+  background: linear-gradient(135deg, rgba(37,99,235,0.12), rgba(124,58,237,0.14));
   border: 2px solid var(--primary);
   border-radius: var(--radius);
   padding: 11px 12px;
   margin-bottom: 10px;
-  color: var(--text);
 }
 
 .rpg-stat-grid {
@@ -471,8 +395,7 @@ textarea {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 9px 10px;
-  background: var(--sub-bg);
-  color: var(--text);
+  background: var(--bg);
 }
 
 .prog-track {
@@ -490,37 +413,31 @@ textarea {
   transition: width 0.25s;
 }
 
-/* Cẩm nang hướng dẫn & AI Box - Đồng bộ biến màu chữ và cỡ chữ */
+/* Cẩm nang hướng dẫn & AI Box */
 .manual-section {
   border-left: 3px solid var(--primary);
   padding-left: 10px;
   margin-bottom: 12px;
-  font-size: 0.92em;
-  color: var(--text);
+  font-size: 0.86rem;
 }
 .manual-section h4 {
-  font-size: 1em;
+  font-size: 0.92rem;
   color: var(--primary);
-  margin-bottom: 5px;
-  font-weight: 700;
+  margin-bottom: 4px;
 }
 .manual-section ul {
   padding-left: 18px;
-  color: var(--text);
 }
 .manual-section li {
-  margin-bottom: 5px;
-  color: var(--text);
-  line-height: 1.5;
+  margin-bottom: 4px;
 }
 .ai-box {
-  background: var(--sub-bg);
+  background: linear-gradient(135deg, rgba(124,58,237,0.08), rgba(37,99,235,0.08));
   border: 1px solid var(--purple);
   border-radius: var(--radius);
   padding: 10px;
   margin-top: 8px;
-  font-size: 0.92em;
-  color: var(--text);
+  font-size: 0.86rem;
 }
 
 .item-row {
@@ -530,7 +447,6 @@ textarea {
   gap: 8px;
   padding: 10px 0;
   border-bottom: 1px solid var(--border);
-  color: var(--text);
 }
 
 .item-row:last-child { border-bottom: none; }
@@ -541,7 +457,6 @@ textarea {
   gap: 9px;
   flex: 1;
   min-width: 0;
-  color: var(--text);
 }
 
 .check-wrap input[type="checkbox"] {
@@ -558,17 +473,17 @@ textarea {
   color: var(--text-muted);
 }
 
+/* Nút Stack kiểu slot đồ */
 .stack-box {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  background: var(--sub-bg);
+  background: rgba(128,128,128,0.12);
   border: 1px solid var(--border);
   border-radius: 6px;
   padding: 2px 6px;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 700;
-  color: var(--text);
 }
 
 /* Lịch tháng */
@@ -587,7 +502,7 @@ textarea {
 }
 
 .cal-dow {
-  font-size: 0.76rem;
+  font-size: 0.74rem;
   font-weight: 700;
   color: var(--text-muted);
   padding: 4px 0;
@@ -598,19 +513,18 @@ textarea {
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 3px 2px;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  background: var(--sub-bg);
-  color: var(--text);
+  background: var(--bg);
 }
 
 .cal-cell.today { border: 2px solid var(--primary); font-weight: 700; }
-.cal-cell.selected { background: rgba(37, 99, 235, 0.2); }
-.cal-cell.checked-in { background: rgba(22, 163, 74, 0.2); border-color: var(--success); }
+.cal-cell.selected { background: rgba(37, 99, 235, 0.16); }
+.cal-cell.checked-in { background: rgba(22, 163, 74, 0.18); border-color: var(--success); }
 
 .cal-dots { display: flex; gap: 3px; justify-content: center; }
 .dot { width: 6px; height: 6px; border-radius: 50%; }
@@ -625,7 +539,7 @@ textarea {
   padding: 8px;
   border-radius: 8px;
   border: 1px solid var(--border);
-  background: var(--sub-bg);
+  background: var(--bg);
   color: var(--text);
   font-weight: 600;
   cursor: pointer;
@@ -640,7 +554,7 @@ textarea {
   text-align: center;
   color: var(--text-muted);
   padding: 14px 8px;
-  font-size: 0.88rem;
+  font-size: 0.85rem;
 }
 </style>
 </head>
@@ -710,10 +624,10 @@ textarea {
         </div>
       </div>
 
-      <!-- Khung Cẩm Nang Tân Thủ (Đồng bộ 100% chế độ Sáng / Tối / Minecraft & Cỡ chữ) -->
-      <div id="manualBox" class="sub-panel" style="display:none;">
+      <!-- Khung Cẩm Nang Tân Thủ (Đóng/Mở gọn gàng) -->
+      <div id="manualBox" style="display:none;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:12px;margin-bottom:12px;">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;border-bottom:1px solid var(--border);padding-bottom:6px;">
-          <strong style="font-size:1em;color:var(--primary);">📖 CẨM NANG TÂN THỦ - CƠ CHẾ VẬN HÀNH LIFE RPG</strong>
+          <strong style="font-size:0.96rem;color:var(--primary);">📖 CẨM NANG TÂN THỦ - CƠ CHẾ VẬN HÀNH LIFE RPG</strong>
           <button class="btn btn-sm btn-outline" onclick="toggleManualBox()">Đóng ✕</button>
         </div>
 
@@ -784,20 +698,20 @@ textarea {
       <div class="rpg-master-box">
         <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
           <div>
-            <strong style="font-size:1.06em;">🛡️ LEVEL KỶ LUẬT: <span id="lvlDiscipline" style="color:var(--primary);">Lv.1</span></strong>
-            <div style="font-size:0.84em;color:var(--text-muted);" id="descDiscipline">
+            <strong style="font-size:1.06rem;">🛡️ LEVEL KỶ LUẬT: <span id="lvlDiscipline" style="color:var(--primary);">Lv.1</span></strong>
+            <div style="font-size:0.78rem;color:var(--text-muted);" id="descDiscipline">
               Khi cả 3 thanh (Thể lực, Trí tuệ, Sức khỏe) đạt Lv.2 ➔ Kỷ luật lên Lv.2
             </div>
           </div>
           <div style="text-align:right;">
-            <div style="font-size:0.8em;color:var(--text-muted);">Ví Điểm Kiên Trì</div>
-            <strong style="font-size:1.12em;color:var(--purple);" id="homeGems">💎 0</strong>
+            <div style="font-size:0.76rem;color:var(--text-muted);">Ví Điểm Kiên Trì</div>
+            <strong style="font-size:1.12rem;color:var(--purple);" id="homeGems">💎 0</strong>
           </div>
         </div>
         <div class="prog-track" style="height:12px;margin-top:8px;">
           <div class="prog-fill" id="barDiscipline" style="width:0%;background:linear-gradient(90deg,var(--primary),var(--purple));"></div>
         </div>
-        <div style="font-size:0.8em;display:flex;justify-content:space-between;color:var(--text-muted);">
+        <div style="font-size:0.76rem;display:flex;justify-content:space-between;color:var(--text-muted);">
           <span id="syncDisciplineTxt">Đồng bộ: 0/3 chỉ số đạt cấp tiếp theo</span>
           <span id="rateDisciplineTxt">Quyền năng: Đổi 1 💎 = 1.000đ</span>
         </div>
@@ -811,7 +725,7 @@ textarea {
             <span id="lvlStr" style="color:var(--danger);">Lv.1</span>
           </div>
           <div class="prog-track"><div class="prog-fill" id="barStr" style="background:var(--danger);width:0%;"></div></div>
-          <div style="font-size:0.8em;color:var(--text-muted);display:flex;justify-content:space-between;">
+          <div style="font-size:0.75rem;color:var(--text-muted);display:flex;justify-content:space-between;">
             <span id="expStr">0 / 50 EXP</span>
             <span id="totStr">Tổng: 0 EXP</span>
           </div>
@@ -823,7 +737,7 @@ textarea {
             <span id="lvlInt" style="color:var(--primary);">Lv.1</span>
           </div>
           <div class="prog-track"><div class="prog-fill" id="barInt" style="background:var(--primary);width:0%;"></div></div>
-          <div style="font-size:0.8em;color:var(--text-muted);display:flex;justify-content:space-between;">
+          <div style="font-size:0.75rem;color:var(--text-muted);display:flex;justify-content:space-between;">
             <span id="expInt">0 / 50 EXP</span>
             <span id="totInt">Tổng: 0 EXP</span>
           </div>
@@ -835,7 +749,7 @@ textarea {
             <span id="lvlHp" style="color:var(--success);">Lv.1</span>
           </div>
           <div class="prog-track"><div class="prog-fill" id="barHp" style="background:var(--success);width:0%;"></div></div>
-          <div style="font-size:0.8em;color:var(--text-muted);display:flex;justify-content:space-between;">
+          <div style="font-size:0.75rem;color:var(--text-muted);display:flex;justify-content:space-between;">
             <span id="expHp">0 / 50 EXP</span>
             <span id="totHp">Tổng: 0 EXP</span>
           </div>
@@ -862,7 +776,7 @@ textarea {
           <input type="text" id="aiCmdInput" placeholder="VD: Hít đất 13 cái 5 hiệp thể lực | hoặc: Chi 30k ăn sáng" onkeydown="if(event.key==='Enter') executeAICommand()">
           <button class="btn btn-purple" onclick="executeAICommand()" style="white-space:nowrap;">⚡ Thực thi</button>
         </div>
-        <div id="aiCmdFeedback" style="font-size:0.84em;margin-top:5px;color:var(--text-muted);">
+        <div id="aiCmdFeedback" style="font-size:0.8rem;margin-top:5px;color:var(--text-muted);">
           <em>Mẹo gõ nhanh:</em> Gõ <strong>"Học từ vựng 4 hiệp trí tuệ"</strong> (Tự tạo nhiệm vụ Stack 0/4 hệ Trí tuệ) hoặc <strong>"Chi 25k ăn bún"</strong> (Tự trừ 25.000đ Quỹ Được Tiêu).
         </div>
       </div>
@@ -872,7 +786,7 @@ textarea {
     <div class="card">
       <div class="card-title">
         <span>⚡ Tóm tắt & Hành động nhanh hôm nay</span>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        <div style="display:flex;gap:6px;">
           <button class="btn btn-sm btn-success" onclick="doCheckinToday()">✅ Điểm danh ngay</button>
           <button class="btn btn-sm" onclick="switchTab('tab-tasks')">+ Tạo nhiệm vụ</button>
         </div>
@@ -883,6 +797,7 @@ textarea {
 
   <!-- ================= TRANG 1: ☑️ NHIỆM VỤ (STACK + VƯỢT CẤP CUỐI TUẦN) ================= -->
   <section id="tab-tasks" class="tab-pane">
+    <!-- Tạo / Sửa Nhiệm vụ thường -->
     <div class="card">
       <div class="card-title">
         <span id="taskFormTitle">Tạo nhiệm vụ mới (Có hỗ trợ Stack)</span>
@@ -937,7 +852,7 @@ textarea {
         <span>🔥 Nhiệm Vụ Vượt Cấp Cuối Tuần (Thứ 7 & Chủ Nhật)</span>
         <span class="badge badge-medium" id="wkStatusBadge">Đang kiểm tra</span>
       </div>
-      <p style="font-size:0.86em;color:var(--text-muted);margin-bottom:8px;">
+      <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:8px;">
         Khi bấm <strong>"Đồng ý nhận"</strong> và hoàn thành trong cuối tuần: <strong>Nhân đôi (x2) EXP & x2 💎 Điểm Kiên Trì</strong>. Nếu đã đồng ý nhận mà hết Chủ Nhật không hoàn thành: Tự động phạt trừ <strong>-1 EXP (Thể lực/Sức khỏe)</strong> hoặc <strong>-2 EXP (Trí tuệ)</strong> cho mỗi nhiệm vụ thất bại!
       </p>
       <div class="form-row-3">
@@ -968,7 +883,7 @@ textarea {
     <div class="card">
       <div class="card-title">
         <span>Danh sách nhiệm vụ</span>
-        <select id="taskFilter" onchange="renderTasks()" style="width:auto;padding:5px 8px;font-size:0.84em;">
+        <select id="taskFilter" onchange="renderTasks()" style="width:auto;padding:5px 8px;font-size:0.8rem;">
           <option value="all">Tất cả</option>
           <option value="today">Hôm nay / Quá hạn</option>
           <option value="pending">Chưa xong</option>
@@ -984,17 +899,17 @@ textarea {
     <div class="card" style="text-align:center;">
       <div class="card-title" style="justify-content:center;">Điểm Danh Giữ Chuỗi Kỷ Luật</div>
       <p style="margin-bottom:10px;color:var(--text-muted);" id="checkinStatusText">Hãy điểm danh mỗi ngày để duy trì kỷ luật!</p>
-      <button class="btn btn-success btn-block" id="btnDoCheckin" onclick="doCheckinToday()" style="font-size:1.05em;min-height:46px;">
+      <button class="btn btn-success btn-block" id="btnDoCheckin" onclick="doCheckinToday()" style="font-size:1.05rem;min-height:46px;">
         ✅ Điểm danh hôm nay
       </button>
       <div class="form-row" style="margin-top:12px;margin-bottom:0;">
         <div class="stat-pill" style="padding:10px;">
           <span class="stat-label">Chuỗi liên tiếp hiện tại</span>
-          <span class="stat-val" style="font-size:1.15em;" id="chkCurrentStreak">0 ngày</span>
+          <span class="stat-val" style="font-size:1.15rem;" id="chkCurrentStreak">0 ngày</span>
         </div>
         <div class="stat-pill" style="padding:10px;">
           <span class="stat-label">Kỷ lục chuỗi dài nhất</span>
-          <span class="stat-val" style="font-size:1.15em;" id="chkMaxStreak">0 ngày</span>
+          <span class="stat-val" style="font-size:1.15rem;" id="chkMaxStreak">0 ngày</span>
         </div>
       </div>
     </div>
@@ -1144,7 +1059,7 @@ textarea {
       </div>
 
       <!-- Cách 1: Tìm và chọn từ danh sách Nhiệm vụ có sẵn -->
-      <div class="sub-panel" style="margin-bottom:10px;">
+      <div style="background:rgba(37,99,235,0.07);border:1px solid var(--border);border-radius:8px;padding:10px;margin-bottom:10px;">
         <label style="color:var(--primary);font-weight:700;">🔍 Tìm & Chọn Nhiệm vụ có sẵn đưa vào Thời gian biểu (Tick ở đây tự cộng EXP & 💎)</label>
         <div class="form-row-3" style="margin-top:6px;margin-bottom:0;">
           <div>
@@ -1198,7 +1113,7 @@ textarea {
         <strong id="mainCalMonthLabel">Tháng --/----</strong>
         <button class="btn btn-sm btn-outline" onclick="changeMainCalMonth(1)">▶</button>
       </div>
-      <div style="display:flex;gap:12px;font-size:0.8em;margin-bottom:8px;justify-content:center;color:var(--text-muted);">
+      <div style="display:flex;gap:12px;font-size:0.75rem;margin-bottom:8px;justify-content:center;color:var(--text-muted);">
         <span><span class="dot dot-task" style="display:inline-block;"></span> Nhiệm vụ</span>
         <span><span class="dot dot-cd" style="display:inline-block;"></span> Đếm ngày</span>
         <span><span class="dot dot-check" style="display:inline-block;"></span> Đã điểm danh</span>
@@ -1238,15 +1153,15 @@ textarea {
       <div class="form-row-3" style="text-align:center;">
         <div class="stat-pill" style="padding:10px;">
           <span class="stat-label">🔒 Quỹ Trong Két (Đang khoá)</span>
-          <span class="stat-val" style="font-size:1.1em;color:var(--warning);" id="vaultBalanceTxt">0đ</span>
+          <span class="stat-val" style="font-size:1.1rem;color:var(--warning);" id="vaultBalanceTxt">0đ</span>
         </div>
         <div class="stat-pill" style="padding:10px;">
           <span class="stat-label">🔓 Quỹ Được Phép Tiêu</span>
-          <span class="stat-val" style="font-size:1.1em;color:var(--success);" id="spendableBalanceTxt">0đ</span>
+          <span class="stat-val" style="font-size:1.1rem;color:var(--success);" id="spendableBalanceTxt">0đ</span>
         </div>
         <div class="stat-pill" style="padding:10px;">
           <span class="stat-label">💎 Điểm Kiên Trì hiện có</span>
-          <span class="stat-val" style="font-size:1.1em;color:var(--purple);" id="expGemsTxt">0 💎</span>
+          <span class="stat-val" style="font-size:1.1rem;color:var(--purple);" id="expGemsTxt">0 💎</span>
         </div>
       </div>
 
@@ -1273,7 +1188,7 @@ textarea {
       <div class="card-title">
         <span>🚨 Vay Khẩn Cấp Từ Quỹ Két (Lãi phạt 20%/ngày - Có 🤖 AI Gác Cổng)</span>
       </div>
-      <p style="font-size:0.84em;color:var(--text-muted);margin-bottom:8px;">
+      <p style="font-size:0.79rem;color:var(--text-muted);margin-bottom:8px;">
         Khi khẩn cấp, tiền rút từ <strong>Quỹ Trong Két</strong> chuyển sang <strong>Quỹ Được Phép Tiêu</strong>. Nợ gốc quy ra 💎 theo tỷ giá hiện tại và cộng lãi <strong>+20% nợ gốc/ngày</strong>. Hệ thống AI sẽ kiểm duyệt lý do vay của bạn!
       </p>
       <div class="form-row-3">
@@ -1370,7 +1285,7 @@ textarea {
     <div class="card">
       <div class="card-title">Biểu đồ chi tiêu theo danh mục</div>
       <canvas id="expCanvas" width="320" height="210" style="width:100%;max-width:320px;display:block;margin:0 auto;"></canvas>
-      <div id="expLegend" style="margin-top:8px;font-size:0.84em;"></div>
+      <div id="expLegend" style="margin-top:8px;font-size:0.8rem;"></div>
     </div>
 
     <div class="card">
@@ -1383,7 +1298,7 @@ textarea {
   <section id="tab-reminders" class="tab-pane">
     <div class="card">
       <div class="card-title">Cài đặt Thông báo & Chuông báo máy tính / điện thoại</div>
-      <p style="font-size:0.88em;margin-bottom:10px;color:var(--text-muted);">
+      <p style="font-size:0.85rem;margin-bottom:10px;color:var(--text-muted);">
         Trạng thái Notification API: <strong id="notifPermStatus">Đang kiểm tra...</strong>
       </p>
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;">
@@ -1404,9 +1319,8 @@ textarea {
     </div>
   </section>
 
-  <!-- ================= TRANG 10: ⚙️ GIAO DIỆN TUỲ CHỈNH, SAO LƯU & RESET LEVEL 1 ================= -->
+  <!-- ================= TRANG 10: ⚙️ GIAO DIỆN TUỲ CHỈNH & SAO LƯU DỮ LIỆU ================= -->
   <section id="tab-settings" class="tab-pane">
-    <!-- Khung 1: Giao diện tuỳ chỉnh -->
     <div class="card">
       <div class="card-title">🎨 Giao diện tuỳ chỉnh (Có sẵn mẫu & Chọn ảnh nền)</div>
 
@@ -1432,13 +1346,13 @@ textarea {
       </div>
 
       <div class="form-group">
-        <label>Cỡ chữ hiển thị toàn ứng dụng (Kể cả Cẩm Nang): <span id="lblFontSize">15px</span></label>
-        <input type="range" id="uiFontSize" min="13" max="20" value="15" oninput="applyLiveThemeSettings()" style="width:100%;">
+        <label>Cỡ chữ hiển thị: <span id="lblFontSize">15px</span></label>
+        <input type="range" id="uiFontSize" min="13" max="19" value="15" oninput="applyLiveThemeSettings()" style="width:100%;">
       </div>
 
       <div class="form-group">
         <label>Chọn ảnh từ thư viện điện thoại / máy tính làm hình nền (Tự nén & lưu IndexedDB)</label>
-        <input type="file" id="uiBgFileInput" accept="image/*" onchange="handleBgImageUpload(event)" style="width:100%;font-size:0.86em;">
+        <input type="file" id="uiBgFileInput" accept="image/*" onchange="handleBgImageUpload(event)" style="width:100%;font-size:0.84rem;">
         <button class="btn btn-sm btn-outline" style="margin-top:6px;" onclick="removeCurrentBgImage()">Xoá ảnh nền hiện tại</button>
       </div>
 
@@ -1463,36 +1377,20 @@ textarea {
       </div>
     </div>
 
-    <!-- Khung 2: Sao lưu & Khôi phục JSON -->
     <div class="card">
-      <div class="card-title">💾 Sao lưu & Đồng bộ dữ liệu (File JSON)</div>
-      <p style="font-size:0.86em;color:var(--text-muted);margin-bottom:10px;">
+      <div class="card-title">💾 Sao lưu, Khôi phục & Đặt lại dữ liệu</div>
+      <p style="font-size:0.84rem;color:var(--text-muted);margin-bottom:10px;">
         Phiên bản dữ liệu: <strong id="lblDataVersion">2</strong> | Lần xuất sao lưu gần nhất: <strong id="lblLastBackup">Chưa từng sao lưu</strong>
       </p>
-      <div class="form-row" style="margin-bottom:0;">
+      <div class="form-row">
         <button class="btn btn-success" onclick="exportAllDataJSON()">📤 Xuất dữ liệu ra JSON</button>
         <label class="btn btn-outline" style="margin:0;cursor:pointer;">
           📥 Nhập dữ liệu từ JSON
           <input type="file" id="importJsonInput" accept=".json,application/json" style="display:none;" onchange="importAllDataJSON(event)">
         </label>
       </div>
-    </div>
-
-    <!-- Khung 3: BẮT ĐẦU LẠI TỪ ĐẦU (RESET HỆ THỐNG VỀ LEVEL 1) -->
-    <div class="card" style="border:2px solid var(--danger);">
-      <div class="card-title">
-        <span style="color:var(--danger);">🔄 Bắt Đầu Lại Từ Đầu (Reset Hệ Thống)</span>
-      </div>
-      <p style="font-size:0.86em;color:var(--text-muted);margin-bottom:10px;">
-        Dùng khi bạn muốn chơi lại cuộc đời mới từ <strong>Level 1 (0 EXP, 0 💎, 0đ)</strong>. Hệ thống hỗ trợ 2 chế độ đặt lại có khoá xác nhận an toàn:
-      </p>
-      <div class="form-row" style="margin-bottom:0;">
-        <button class="btn btn-warn" onclick="resetProgressKeepTheme()">
-          🔄 Reset về Level 1 (Giữ lại Giao diện & Ảnh nền)
-        </button>
-        <button class="btn btn-danger" onclick="resetAllDataToLevel1()">
-          ⚠️ Xoá trắng toàn bộ 100% (Về mặc định gốc)
-        </button>
+      <div style="border-top:1px solid var(--border);padding-top:10px;margin-top:10px;">
+        <button class="btn btn-sm btn-danger" onclick="resetAllDataToLevel1()">🔄 Đặt lại từ đầu (Reset toàn bộ về Level 1)</button>
       </div>
     </div>
   </section>
@@ -1514,23 +1412,32 @@ function getDefaultState() {
   return {
     version: CURRENT_VERSION,
     lastBackupDate: null,
+    // Điểm EXP tích luỹ của 3 hệ & Ví Điểm Kiên Trì
     rpg: {
       strExp: 0,
       intExp: 0,
       hpExp: 0,
       perseverance: 0
     },
+    // Danh sách nhiệm vụ thường (hỗ trợ Stack)
     tasks: [],
+    // Nhiệm vụ vượt cấp cuối tuần
     weekendTasks: [],
+    // Điểm danh
     checkins: [],
+    // Đếm ngày
     countdowns: [],
+    // Mục tiêu Tuần / Tháng / Năm kèm hình phạt
     goals: {
       week: [],
       month: [],
       year: []
     },
+    // Ghi lỗi sai
     mistakes: [],
+    // Thời gian biểu { 'YYYY-MM-DD': [ {id, session, time, title, done, linkedTaskId} ] }
     schedules: {},
+    // Chi tiêu, Quỹ khoá, Quỹ tiêu & Khoản vay khẩn cấp
     expenses: {
       vaultBalance: 0,
       spendableBalance: 0,
@@ -1538,9 +1445,10 @@ function getDefaultState() {
       budgets: {},
       items: []
     },
+    // Giao diện tuỳ chỉnh
     ui: {
       mode: 'light',
-      style: 'modern',
+      style: 'modern', // 'modern' | 'minecraft'
       primary: '#2563eb',
       fontSize: 15,
       blur: 0,
@@ -1588,6 +1496,7 @@ function formatVND(num) {
   return `${sign}${s}đ`;
 }
 
+// Nâng cấp dữ liệu an toàn từ các bản cũ
 function migrateData(raw) {
   const def = getDefaultState();
   if (!raw || typeof raw !== 'object') return def;
@@ -1681,6 +1590,7 @@ async function idbDeleteImage(key) {
 /* =========================================================================
    3. CÔNG THỨC LEVEL RPG (NHÂN ĐÔI EXP MỖI CẤP) & LEVEL KỶ LUẬT ĐỒNG BỘ
    ========================================================================= */
+// Lv.1 -> Lv.2 cần 50 EXP; Lv.2 -> Lv.3 cần 100 EXP; Lv.3 -> Lv.4 cần 200 EXP (x2 mỗi cấp)
 function calcStatLevelInfo(totalExp) {
   let exp = Math.max(0, Math.floor(Number(totalExp) || 0));
   let level = 1;
@@ -1695,6 +1605,7 @@ function calcStatLevelInfo(totalExp) {
   return { level, currentExp: rem, reqForNext, totalExp: exp, pct };
 }
 
+// Level Kỷ Luật = Cấp độ thấp nhất trong 3 thanh (Tỷ giá: 1 💎 = Level Kỷ Luật * 1.000đ)
 function getDisciplineInfo() {
   const str = calcStatLevelInfo(appState.rpg.strExp);
   const int = calcStatLevelInfo(appState.rpg.intExp);
@@ -1715,7 +1626,7 @@ function getDisciplineInfo() {
   });
 
   const syncPct = Math.round(sumProgress / 3);
-  const exchangeRate = discLevel * 1000;
+  const exchangeRate = discLevel * 1000; // Giữ nguyên tăng đều: Lv.1 = 1.000đ, Lv.2 = 2.000đ, Lv.3 = 3.000đ...
 
   return {
     level: discLevel,
@@ -1729,6 +1640,7 @@ function getDisciplineInfo() {
   };
 }
 
+// Cộng hoặc trừ EXP và Điểm Kiên Trì
 function addRpgExpAndGems(statType, amount, affectGems = true) {
   const delta = Number(amount) || 0;
   if (statType === 'str') {
@@ -1752,6 +1664,7 @@ function toggleManualBox() {
   box.style.display = (box.style.display === 'none' || !box.style.display) ? 'block' : 'none';
 }
 
+// 4.1. AI Nội Bộ phân tích trạng thái & gợi ý nhiệm vụ cân bằng chỉ số
 function runInternalAIAnalysis() {
   const today = getTodayISO();
   const info = getDisciplineInfo();
@@ -1790,6 +1703,7 @@ function runInternalAIAnalysis() {
     lines.push(`<li>📋 <strong>Việc tồn đọng:</strong> Bạn còn <strong>${pendingToday.length} nhiệm vụ</strong> đến hạn hôm nay chưa hoàn thành.</li>`);
   }
 
+  // Đề xuất nhiệm vụ mẫu dựa theo hệ đang yếu nhất
   const templates = {
     str: [
       { title: 'Hít đất 15 cái (Tập theo hiệp)', stack: 5 },
@@ -1816,7 +1730,7 @@ function runInternalAIAnalysis() {
   outEl.innerHTML = `
     <div style="font-weight:700;color:var(--purple);margin-bottom:6px;">🤖 Báo cáo phân tích từ Hệ Thống AI Nội Bộ:</div>
     <ul style="padding-left:18px;margin-bottom:8px;">${lines.join('')}</ul>
-    <div style="font-size:0.9em;font-weight:600;margin-bottom:4px;">💡 Nhiệm vụ đề xuất để kéo nhanh chỉ số ${weakest.name}:</div>
+    <div style="font-size:0.8rem;font-weight:600;margin-bottom:4px;">💡 Nhiệm vụ đề xuất để kéo nhanh chỉ số ${weakest.name}:</div>
     <div style="display:flex;gap:6px;flex-wrap:wrap;">${btnHtml}</div>
   `;
 }
@@ -1840,6 +1754,7 @@ function aiQuickAddSuggestedTask(title, statType, stackMax) {
   alert(`🤖 Hệ Thống đã thêm nhiệm vụ "${title}" (Stack 0/${stackMax}) vào danh sách hôm nay!`);
 }
 
+// 4.2. AI Nội Bộ đọc hiểu lệnh tiếng Việt tự nhiên (Tạo nhiệm vụ Stack hoặc Ghi Thu/Chi)
 function executeAICommand() {
   const inputEl = document.getElementById('aiCmdInput');
   const fbEl = document.getElementById('aiCmdFeedback');
@@ -1851,6 +1766,7 @@ function executeAICommand() {
 
   const lower = raw.toLowerCase();
 
+  // Trường hợp 1: Câu lệnh Chi tiêu / Thu nhập (VD: "Chi 35k ăn sáng", "Tiêu 50000 mua sách", "Thu 500k tiền thưởng")
   const moneyMatch = lower.match(/^(chi|tiêu|mua|thu|nhận)\s+([\d.,]+)\s*(k|nghìn|ngàn|tr|triệu|đ|d)?\s*(.*)$/i);
   if (moneyMatch) {
     const verb = moneyMatch[1].toLowerCase();
@@ -1860,7 +1776,7 @@ function executeAICommand() {
 
     if (unit === 'k' || unit === 'nghìn' || unit === 'ngàn') num *= 1000;
     else if (unit === 'tr' || unit === 'triệu') num *= 1000000;
-    else if (num > 0 && num < 1000) num *= 1000;
+    else if (num > 0 && num < 1000) num *= 1000; // Gõ "chi 30 ăn sáng" tự hiểu 30.000đ
 
     const amount = Math.round(num);
     if (amount <= 0) {
@@ -1898,6 +1814,7 @@ function executeAICommand() {
     return;
   }
 
+  // Trường hợp 2: Câu lệnh Tạo Nhiệm Vụ (VD: "Tạo nhiệm vụ hít đất 13 cái 5 hiệp thể lực", "Học tiếng Anh 3 lần trí tuệ")
   let statType = 'str';
   if (/(trí tuệ|học|đọc|đề|từ vựng|toán|anh|code|bài|nghiên cứu)/.test(lower)) statType = 'int';
   else if (/(sức khỏe|ngủ|uống nước|thiền|ăn sạch|nghỉ|thuốc|giãn cơ)/.test(lower)) statType = 'hp';
@@ -1909,6 +1826,7 @@ function executeAICommand() {
     stackMax = Math.max(1, Math.min(500, parseInt(stackMatch[1], 10) || 1));
   }
 
+  // Làm sạch tên nhiệm vụ
   let cleanTitle = raw
     .replace(/^(tạo nhiệm vụ|thêm nhiệm vụ|nhiệm vụ|thêm việc|làm)\s+/i, '')
     .replace(/\s*(thể lực|trí tuệ|sức khỏe)\s*$/i, '')
@@ -1936,6 +1854,7 @@ function executeAICommand() {
   fbEl.innerHTML = `<span style="color:var(--success);font-weight:700;">🤖 Đã tạo nhiệm vụ: "${esc(cleanTitle)}" | Hệ: ${statLabel} | Stack: 0/${stackMax}!</span>`;
 }
 
+// 4.3. AI Nội Bộ Bắt Bệnh tại trang "Ghi lỗi sai"
 function aiAnalyzeMistakeInput() {
   const what = (document.getElementById('mkWhat').value || '').trim();
   if (!what) {
@@ -2029,6 +1948,7 @@ function updateAllHeaderAndRPG() {
   const today = getTodayISO();
   document.getElementById('stDate').textContent = formatDateVN(today);
 
+  // Tiến độ nhiệm vụ hôm nay
   const todayTasks = appState.tasks.filter(t => t.dueDate === today);
   const doneToday = todayTasks.filter(t => t.done).length;
   const totalToday = todayTasks.length;
@@ -2036,13 +1956,16 @@ function updateAllHeaderAndRPG() {
   const taskPct = totalToday > 0 ? Math.round((doneToday / totalToday) * 100) : 0;
   document.getElementById('stTaskBar').style.width = `${taskPct}%`;
 
+  // Chuỗi điểm danh
   const streaks = calcStreaks();
   document.getElementById('stStreak').textContent = `🔥 ${streaks.current} ngày`;
 
+  // Điểm Kiên Trì & Quỹ Được Phép Tiêu
   const gems = appState.rpg.perseverance || 0;
   document.getElementById('stPerseverance').textContent = `💎 ${gems}`;
   document.getElementById('stSpendable').textContent = formatVND(appState.expenses.spendableBalance || 0);
 
+  // Render Bảng Level ở Trang Chính
   const info = getDisciplineInfo();
   document.getElementById('lvlDiscipline').textContent = `Lv.${info.level}`;
   document.getElementById('descDiscipline').textContent =
@@ -2055,6 +1978,7 @@ function updateAllHeaderAndRPG() {
     `Tỷ giá mở khoá quỹ: 1 💎 = ${formatVND(info.exchangeRate)}`;
   document.getElementById('rpgRateBadge').textContent = `1 💎 = ${formatVND(info.exchangeRate)}`;
 
+  // 3 Thanh thành phần
   document.getElementById('lvlStr').textContent = `Lv.${info.str.level}`;
   document.getElementById('barStr').style.width = `${info.str.pct}%`;
   document.getElementById('expStr').textContent = `${info.str.currentExp} / ${info.str.reqForNext} EXP`;
@@ -2070,8 +1994,10 @@ function updateAllHeaderAndRPG() {
   document.getElementById('expHp').textContent = `${info.hp.currentExp} / ${info.hp.reqForNext} EXP`;
   document.getElementById('totHp').textContent = `Tổng: ${info.hp.totalExp} EXP`;
 
+  // Tóm tắt nhiệm vụ trên Trang Chính
   renderHomeQuickTasks();
 
+  // Kiểm tra các Banner cảnh báo đầu trang
   const alerts = [];
   if (storageErrorMessage) {
     alerts.push(`<div class="banner banner-danger"><span>⚠️ ${esc(storageErrorMessage)}</span></div>`);
@@ -2180,6 +2106,7 @@ function saveTask() {
   populateScheduleTaskSelect();
 }
 
+// Bấm nút [+1] hoặc [-1] trong Stack nhiệm vụ
 function stepTaskStack(taskId, delta) {
   const t = appState.tasks.find(x => x.id === taskId);
   if (!t) return;
@@ -2198,6 +2125,7 @@ function stepTaskStack(taskId, delta) {
   renderSchedule();
 }
 
+// Ấn vào ô vuông [✓] để hoàn thành toàn bộ Stack hoặc bỏ tick thu hồi điểm
 function toggleTaskCheckbox(taskId) {
   const t = appState.tasks.find(x => x.id === taskId);
   if (!t) return;
@@ -2266,7 +2194,7 @@ function renderSingleTaskRowHTML(t) {
           <div class="${t.done ? 'done-text' : ''}" style="font-weight:700;">
             ${esc(t.title)}
           </div>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:4px;font-size:0.8em;color:var(--text-muted);">
+          <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:4px;font-size:0.76rem;color:var(--text-muted);">
             ${getStatBadgeHTML(t.statType)}
             <span class="badge badge-${t.priority}">${prioMap[t.priority] || 'Vừa'}</span>
             <span>📅 ${formatDateVN(t.dueDate)}</span>
@@ -2403,7 +2331,7 @@ function renderTasks() {
         <div class="item-row">
           <div>
             <div style="font-weight:700;" class="${wt.done ? 'done-text' : ''}">${esc(wt.title)}</div>
-            <div style="font-size:0.8em;color:var(--text-muted);margin-top:3px;">
+            <div style="font-size:0.76rem;color:var(--text-muted);margin-top:3px;">
               ${getStatBadgeHTML(wt.statType)}
               <span>Thưởng x2: <strong>+${reward} EXP & 💎</strong></span> |
               <span>Phạt nếu thua: <strong style="color:var(--danger);">${pen} EXP</strong></span> |
@@ -2592,7 +2520,7 @@ function renderCountdowns() {
       <div class="item-row">
         <div>
           <strong>${esc(c.title)}</strong>
-          <div style="font-size:0.8em;color:var(--text-muted);">📅 ${formatDateVN(c.targetDate)}</div>
+          <div style="font-size:0.78rem;color:var(--text-muted);">📅 ${formatDateVN(c.targetDate)}</div>
         </div>
         <div style="display:flex;align-items:center;gap:8px;">
           ${badge}
@@ -2711,11 +2639,11 @@ function renderGoals() {
               <button class="btn btn-sm btn-danger" onclick="deleteGoal('${activeGoalScope}','${g.id}')">Xoá</button>
             </div>
           </div>
-          <div style="font-size:0.82em;color:var(--danger);margin-top:2px;">
+          <div style="font-size:0.78rem;color:var(--danger);margin-top:2px;">
             ⚠️ Hình phạt nếu thất bại: <strong>${esc(g.penalty)}</strong>
           </div>
           <div class="prog-track"><div class="prog-fill" style="width:${g.progress}%;"></div></div>
-          <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.84em;">
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.8rem;">
             <span>Tiến độ: <strong>${g.progress}%</strong></span>
             <input type="range" min="0" max="100" step="5" value="${g.progress}" style="width:150px;" onchange="updateGoalProgress('${activeGoalScope}','${g.id}',this.value)">
           </div>
@@ -2740,13 +2668,13 @@ function renderGoals() {
             <button class="btn btn-sm btn-danger" onclick="deleteGoal('${activeGoalScope}','${g.id}')">Xoá</button>
           </div>
           ${failed ? `
-            <div style="margin-top:4px;font-size:0.84em;color:var(--danger);display:flex;justify-content:space-between;align-items:center;">
+            <div style="margin-top:4px;font-size:0.8rem;color:var(--danger);display:flex;justify-content:space-between;align-items:center;">
               <span>❌ Không đạt 100%! Phải chịu phạt: <strong>${esc(g.penalty)}</strong></span>
               ${g.penaltyDone
                 ? '<span class="badge badge-low">Đã chấp hành phạt</span>'
                 : `<button class="btn btn-sm btn-warn" onclick="markGoalPenaltyDone('${activeGoalScope}','${g.id}')">Xác nhận đã chịu phạt</button>`}
             </div>
-          ` : `<div style="font-size:0.82em;color:var(--success);margin-top:3px;">✅ Đã hoàn thành xuất sắc kỳ này!</div>`}
+          ` : `<div style="font-size:0.78rem;color:var(--success);margin-top:3px;">✅ Đã hoàn thành xuất sắc kỳ này!</div>`}
         </div>
       `;
     }).join('');
@@ -3084,7 +3012,7 @@ function renderMainCalendar() {
     dHtml += `<div style="margin-bottom:6px;"><strong>Sự kiện đếm ngày:</strong> ${dayCds.map(c => esc(c.title)).join(', ')}</div>`;
   }
   if (dayTasks.length === 0) {
-    dHtml += `<div style="color:var(--text-muted);font-size:0.86em;">Chưa có nhiệm vụ nào vào ngày này.</div>`;
+    dHtml += `<div style="color:var(--text-muted);font-size:0.84rem;">Chưa có nhiệm vụ nào vào ngày này.</div>`;
   } else {
     dHtml += dayTasks.map(t => renderSingleTaskRowHTML(t)).join('');
   }
@@ -3106,6 +3034,7 @@ function setVaultBalance() {
   renderExpenses();
 }
 
+// Đổi Điểm Kiên Trì mở khoá tiền từ Quỹ Trong Két -> Quỹ Được Phép Tiêu
 function redeemGemsToCash() {
   const gemsToUse = Math.floor(Number(document.getElementById('redeemGemsInput').value) || 0);
   if (gemsToUse <= 0) {
@@ -3118,7 +3047,7 @@ function redeemGemsToCash() {
   }
 
   const discInfo = getDisciplineInfo();
-  const cashUnlock = gemsToUse * discInfo.exchangeRate;
+  const cashUnlock = gemsToUse * discInfo.exchangeRate; // 1 💎 = Lv.Kỷ Luật * 1.000đ
 
   if (cashUnlock > (appState.expenses.vaultBalance || 0)) {
     alert(`Quỹ Trong Két hiện chỉ còn ${formatVND(appState.expenses.vaultBalance)}, không đủ để mở khoá ${formatVND(cashUnlock)}!`);
@@ -3135,6 +3064,7 @@ function redeemGemsToCash() {
   alert(`🎉 Đã đổi ${gemsToUse} 💎 thành công! Đã rút ${formatVND(cashUnlock)} từ Két sang Quỹ Được Phép Tiêu.`);
 }
 
+// Vay Khẩn Cấp từ Quỹ Trong Két (Có AI Nội Bộ Gác Cổng kiểm duyệt lý do vay)
 function takeEmergencyLoan() {
   const amount = Math.round(Number(document.getElementById('loanAmountInput').value) || 0);
   const reason = document.getElementById('loanReasonInput').value.trim();
@@ -3152,6 +3082,7 @@ function takeEmergencyLoan() {
   const baseGems = Math.max(1, Math.ceil(amount / discInfo.exchangeRate));
   const dailyInterestGems = Math.ceil(baseGems * 0.20);
 
+  // AI Nội Bộ quét từ khoá tiêu xài cảm tính / không khẩn cấp
   const impulseRegex = /(trà sữa|cafe|cà phê|game|nạp|skin|đi chơi|nhậu|xem phim|quần áo|giày|mua sắm|ăn vặt|lẩu|nướng|bida|net|chơi|thèm)/i;
   if (impulseRegex.test(reason) || reason.length < 4) {
     const warnMsg =
@@ -3189,6 +3120,7 @@ function takeEmergencyLoan() {
   renderExpenses();
 }
 
+// Tính tổng nợ gốc + lãi 20%/ngày cho khoản vay
 function calcLoanTotalOwedGems(loan) {
   const startMs = new Date(loan.borrowDate + 'T00:00:00').getTime();
   const todayMs = new Date(getTodayISO() + 'T00:00:00').getTime();
@@ -3294,6 +3226,7 @@ function renderExpenses() {
   document.getElementById('spendableBalanceTxt').textContent = formatVND(appState.expenses.spendableBalance || 0);
   document.getElementById('expGemsTxt').textContent = `${appState.rpg.perseverance || 0} 💎`;
 
+  // Render danh sách khoản vay khẩn cấp
   const loansEl = document.getElementById('activeLoansList');
   if (!appState.expenses.loans || appState.expenses.loans.length === 0) {
     loansEl.innerHTML = '<div class="empty-msg" style="padding:6px;">Không có khoản vay khẩn cấp nào đang nợ.</div>';
@@ -3304,7 +3237,7 @@ function renderExpenses() {
         <div class="item-row">
           <div>
             <strong>🚨 Vay ${formatVND(loan.amountVND)} - ${esc(loan.reason)}</strong>
-            <div style="font-size:0.8em;color:var(--danger);">
+            <div style="font-size:0.78rem;color:var(--danger);">
               Ngày vay: ${formatDateVN(loan.borrowDate)} (${c.diffDays} ngày) |
               Gốc: ${loan.baseGems} 💎 + Lãi (20%/ngày): ${c.interestGems} 💎 =
               <strong>Còn nợ: ${c.remainingGems} 💎</strong>
@@ -3316,6 +3249,7 @@ function renderExpenses() {
     }).join('');
   }
 
+  // Thống kê theo tháng
   const mInput = document.getElementById('expMonthFilter');
   if (!mInput.value) mInput.value = getTodayISO().slice(0, 7);
   const month = mInput.value;
@@ -3343,7 +3277,7 @@ function renderExpenses() {
   if (budget > 0 && totalOut > budget) {
     bAlert.innerHTML = `<div class="banner banner-danger"><span>🚨 Cảnh báo: Chi tiêu tháng (${formatVND(totalOut)}) đã vượt ngân sách (${formatVND(budget)}) là <strong>${formatVND(totalOut - budget)}</strong>!</span></div>`;
   } else if (budget > 0) {
-    bAlert.innerHTML = `<div style="font-size:0.84em;margin-bottom:8px;color:var(--text-muted);">Đã tiêu ${Math.round((totalOut / budget) * 100)}% ngân sách tháng (${formatVND(totalOut)} / ${formatVND(budget)})</div>`;
+    bAlert.innerHTML = `<div style="font-size:0.8rem;margin-bottom:8px;color:var(--text-muted);">Đã tiêu ${Math.round((totalOut / budget) * 100)}% ngân sách tháng (${formatVND(totalOut)} / ${formatVND(budget)})</div>`;
   } else {
     bAlert.innerHTML = '';
   }
@@ -3358,8 +3292,8 @@ function renderExpenses() {
       <div class="item-row">
         <div>
           <strong>${esc(item.category)}</strong>
-          <span style="font-size:0.8em;color:var(--text-muted);"> (${formatDateVN(item.date)})</span>
-          ${item.note ? `<div style="font-size:0.82em;color:var(--text-muted);">${esc(item.note)}</div>` : ''}
+          <span style="font-size:0.78rem;color:var(--text-muted);"> (${formatDateVN(item.date)})</span>
+          ${item.note ? `<div style="font-size:0.8rem;color:var(--text-muted);">${esc(item.note)}</div>` : ''}
         </div>
         <div style="display:flex;align-items:center;gap:8px;">
           <strong style="color:${item.type === 'income' ? 'var(--success)' : 'var(--danger)'};">
@@ -3380,7 +3314,7 @@ function drawExpensePieChart(catSums, totalOut) {
 
   const entries = Object.entries(catSums).sort((a, b) => b[1] - a[1]);
   if (totalOut <= 0 || entries.length === 0) {
-    ctx.fillStyle = '#64748b';
+    ctx.fillStyle = '#94a3b8';
     ctx.font = '14px sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText('Chưa có dữ liệu chi tiêu trong tháng', canvas.width / 2, canvas.height / 2);
@@ -3556,7 +3490,7 @@ function exportICS() {
 }
 
 /* =========================================================================
-   15. TRANG 10: GIAO DIỆN TUỲ CHỈNH, SAO LƯU JSON & 2 CHẾ ĐỘ RESET LEVEL 1
+   15. TRANG 10: GIAO DIỆN TUỲ CHỈNH, SAO LƯU JSON & ĐẶT LẠI TỪ ĐẦU
    ========================================================================= */
 async function applySavedAppearance() {
   const ui = appState.ui;
@@ -3731,7 +3665,7 @@ function renderSettingsTab() {
       <div class="item-row">
         <div>
           <strong>${esc(p.name)}</strong>
-          <span style="font-size:0.8em;color:var(--text-muted);">(${p.style === 'minecraft' ? 'Minecraft' : (p.mode === 'dark' ? 'Tối' : 'Sáng')}${p.hasImage ? ', Có ảnh nền' : ''})</span>
+          <span style="font-size:0.76rem;color:var(--text-muted);">(${p.style === 'minecraft' ? 'Minecraft' : (p.mode === 'dark' ? 'Tối' : 'Sáng')}${p.hasImage ? ', Có ảnh nền' : ''})</span>
         </div>
         <div style="display:flex;gap:4px;">
           <button class="btn btn-sm" onclick="applyThemePreset('${p.id}')">Áp dụng</button>
@@ -3789,29 +3723,16 @@ function importAllDataJSON(event) {
   reader.readAsText(file);
 }
 
-// Chế độ Reset 1: Đặt lại tiến độ về Level 1 nhưng GIỮ NGUYÊN giao diện và ảnh nền
-function resetProgressKeepTheme() {
-  if (!confirm('🔄 Bắt đầu lại từ Level 1 (Giữ lại giao diện & ảnh nền)?\nToàn bộ EXP, Điểm Kiên Trì, Nhiệm vụ, Điểm danh và Quỹ sẽ về 0.')) return;
-  const savedUI = JSON.parse(JSON.stringify(appState.ui));
-  appState = getDefaultState();
-  appState.ui = savedUI;
-  saveState();
-  renderSettingsTab();
-  switchTab('tab-home');
-  alert('✅ Đã đặt lại toàn bộ Level, Nhiệm vụ và Quỹ về 0 (Giữ nguyên giao diện của bạn)!');
-}
-
-// Chế độ Reset 2: Xoá trắng toàn bộ 100% về mặc định gốc
 async function resetAllDataToLevel1() {
-  if (!confirm('⚠️ CẢNH BÁO: Bạn có chắc chắn muốn XOÁ TRẮNG 100% (Kể cả giao diện & ảnh nền) để bắt đầu lại từ Level 1 không?')) return;
-  if (!confirm('Xác nhận lần cuối: Mọi nhiệm vụ, chuỗi điểm danh, quỹ và chủ đề sẽ về 0. Tiếp tục Reset?')) return;
+  if (!confirm('⚠️ CẢNH BÁO: Bạn có chắc chắn muốn XOÁ SẠCH dữ liệu hiện tại để bắt đầu lại từ Level 1 không?')) return;
+  if (!confirm('Xác nhận lần cuối: Mọi nhiệm vụ, chuỗi điểm danh và quỹ sẽ về 0. Tiếp tục Reset?')) return;
   appState = getDefaultState();
   await idbDeleteImage('active_bg');
   saveState();
   await applySavedAppearance();
   renderSettingsTab();
   switchTab('tab-home');
-  alert('🔄 Đã xoá trắng toàn bộ hệ thống và quay về Level 1 mặc định!');
+  alert('🔄 Đã đặt lại toàn bộ hệ thống về Level 1!');
 }
 
 /* =========================================================================
