@@ -37,7 +37,7 @@
   --bg-overlay: rgba(15, 23, 42, 0.65);
 }
 
-/* Chế độ Khối Pixel kiểu Minecraft (Bật trong Cài đặt) */
+/* Chế độ Khối Pixel kiểu Minecraft (Bật trong Cài đặt) - Đã fix tương phản chữ 100% */
 [data-style="minecraft"] * {
   border-radius: 0px !important;
   font-family: "Courier New", Consolas, monospace !important;
@@ -45,12 +45,29 @@
 [data-style="minecraft"] .card,
 [data-style="minecraft"] #topHeader {
   background: #c6c6c6 !important;
-  color: #1a1a1a !important;
+  color: #111111 !important;
   border-top: 3px solid #ffffff !important;
   border-left: 3px solid #ffffff !important;
   border-right: 3px solid #555555 !important;
   border-bottom: 3px solid #555555 !important;
   box-shadow: 0 0 0 2px #000000 !important;
+}
+[data-style="minecraft"] #manualBox,
+[data-style="minecraft"] .rpg-stat-card,
+[data-style="minecraft"] .ai-box,
+[data-style="minecraft"] .cal-cell,
+[data-style="minecraft"] .stat-pill {
+  background: #dcdcdc !important;
+  color: #111111 !important;
+  border: 2px solid #555555 !important;
+}
+[data-style="minecraft"] .stat-label,
+[data-style="minecraft"] label {
+  color: #2b2b2b !important;
+}
+[data-style="minecraft"] .manual-section h4 {
+  color: #1b5e20 !important;
+  text-shadow: none !important;
 }
 [data-style="minecraft"] .btn,
 [data-style="minecraft"] .nav-btn,
@@ -395,7 +412,8 @@ textarea {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 9px 10px;
-  background: var(--bg);
+  background: var(--card-bg);
+  color: var(--text);
 }
 
 .prog-track {
@@ -414,11 +432,20 @@ textarea {
 }
 
 /* Cẩm nang hướng dẫn & AI Box */
+#manualBox {
+  background: var(--card-bg);
+  color: var(--text);
+  border: 2px solid var(--primary);
+  border-radius: var(--radius);
+  padding: 12px;
+  margin-bottom: 12px;
+}
 .manual-section {
   border-left: 3px solid var(--primary);
   padding-left: 10px;
   margin-bottom: 12px;
   font-size: 0.86rem;
+  color: inherit;
 }
 .manual-section h4 {
   font-size: 0.92rem;
@@ -432,7 +459,8 @@ textarea {
   margin-bottom: 4px;
 }
 .ai-box {
-  background: linear-gradient(135deg, rgba(124,58,237,0.08), rgba(37,99,235,0.08));
+  background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(37,99,235,0.1));
+  color: var(--text);
   border: 1px solid var(--purple);
   border-radius: var(--radius);
   padding: 10px;
@@ -519,7 +547,8 @@ textarea {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  background: var(--bg);
+  background: var(--card-bg);
+  color: var(--text);
 }
 
 .cal-cell.today { border: 2px solid var(--primary); font-weight: 700; }
@@ -624,8 +653,8 @@ textarea {
         </div>
       </div>
 
-      <!-- Khung Cẩm Nang Tân Thủ (Đóng/Mở gọn gàng) -->
-      <div id="manualBox" style="display:none;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:12px;margin-bottom:12px;">
+      <!-- Khung Cẩm Nang Tân Thủ (Đóng/Mở gọn gàng - Đã sửa tương phản màu chữ) -->
+      <div id="manualBox" style="display:none;">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;border-bottom:1px solid var(--border);padding-bottom:6px;">
           <strong style="font-size:0.96rem;color:var(--primary);">📖 CẨM NANG TÂN THỦ - CƠ CHẾ VẬN HÀNH LIFE RPG</strong>
           <button class="btn btn-sm btn-outline" onclick="toggleManualBox()">Đóng ✕</button>
@@ -1412,32 +1441,23 @@ function getDefaultState() {
   return {
     version: CURRENT_VERSION,
     lastBackupDate: null,
-    // Điểm EXP tích luỹ của 3 hệ & Ví Điểm Kiên Trì
     rpg: {
       strExp: 0,
       intExp: 0,
       hpExp: 0,
       perseverance: 0
     },
-    // Danh sách nhiệm vụ thường (hỗ trợ Stack)
     tasks: [],
-    // Nhiệm vụ vượt cấp cuối tuần
     weekendTasks: [],
-    // Điểm danh
     checkins: [],
-    // Đếm ngày
     countdowns: [],
-    // Mục tiêu Tuần / Tháng / Năm kèm hình phạt
     goals: {
       week: [],
       month: [],
       year: []
     },
-    // Ghi lỗi sai
     mistakes: [],
-    // Thời gian biểu { 'YYYY-MM-DD': [ {id, session, time, title, done, linkedTaskId} ] }
     schedules: {},
-    // Chi tiêu, Quỹ khoá, Quỹ tiêu & Khoản vay khẩn cấp
     expenses: {
       vaultBalance: 0,
       spendableBalance: 0,
@@ -1445,10 +1465,9 @@ function getDefaultState() {
       budgets: {},
       items: []
     },
-    // Giao diện tuỳ chỉnh
     ui: {
       mode: 'light',
-      style: 'modern', // 'modern' | 'minecraft'
+      style: 'modern',
       primary: '#2563eb',
       fontSize: 15,
       blur: 0,
@@ -1496,7 +1515,6 @@ function formatVND(num) {
   return `${sign}${s}đ`;
 }
 
-// Nâng cấp dữ liệu an toàn từ các bản cũ
 function migrateData(raw) {
   const def = getDefaultState();
   if (!raw || typeof raw !== 'object') return def;
@@ -1590,7 +1608,6 @@ async function idbDeleteImage(key) {
 /* =========================================================================
    3. CÔNG THỨC LEVEL RPG (NHÂN ĐÔI EXP MỖI CẤP) & LEVEL KỶ LUẬT ĐỒNG BỘ
    ========================================================================= */
-// Lv.1 -> Lv.2 cần 50 EXP; Lv.2 -> Lv.3 cần 100 EXP; Lv.3 -> Lv.4 cần 200 EXP (x2 mỗi cấp)
 function calcStatLevelInfo(totalExp) {
   let exp = Math.max(0, Math.floor(Number(totalExp) || 0));
   let level = 1;
@@ -1605,7 +1622,6 @@ function calcStatLevelInfo(totalExp) {
   return { level, currentExp: rem, reqForNext, totalExp: exp, pct };
 }
 
-// Level Kỷ Luật = Cấp độ thấp nhất trong 3 thanh (Tỷ giá: 1 💎 = Level Kỷ Luật * 1.000đ)
 function getDisciplineInfo() {
   const str = calcStatLevelInfo(appState.rpg.strExp);
   const int = calcStatLevelInfo(appState.rpg.intExp);
@@ -1626,7 +1642,7 @@ function getDisciplineInfo() {
   });
 
   const syncPct = Math.round(sumProgress / 3);
-  const exchangeRate = discLevel * 1000; // Giữ nguyên tăng đều: Lv.1 = 1.000đ, Lv.2 = 2.000đ, Lv.3 = 3.000đ...
+  const exchangeRate = discLevel * 1000;
 
   return {
     level: discLevel,
@@ -1640,7 +1656,6 @@ function getDisciplineInfo() {
   };
 }
 
-// Cộng hoặc trừ EXP và Điểm Kiên Trì
 function addRpgExpAndGems(statType, amount, affectGems = true) {
   const delta = Number(amount) || 0;
   if (statType === 'str') {
@@ -1664,7 +1679,6 @@ function toggleManualBox() {
   box.style.display = (box.style.display === 'none' || !box.style.display) ? 'block' : 'none';
 }
 
-// 4.1. AI Nội Bộ phân tích trạng thái & gợi ý nhiệm vụ cân bằng chỉ số
 function runInternalAIAnalysis() {
   const today = getTodayISO();
   const info = getDisciplineInfo();
@@ -1703,7 +1717,6 @@ function runInternalAIAnalysis() {
     lines.push(`<li>📋 <strong>Việc tồn đọng:</strong> Bạn còn <strong>${pendingToday.length} nhiệm vụ</strong> đến hạn hôm nay chưa hoàn thành.</li>`);
   }
 
-  // Đề xuất nhiệm vụ mẫu dựa theo hệ đang yếu nhất
   const templates = {
     str: [
       { title: 'Hít đất 15 cái (Tập theo hiệp)', stack: 5 },
@@ -1754,7 +1767,6 @@ function aiQuickAddSuggestedTask(title, statType, stackMax) {
   alert(`🤖 Hệ Thống đã thêm nhiệm vụ "${title}" (Stack 0/${stackMax}) vào danh sách hôm nay!`);
 }
 
-// 4.2. AI Nội Bộ đọc hiểu lệnh tiếng Việt tự nhiên (Tạo nhiệm vụ Stack hoặc Ghi Thu/Chi)
 function executeAICommand() {
   const inputEl = document.getElementById('aiCmdInput');
   const fbEl = document.getElementById('aiCmdFeedback');
@@ -1766,7 +1778,6 @@ function executeAICommand() {
 
   const lower = raw.toLowerCase();
 
-  // Trường hợp 1: Câu lệnh Chi tiêu / Thu nhập (VD: "Chi 35k ăn sáng", "Tiêu 50000 mua sách", "Thu 500k tiền thưởng")
   const moneyMatch = lower.match(/^(chi|tiêu|mua|thu|nhận)\s+([\d.,]+)\s*(k|nghìn|ngàn|tr|triệu|đ|d)?\s*(.*)$/i);
   if (moneyMatch) {
     const verb = moneyMatch[1].toLowerCase();
@@ -1776,7 +1787,7 @@ function executeAICommand() {
 
     if (unit === 'k' || unit === 'nghìn' || unit === 'ngàn') num *= 1000;
     else if (unit === 'tr' || unit === 'triệu') num *= 1000000;
-    else if (num > 0 && num < 1000) num *= 1000; // Gõ "chi 30 ăn sáng" tự hiểu 30.000đ
+    else if (num > 0 && num < 1000) num *= 1000;
 
     const amount = Math.round(num);
     if (amount <= 0) {
@@ -1814,7 +1825,6 @@ function executeAICommand() {
     return;
   }
 
-  // Trường hợp 2: Câu lệnh Tạo Nhiệm Vụ (VD: "Tạo nhiệm vụ hít đất 13 cái 5 hiệp thể lực", "Học tiếng Anh 3 lần trí tuệ")
   let statType = 'str';
   if (/(trí tuệ|học|đọc|đề|từ vựng|toán|anh|code|bài|nghiên cứu)/.test(lower)) statType = 'int';
   else if (/(sức khỏe|ngủ|uống nước|thiền|ăn sạch|nghỉ|thuốc|giãn cơ)/.test(lower)) statType = 'hp';
@@ -1826,7 +1836,6 @@ function executeAICommand() {
     stackMax = Math.max(1, Math.min(500, parseInt(stackMatch[1], 10) || 1));
   }
 
-  // Làm sạch tên nhiệm vụ
   let cleanTitle = raw
     .replace(/^(tạo nhiệm vụ|thêm nhiệm vụ|nhiệm vụ|thêm việc|làm)\s+/i, '')
     .replace(/\s*(thể lực|trí tuệ|sức khỏe)\s*$/i, '')
@@ -1854,7 +1863,6 @@ function executeAICommand() {
   fbEl.innerHTML = `<span style="color:var(--success);font-weight:700;">🤖 Đã tạo nhiệm vụ: "${esc(cleanTitle)}" | Hệ: ${statLabel} | Stack: 0/${stackMax}!</span>`;
 }
 
-// 4.3. AI Nội Bộ Bắt Bệnh tại trang "Ghi lỗi sai"
 function aiAnalyzeMistakeInput() {
   const what = (document.getElementById('mkWhat').value || '').trim();
   if (!what) {
@@ -1878,1903 +1886,4 @@ function aiAnalyzeMistakeInput() {
   } else if (/(trì hoãn|lười|bỏ tập|không làm|ngại|chần chừ)/.test(lower)) {
     cause = 'Đặt mục tiêu lúc bắt đầu quá nặng nề khiến não bộ sinh tâm lý ngại khó và né tránh.';
     lesson = 'Hành động tạo ra động lực chứ không phải chờ có hứng mới làm. Chia nhỏ việc thành các Stack nhỏ sẽ dễ bắt đầu hơn.';
-    fix = 'Áp dụng quy tắc 2 phút: Bắt tay làm ngay 1 hiệp Stack đầu tiên mà không suy nghĩ.';
-  } else if (/(tiêu hoang|mua|trà sữa|ăn vặt|nạp|hết tiền|vung tay)/.test(lower)) {
-    cause = 'Mua sắm theo cảm xúc nhất thời mà không đối chiếu với công sức cày Điểm Kiên Trì (💎).';
-    lesson = 'Mỗi đồng tiền tiêu hoang đều lấy đi tự do tài chính và làm tăng áp lực nợ Điểm Kiên Trì.';
-    fix = 'Trì hoãn mọi quyết định mua đồ không thiết yếu tối thiểu 24 giờ và chỉ tiêu trong hạn mức Quỹ Được Phép Tiêu.';
-  } else {
-    cause = 'Thiếu sự chuẩn bị trước và để cảm xúc nhất thời lấn át quy tắc kỷ luật đã đề ra.';
-    lesson = 'Nhận diện thẳng thắn lỗi sai ngay trong ngày là bước đầu tiên để nâng cấp bản thân.';
-    fix = 'Thiết lập 1 nhiệm vụ khắc phục cụ thể vào Thời gian biểu sáng mai và hoàn thành đủ 100% Stack.';
-  }
-
-  document.getElementById('mkCause').value = cause;
-  document.getElementById('mkLesson').value = lesson;
-  document.getElementById('mkFix').value = fix;
-}
-
-function turnMistakeFixIntoTask() {
-  const fix = (document.getElementById('mkFix').value || '').trim();
-  if (!fix) {
-    alert('Ô "4. Cách sửa cụ thể" đang trống! Hãy nhập hoặc bấm nút 🤖 AI Bắt Bệnh trước.');
-    return;
-  }
-  appState.tasks.push({
-    id: uid(),
-    title: '[Sửa lỗi] ' + fix,
-    statType: 'hp',
-    stackCount: 0,
-    stackMax: 1,
-    priority: 'high',
-    dueDate: getTodayISO(),
-    remindTime: '',
-    done: false,
-    notifiedDate: ''
-  });
-  saveState();
-  renderTasks();
-  populateScheduleTaskSelect();
-  alert('⚡ Đã biến "Cách sửa" thành Nhiệm vụ ưu tiên Cao trong hôm nay (+1 EXP Sức khỏe & +1 💎)!');
-}
-
-/* =========================================================================
-   5. CẬP NHẬT HEADER, BANNER & TRANG CHÍNH
-   ========================================================================= */
-function switchTab(tabId) {
-  document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-
-  const pane = document.getElementById(tabId);
-  if (pane) pane.classList.add('active');
-
-  const btn = document.querySelector(`.nav-btn[data-tab="${tabId}"]`);
-  if (btn) btn.classList.add('active');
-
-  updateAllHeaderAndRPG();
-  if (tabId === 'tab-tasks') renderTasks();
-  if (tabId === 'tab-checkin') renderCheckin();
-  if (tabId === 'tab-countdown') renderCountdowns();
-  if (tabId === 'tab-goals') renderGoals();
-  if (tabId === 'tab-mistakes') renderMistakes();
-  if (tabId === 'tab-schedule') renderSchedule();
-  if (tabId === 'tab-calendar') renderMainCalendar();
-  if (tabId === 'tab-expenses') renderExpenses();
-  if (tabId === 'tab-reminders') renderRemindersTab();
-  if (tabId === 'tab-settings') renderSettingsTab();
-}
-
-function updateAllHeaderAndRPG() {
-  const today = getTodayISO();
-  document.getElementById('stDate').textContent = formatDateVN(today);
-
-  // Tiến độ nhiệm vụ hôm nay
-  const todayTasks = appState.tasks.filter(t => t.dueDate === today);
-  const doneToday = todayTasks.filter(t => t.done).length;
-  const totalToday = todayTasks.length;
-  document.getElementById('stTasks').textContent = `${doneToday}/${totalToday}`;
-  const taskPct = totalToday > 0 ? Math.round((doneToday / totalToday) * 100) : 0;
-  document.getElementById('stTaskBar').style.width = `${taskPct}%`;
-
-  // Chuỗi điểm danh
-  const streaks = calcStreaks();
-  document.getElementById('stStreak').textContent = `🔥 ${streaks.current} ngày`;
-
-  // Điểm Kiên Trì & Quỹ Được Phép Tiêu
-  const gems = appState.rpg.perseverance || 0;
-  document.getElementById('stPerseverance').textContent = `💎 ${gems}`;
-  document.getElementById('stSpendable').textContent = formatVND(appState.expenses.spendableBalance || 0);
-
-  // Render Bảng Level ở Trang Chính
-  const info = getDisciplineInfo();
-  document.getElementById('lvlDiscipline').textContent = `Lv.${info.level}`;
-  document.getElementById('descDiscipline').textContent =
-    `Khi cả 3 chỉ số (Thể lực, Trí tuệ, Sức khỏe) đạt Lv.${info.nextTarget} ➔ Kỷ luật lên Lv.${info.nextTarget}`;
-  document.getElementById('homeGems').textContent = `💎 ${gems}`;
-  document.getElementById('barDiscipline').style.width = `${info.syncPct}%`;
-  document.getElementById('syncDisciplineTxt').textContent =
-    `Đồng bộ cấp tiếp theo: ${info.reachedCount}/3 chỉ số đạt Lv.${info.nextTarget} (${info.syncPct}%)`;
-  document.getElementById('rateDisciplineTxt').textContent =
-    `Tỷ giá mở khoá quỹ: 1 💎 = ${formatVND(info.exchangeRate)}`;
-  document.getElementById('rpgRateBadge').textContent = `1 💎 = ${formatVND(info.exchangeRate)}`;
-
-  // 3 Thanh thành phần
-  document.getElementById('lvlStr').textContent = `Lv.${info.str.level}`;
-  document.getElementById('barStr').style.width = `${info.str.pct}%`;
-  document.getElementById('expStr').textContent = `${info.str.currentExp} / ${info.str.reqForNext} EXP`;
-  document.getElementById('totStr').textContent = `Tổng: ${info.str.totalExp} EXP`;
-
-  document.getElementById('lvlInt').textContent = `Lv.${info.int.level}`;
-  document.getElementById('barInt').style.width = `${info.int.pct}%`;
-  document.getElementById('expInt').textContent = `${info.int.currentExp} / ${info.int.reqForNext} EXP`;
-  document.getElementById('totInt').textContent = `Tổng: ${info.int.totalExp} EXP`;
-
-  document.getElementById('lvlHp').textContent = `Lv.${info.hp.level}`;
-  document.getElementById('barHp').style.width = `${info.hp.pct}%`;
-  document.getElementById('expHp').textContent = `${info.hp.currentExp} / ${info.hp.reqForNext} EXP`;
-  document.getElementById('totHp').textContent = `Tổng: ${info.hp.totalExp} EXP`;
-
-  // Tóm tắt nhiệm vụ trên Trang Chính
-  renderHomeQuickTasks();
-
-  // Kiểm tra các Banner cảnh báo đầu trang
-  const alerts = [];
-  if (storageErrorMessage) {
-    alerts.push(`<div class="banner banner-danger"><span>⚠️ ${esc(storageErrorMessage)}</span></div>`);
-  }
-
-  let needBackup = false;
-  if (!appState.lastBackupDate) {
-    needBackup = true;
-  } else {
-    const days = (Date.now() - new Date(appState.lastBackupDate).getTime()) / 86400000;
-    if (days > 7) needBackup = true;
-  }
-  if (needBackup) {
-    alerts.push(`
-      <div class="banner banner-warn">
-        <span>💾 Đã quá 7 ngày bạn chưa xuất file JSON sao lưu dữ liệu.</span>
-        <button class="btn btn-sm" onclick="switchTab('tab-settings')">Sao lưu</button>
-      </div>
-    `);
-  }
-
-  const dueTasks = appState.tasks.filter(t => !t.done && t.dueDate && t.dueDate <= today);
-  if (dueTasks.length > 0) {
-    alerts.push(`
-      <div class="banner banner-danger">
-        <span>⏰ Bạn có <strong>${dueTasks.length}</strong> nhiệm vụ đến hạn hôm nay hoặc đã quá hạn!</span>
-        <button class="btn btn-sm btn-danger" onclick="switchTab('tab-reminders')">Xem ngay</button>
-      </div>
-    `);
-  }
-
-  document.getElementById('alertArea').innerHTML = alerts.join('');
-}
-
-function renderHomeQuickTasks() {
-  const today = getTodayISO();
-  const list = appState.tasks.filter(t => !t.done && t.dueDate <= today);
-  const el = document.getElementById('homeQuickTasks');
-  if (!el) return;
-  if (list.length === 0) {
-    el.innerHTML = '<div class="empty-msg">Hôm nay không còn nhiệm vụ nào tồn đọng. Hãy vào mục Nhiệm vụ hoặc dùng lệnh nhanh AI ở trên để tạo mới!</div>';
-    return;
-  }
-  el.innerHTML = list.map(t => renderSingleTaskRowHTML(t)).join('');
-}
-
-/* =========================================================================
-   6. TRANG 1: NHIỆM VỤ (HỖ TRỢ STACK + NHIỆM VỤ VƯỢT CẤP CUỐI TUẦN)
-   ========================================================================= */
-function resetTaskForm() {
-  document.getElementById('taskEditId').value = '';
-  document.getElementById('taskTitle').value = '';
-  document.getElementById('taskStatType').value = 'str';
-  document.getElementById('taskStackMax').value = '1';
-  document.getElementById('taskPriority').value = 'medium';
-  document.getElementById('taskDueDate').value = getTodayISO();
-  document.getElementById('taskRemindTime').value = '';
-  document.getElementById('taskFormTitle').textContent = 'Tạo nhiệm vụ mới (Có hỗ trợ Stack)';
-  document.getElementById('btnCancelEditTask').style.display = 'none';
-}
-
-function saveTask() {
-  const editId = document.getElementById('taskEditId').value;
-  const title = document.getElementById('taskTitle').value.trim();
-  const statType = document.getElementById('taskStatType').value;
-  const stackMax = Math.max(1, parseInt(document.getElementById('taskStackMax').value, 10) || 1);
-  const priority = document.getElementById('taskPriority').value;
-  const dueDate = document.getElementById('taskDueDate').value || getTodayISO();
-  const remindTime = document.getElementById('taskRemindTime').value;
-
-  if (!title) {
-    alert('Vui lòng nhập tên nhiệm vụ!');
-    return;
-  }
-
-  if (editId) {
-    const t = appState.tasks.find(x => x.id === editId);
-    if (t) {
-      t.title = title;
-      t.statType = statType;
-      t.stackMax = stackMax;
-      if (t.stackCount > stackMax) t.stackCount = stackMax;
-      t.done = t.stackCount >= t.stackMax;
-      t.priority = priority;
-      t.dueDate = dueDate;
-      t.remindTime = remindTime;
-    }
-  } else {
-    appState.tasks.push({
-      id: uid(),
-      title,
-      statType,
-      stackCount: 0,
-      stackMax,
-      priority,
-      dueDate,
-      remindTime,
-      done: false,
-      notifiedDate: ''
-    });
-  }
-
-  saveState();
-  resetTaskForm();
-  renderTasks();
-  populateScheduleTaskSelect();
-}
-
-// Bấm nút [+1] hoặc [-1] trong Stack nhiệm vụ
-function stepTaskStack(taskId, delta) {
-  const t = appState.tasks.find(x => x.id === taskId);
-  if (!t) return;
-  const oldCount = t.stackCount || 0;
-  const max = t.stackMax || 1;
-  const newCount = Math.max(0, Math.min(max, oldCount + delta));
-  const diff = newCount - oldCount;
-  if (diff === 0) return;
-
-  t.stackCount = newCount;
-  t.done = (t.stackCount >= max);
-  addRpgExpAndGems(t.statType, diff, true);
-
-  saveState();
-  renderTasks();
-  renderSchedule();
-}
-
-// Ấn vào ô vuông [✓] để hoàn thành toàn bộ Stack hoặc bỏ tick thu hồi điểm
-function toggleTaskCheckbox(taskId) {
-  const t = appState.tasks.find(x => x.id === taskId);
-  if (!t) return;
-  const oldCount = t.stackCount || 0;
-  const max = t.stackMax || 1;
-
-  if (!t.done) {
-    const remaining = max - oldCount;
-    t.stackCount = max;
-    t.done = true;
-    if (remaining > 0) addRpgExpAndGems(t.statType, remaining, true);
-  } else {
-    t.stackCount = 0;
-    t.done = false;
-    if (oldCount > 0) addRpgExpAndGems(t.statType, -oldCount, true);
-  }
-
-  saveState();
-  renderTasks();
-  renderSchedule();
-  renderMainCalendar();
-}
-
-function editTask(id) {
-  const t = appState.tasks.find(x => x.id === id);
-  if (!t) return;
-  document.getElementById('taskEditId').value = t.id;
-  document.getElementById('taskTitle').value = t.title;
-  document.getElementById('taskStatType').value = t.statType || 'str';
-  document.getElementById('taskStackMax').value = t.stackMax || 1;
-  document.getElementById('taskPriority').value = t.priority || 'medium';
-  document.getElementById('taskDueDate').value = t.dueDate;
-  document.getElementById('taskRemindTime').value = t.remindTime || '';
-  document.getElementById('taskFormTitle').textContent = 'Đang sửa nhiệm vụ';
-  document.getElementById('btnCancelEditTask').style.display = 'inline-flex';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function deleteTask(id) {
-  if (!confirm('Xoá nhiệm vụ này?')) return;
-  appState.tasks = appState.tasks.filter(x => x.id !== id);
-  saveState();
-  renderTasks();
-  populateScheduleTaskSelect();
-}
-
-function getStatBadgeHTML(statType) {
-  if (statType === 'str') return '<span class="badge badge-high">💪 Thể lực</span>';
-  if (statType === 'int') return '<span class="badge badge-blue">🧠 Trí tuệ</span>';
-  if (statType === 'hp') return '<span class="badge badge-low">❤️ Sức khỏe</span>';
-  return '<span class="badge">Không cộng EXP</span>';
-}
-
-function renderSingleTaskRowHTML(t) {
-  const today = getTodayISO();
-  const isOverdue = !t.done && t.dueDate < today;
-  const prioMap = { high: 'Ưu tiên Cao', medium: 'Vừa', low: 'Thấp' };
-  const c = t.stackCount || 0;
-  const m = t.stackMax || 1;
-
-  return `
-    <div class="item-row">
-      <label class="check-wrap">
-        <input type="checkbox" ${t.done ? 'checked' : ''} onchange="toggleTaskCheckbox('${t.id}')">
-        <div>
-          <div class="${t.done ? 'done-text' : ''}" style="font-weight:700;">
-            ${esc(t.title)}
-          </div>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:4px;font-size:0.76rem;color:var(--text-muted);">
-            ${getStatBadgeHTML(t.statType)}
-            <span class="badge badge-${t.priority}">${prioMap[t.priority] || 'Vừa'}</span>
-            <span>📅 ${formatDateVN(t.dueDate)}</span>
-            ${t.remindTime ? `<span>⏰ ${esc(t.remindTime)}</span>` : ''}
-            ${isOverdue ? `<strong style="color:var(--danger);">(Quá hạn)</strong>` : ''}
-          </div>
-        </div>
-      </label>
-
-      <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:flex-end;">
-        <div class="stack-box" title="Stack nhiệm vụ: Mỗi lần +1 sẽ cộng ngay 1 EXP & 1 Kiên Trì">
-          <button class="btn btn-sm btn-outline" style="padding:2px 6px;min-height:24px;" onclick="stepTaskStack('${t.id}', -1)">-</button>
-          <span>📦 ${c}/${m}</span>
-          <button class="btn btn-sm btn-success" style="padding:2px 6px;min-height:24px;" onclick="stepTaskStack('${t.id}', 1)">+1</button>
-        </div>
-        <button class="btn btn-sm btn-outline" onclick="editTask('${t.id}')">Sửa</button>
-        <button class="btn btn-sm btn-danger" onclick="deleteTask('${t.id}')">Xoá</button>
-      </div>
-    </div>
-  `;
-}
-
-/* ================= NHIỆM VỤ VƯỢT CẤP CUỐI TUẦN (X2 ĐIỂM HOẶC PHẠT) ================= */
-function getCurrentWeekendSundayISO() {
-  const now = new Date();
-  const day = now.getDay();
-  const diffToSun = day === 0 ? 0 : (7 - day);
-  const sun = new Date(now.getFullYear(), now.getMonth(), now.getDate() + diffToSun);
-  const y = sun.getFullYear();
-  const m = String(sun.getMonth() + 1).padStart(2, '0');
-  const d = String(sun.getDate()).padStart(2, '0');
-  return `${y}-${m}-${d}`;
-}
-
-function processExpiredWeekendPenalties() {
-  const today = getTodayISO();
-  let penalized = [];
-  appState.weekendTasks.forEach(wt => {
-    if (wt.accepted && !wt.done && !wt.penalized && wt.sundayDeadline < today) {
-      const penalty = wt.statType === 'int' ? 2 : 1;
-      addRpgExpAndGems(wt.statType, -penalty, false);
-      wt.penalized = true;
-      penalized.push(`${wt.title} (-${penalty} EXP)`);
-    }
-  });
-  if (penalized.length > 0) {
-    saveState();
-    alert('⚠️ Phạt Nhiệm vụ Vượt Cấp cuối tuần thất bại:\n' + penalized.join('\n'));
-  }
-}
-
-function addWeekendTask() {
-  const title = document.getElementById('wkTitle').value.trim();
-  const statType = document.getElementById('wkStatType').value;
-  const stackMax = Math.max(1, parseInt(document.getElementById('wkStackMax').value, 10) || 1);
-  if (!title) {
-    alert('Vui lòng nhập tên nhiệm vụ vượt cấp!');
-    return;
-  }
-
-  appState.weekendTasks.push({
-    id: uid(),
-    title,
-    statType,
-    stackMax,
-    accepted: false,
-    done: false,
-    penalized: false,
-    sundayDeadline: getCurrentWeekendSundayISO()
-  });
-
-  document.getElementById('wkTitle').value = '';
-  saveState();
-  renderTasks();
-}
-
-function acceptWeekendTask(id) {
-  const wt = appState.weekendTasks.find(x => x.id === id);
-  if (!wt) return;
-  wt.accepted = true;
-  saveState();
-  renderTasks();
-}
-
-function completeWeekendTask(id) {
-  const wt = appState.weekendTasks.find(x => x.id === id);
-  if (!wt || wt.done || wt.penalized) return;
-  if (!wt.accepted) {
-    alert('Bạn phải bấm "Đồng ý nhận thử thách" trước khi hoàn thành!');
-    return;
-  }
-  const reward = (wt.stackMax || 1) * 2;
-  wt.done = true;
-  addRpgExpAndGems(wt.statType, reward, true);
-  saveState();
-  renderTasks();
-}
-
-function deleteWeekendTask(id) {
-  appState.weekendTasks = appState.weekendTasks.filter(x => x.id !== id);
-  saveState();
-  renderTasks();
-}
-
-function renderTasks() {
-  processExpiredWeekendPenalties();
-
-  const dayOfWeek = new Date().getDay();
-  const isWeekend = (dayOfWeek === 0 || dayOfWeek === 6);
-  const wkBadge = document.getElementById('wkStatusBadge');
-  wkBadge.textContent = isWeekend
-    ? '🔥 Đang là Cuối Tuần (Thứ 7 / CN) - Đang mở x2!'
-    : `Hạn cuối tuần này: Chủ Nhật (${formatDateVN(getCurrentWeekendSundayISO())})`;
-
-  const wkContainer = document.getElementById('wkTaskList');
-  if (appState.weekendTasks.length === 0) {
-    wkContainer.innerHTML = '<div class="empty-msg" style="padding:8px;">Chưa có thử thách vượt cấp nào.</div>';
-  } else {
-    wkContainer.innerHTML = appState.weekendTasks.map(wt => {
-      const reward = (wt.stackMax || 1) * 2;
-      const pen = wt.statType === 'int' ? -2 : -1;
-      let actionHtml = '';
-      if (wt.done) {
-        actionHtml = `<span class="badge badge-low">✅ Đã xong (+${reward} EXP & +${reward} 💎)</span>`;
-      } else if (wt.penalized) {
-        actionHtml = `<span class="badge badge-high">❌ Thất bại (Đã trừ ${pen} EXP)</span>`;
-      } else if (!wt.accepted) {
-        actionHtml = `<button class="btn btn-sm btn-warn" onclick="acceptWeekendTask('${wt.id}')">⚡ Đồng ý nhận</button>`;
-      } else {
-        actionHtml = `<button class="btn btn-sm btn-success" onclick="completeWeekendTask('${wt.id}')">✅ Hoàn thành nhận +${reward} EXP</button>`;
-      }
-
-      return `
-        <div class="item-row">
-          <div>
-            <div style="font-weight:700;" class="${wt.done ? 'done-text' : ''}">${esc(wt.title)}</div>
-            <div style="font-size:0.76rem;color:var(--text-muted);margin-top:3px;">
-              ${getStatBadgeHTML(wt.statType)}
-              <span>Thưởng x2: <strong>+${reward} EXP & 💎</strong></span> |
-              <span>Phạt nếu thua: <strong style="color:var(--danger);">${pen} EXP</strong></span> |
-              <span>Hạn: ${formatDateVN(wt.sundayDeadline)}</span>
-            </div>
-          </div>
-          <div style="display:flex;gap:6px;align-items:center;">
-            ${actionHtml}
-            <button class="btn btn-sm btn-danger" onclick="deleteWeekendTask('${wt.id}')">Xoá</button>
-          </div>
-        </div>
-      `;
-    }).join('');
-  }
-
-  const filter = document.getElementById('taskFilter').value;
-  const today = getTodayISO();
-  let list = [...appState.tasks];
-
-  if (filter === 'today') list = list.filter(t => t.dueDate <= today);
-  else if (filter === 'pending') list = list.filter(t => !t.done);
-  else if (filter === 'done') list = list.filter(t => t.done);
-
-  const prioWeight = { high: 1, medium: 2, low: 3 };
-  list.sort((a, b) => {
-    if (a.done !== b.done) return a.done ? 1 : -1;
-    if (a.dueDate !== b.dueDate) return a.dueDate.localeCompare(b.dueDate);
-    return (prioWeight[a.priority] || 2) - (prioWeight[b.priority] || 2);
-  });
-
-  const container = document.getElementById('taskList');
-  if (list.length === 0) {
-    container.innerHTML = '<div class="empty-msg">Chưa có nhiệm vụ nào trong mục này.</div>';
-    return;
-  }
-  container.innerHTML = list.map(t => renderSingleTaskRowHTML(t)).join('');
-}
-
-/* =========================================================================
-   7. TRANG 2: ĐIỂM DANH HẰNG NGÀY
-   ========================================================================= */
-let checkinViewYear = new Date().getFullYear();
-let checkinViewMonth = new Date().getMonth();
-
-function calcStreaks() {
-  const set = new Set(appState.checkins);
-  if (set.size === 0) return { current: 0, max: 0 };
-
-  const sorted = [...set].sort();
-  let maxStreak = 1, temp = 1;
-  for (let i = 1; i < sorted.length; i++) {
-    const p = new Date(sorted[i - 1] + 'T00:00:00');
-    const c = new Date(sorted[i] + 'T00:00:00');
-    const diff = Math.round((c - p) / 86400000);
-    if (diff === 1) {
-      temp++;
-      if (temp > maxStreak) maxStreak = temp;
-    } else if (diff > 1) {
-      temp = 1;
-    }
-  }
-
-  let cur = 0;
-  const d = new Date();
-  const todayISO = getTodayISO();
-  if (!set.has(todayISO)) d.setDate(d.getDate() - 1);
-
-  while (true) {
-    const iso = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-    if (set.has(iso)) {
-      cur++;
-      d.setDate(d.getDate() - 1);
-    } else break;
-  }
-
-  return { current: cur, max: Math.max(maxStreak, cur) };
-}
-
-function doCheckinToday() {
-  const today = getTodayISO();
-  if (!appState.checkins.includes(today)) {
-    appState.checkins.push(today);
-    saveState();
-    renderCheckin();
-  } else {
-    alert('Hôm nay bạn đã điểm danh rồi!');
-  }
-}
-
-function changeCheckinMonth(delta) {
-  checkinViewMonth += delta;
-  if (checkinViewMonth < 0) { checkinViewMonth = 11; checkinViewYear--; }
-  if (checkinViewMonth > 11) { checkinViewMonth = 0; checkinViewYear++; }
-  renderCheckin();
-}
-
-function renderCheckin() {
-  const today = getTodayISO();
-  const hasToday = appState.checkins.includes(today);
-  const btn = document.getElementById('btnDoCheckin');
-  const txt = document.getElementById('checkinStatusText');
-
-  if (hasToday) {
-    btn.disabled = true;
-    btn.textContent = '🎉 Hôm nay đã điểm danh thành công';
-    btn.style.opacity = '0.65';
-    txt.textContent = 'Giữ vững phong độ vào ngày mai nhé!';
-  } else {
-    btn.disabled = false;
-    btn.textContent = '✅ Điểm danh hôm nay';
-    btn.style.opacity = '1';
-    txt.textContent = 'Bấm nút bên dưới để đánh dấu kỷ luật hôm nay!';
-  }
-
-  const st = calcStreaks();
-  document.getElementById('chkCurrentStreak').textContent = `${st.current} ngày`;
-  document.getElementById('chkMaxStreak').textContent = `${st.max} ngày`;
-
-  document.getElementById('checkinMonthLabel').textContent =
-    `Tháng ${String(checkinViewMonth + 1).padStart(2, '0')}/${checkinViewYear}`;
-
-  const grid = document.getElementById('checkinCalendarGrid');
-  const dows = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
-  let html = dows.map(d => `<div class="cal-dow">${d}</div>`).join('');
-
-  const firstDay = new Date(checkinViewYear, checkinViewMonth, 1).getDay();
-  const offset = (firstDay + 6) % 7;
-  const daysInMonth = new Date(checkinViewYear, checkinViewMonth + 1, 0).getDate();
-  const checkSet = new Set(appState.checkins);
-
-  for (let i = 0; i < offset; i++) html += `<div></div>`;
-  for (let day = 1; day <= daysInMonth; day++) {
-    const iso = `${checkinViewYear}-${String(checkinViewMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-    const isChecked = checkSet.has(iso);
-    html += `
-      <div class="cal-cell ${isChecked ? 'checked-in' : ''} ${iso === today ? 'today' : ''}">
-        <span>${day}</span>
-        <span>${isChecked ? '✅' : ''}</span>
-      </div>
-    `;
-  }
-  grid.innerHTML = html;
-}
-
-/* =========================================================================
-   8. TRANG 3: ĐẾM NGÀY (COUNTDOWN)
-   ========================================================================= */
-function addCountdown() {
-  const title = document.getElementById('cdTitle').value.trim();
-  const targetDate = document.getElementById('cdDate').value;
-  if (!title || !targetDate) {
-    alert('Vui lòng nhập tên sự kiện và ngày!');
-    return;
-  }
-  appState.countdowns.push({ id: uid(), title, targetDate });
-  document.getElementById('cdTitle').value = '';
-  saveState();
-  renderCountdowns();
-}
-
-function deleteCountdown(id) {
-  if (!confirm('Xoá sự kiện đếm ngày này?')) return;
-  appState.countdowns = appState.countdowns.filter(c => c.id !== id);
-  saveState();
-  renderCountdowns();
-}
-
-function renderCountdowns() {
-  const el = document.getElementById('cdList');
-  if (appState.countdowns.length === 0) {
-    el.innerHTML = '<div class="empty-msg">Chưa có sự kiện đếm ngày nào.</div>';
-    return;
-  }
-  const todayMs = new Date(getTodayISO() + 'T00:00:00').getTime();
-  const sorted = [...appState.countdowns].sort((a, b) => a.targetDate.localeCompare(b.targetDate));
-
-  el.innerHTML = sorted.map(c => {
-    const targetMs = new Date(c.targetDate + 'T00:00:00').getTime();
-    const diff = Math.round((targetMs - todayMs) / 86400000);
-    let badge = '';
-    if (diff > 0) badge = `<span class="badge badge-low">Còn ${diff} ngày</span>`;
-    else if (diff === 0) badge = `<span class="badge badge-medium">Ngay hôm nay!</span>`;
-    else badge = `<span class="badge badge-high">Đã qua ${Math.abs(diff)} ngày</span>`;
-
-    return `
-      <div class="item-row">
-        <div>
-          <strong>${esc(c.title)}</strong>
-          <div style="font-size:0.78rem;color:var(--text-muted);">📅 ${formatDateVN(c.targetDate)}</div>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;">
-          ${badge}
-          <button class="btn btn-sm btn-danger" onclick="deleteCountdown('${c.id}')">Xoá</button>
-        </div>
-      </div>
-    `;
-  }).join('');
-}
-
-/* =========================================================================
-   9. TRANG 4: MỤC TIÊU (TUẦN / THÁNG / NĂM + HÌNH PHẠT TỰ GHI)
-   ========================================================================= */
-let activeGoalScope = 'week';
-
-function getCurrentPeriodKey(scope) {
-  const now = new Date();
-  const y = now.getFullYear();
-  if (scope === 'year') return { key: `${y}`, label: `Năm ${y}` };
-  if (scope === 'month') {
-    const m = String(now.getMonth() + 1).padStart(2, '0');
-    return { key: `${y}-${m}`, label: `Tháng ${m}/${y}` };
-  }
-  const d = new Date(Date.UTC(y, now.getMonth(), now.getDate()));
-  const dayNum = d.getUTCDay() || 7;
-  d.setUTCDate(d.getUTCDate() + 4 - dayNum);
-  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
-  const weekNo = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
-  const wStr = String(weekNo).padStart(2, '0');
-  return { key: `${d.getUTCFullYear()}-W${wStr}`, label: `Tuần ${wStr}/${d.getUTCFullYear()}` };
-}
-
-function switchGoalScope(scope) {
-  activeGoalScope = scope;
-  ['week', 'month', 'year'].forEach(s => {
-    document.getElementById(`gtab-${s}`).classList.toggle('active', s === scope);
-  });
-  renderGoals();
-}
-
-function addGoal() {
-  const title = document.getElementById('goalTitle').value.trim();
-  const penalty = document.getElementById('goalPenalty').value.trim() || 'Tự kiểm điểm kỷ luật';
-  let progress = Math.max(0, Math.min(100, parseInt(document.getElementById('goalProgress').value, 10) || 0));
-
-  if (!title) {
-    alert('Vui lòng nhập tên mục tiêu!');
-    return;
-  }
-
-  const period = getCurrentPeriodKey(activeGoalScope);
-  appState.goals[activeGoalScope].push({
-    id: uid(),
-    periodKey: period.key,
-    periodLabel: period.label,
-    title,
-    penalty,
-    progress,
-    penaltyDone: false
-  });
-
-  document.getElementById('goalTitle').value = '';
-  document.getElementById('goalPenalty').value = '';
-  document.getElementById('goalProgress').value = '0';
-  saveState();
-  renderGoals();
-}
-
-function updateGoalProgress(scope, id, val) {
-  const g = (appState.goals[scope] || []).find(x => x.id === id);
-  if (g) {
-    g.progress = Math.max(0, Math.min(100, parseInt(val, 10) || 0));
-    saveState();
-    renderGoals();
-  }
-}
-
-function markGoalPenaltyDone(scope, id) {
-  const g = (appState.goals[scope] || []).find(x => x.id === id);
-  if (g) {
-    g.penaltyDone = true;
-    saveState();
-    renderGoals();
-  }
-}
-
-function deleteGoal(scope, id) {
-  if (!confirm('Xoá mục tiêu này?')) return;
-  appState.goals[scope] = (appState.goals[scope] || []).filter(x => x.id !== id);
-  saveState();
-  renderGoals();
-}
-
-function renderGoals() {
-  const period = getCurrentPeriodKey(activeGoalScope);
-  document.getElementById('goalCurrentPeriodLabel').textContent = `Kỳ hiện tại: ${period.label}`;
-
-  const all = appState.goals[activeGoalScope] || [];
-  const currentList = all.filter(g => g.periodKey === period.key);
-  const historyList = all.filter(g => g.periodKey !== period.key);
-
-  const curEl = document.getElementById('goalCurrentList');
-  if (currentList.length === 0) {
-    curEl.innerHTML = '<div class="empty-msg">Chưa có mục tiêu nào trong kỳ hiện tại.</div>';
-  } else {
-    curEl.innerHTML = currentList.map(g => {
-      const statusBadge = g.progress >= 100
-        ? '<span class="badge badge-low">Hoàn thành</span>'
-        : (g.progress > 0 ? '<span class="badge badge-medium">Đang thực hiện</span>' : '<span class="badge badge-high">Chưa bắt đầu</span>');
-      return `
-        <div class="item-row" style="flex-direction:column;align-items:stretch;">
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <strong>${esc(g.title)}</strong>
-            <div style="display:flex;gap:6px;align-items:center;">
-              ${statusBadge}
-              <button class="btn btn-sm btn-danger" onclick="deleteGoal('${activeGoalScope}','${g.id}')">Xoá</button>
-            </div>
-          </div>
-          <div style="font-size:0.78rem;color:var(--danger);margin-top:2px;">
-            ⚠️ Hình phạt nếu thất bại: <strong>${esc(g.penalty)}</strong>
-          </div>
-          <div class="prog-track"><div class="prog-fill" style="width:${g.progress}%;"></div></div>
-          <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.8rem;">
-            <span>Tiến độ: <strong>${g.progress}%</strong></span>
-            <input type="range" min="0" max="100" step="5" value="${g.progress}" style="width:150px;" onchange="updateGoalProgress('${activeGoalScope}','${g.id}',this.value)">
-          </div>
-        </div>
-      `;
-    }).join('');
-  }
-
-  const histEl = document.getElementById('goalHistoryList');
-  if (historyList.length === 0) {
-    histEl.innerHTML = '<div class="empty-msg">Chưa có lịch sử từ các kỳ trước.</div>';
-  } else {
-    histEl.innerHTML = historyList.slice().reverse().map(g => {
-      const failed = g.progress < 100;
-      return `
-        <div class="item-row" style="flex-direction:column;align-items:stretch;">
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <div>
-              <span class="badge badge-blue">${esc(g.periodLabel)}</span>
-              <strong style="margin-left:4px;">${esc(g.title)} (${g.progress}%)</strong>
-            </div>
-            <button class="btn btn-sm btn-danger" onclick="deleteGoal('${activeGoalScope}','${g.id}')">Xoá</button>
-          </div>
-          ${failed ? `
-            <div style="margin-top:4px;font-size:0.8rem;color:var(--danger);display:flex;justify-content:space-between;align-items:center;">
-              <span>❌ Không đạt 100%! Phải chịu phạt: <strong>${esc(g.penalty)}</strong></span>
-              ${g.penaltyDone
-                ? '<span class="badge badge-low">Đã chấp hành phạt</span>'
-                : `<button class="btn btn-sm btn-warn" onclick="markGoalPenaltyDone('${activeGoalScope}','${g.id}')">Xác nhận đã chịu phạt</button>`}
-            </div>
-          ` : `<div style="font-size:0.78rem;color:var(--success);margin-top:3px;">✅ Đã hoàn thành xuất sắc kỳ này!</div>`}
-        </div>
-      `;
-    }).join('');
-  }
-}
-
-/* =========================================================================
-   10. TRANG 5: GHI LỖI SAI HÔM NAY
-   ========================================================================= */
-function addMistake() {
-  const date = document.getElementById('mkDate').value || getTodayISO();
-  const what = document.getElementById('mkWhat').value.trim();
-  const cause = document.getElementById('mkCause').value.trim();
-  const lesson = document.getElementById('mkLesson').value.trim();
-  const fix = document.getElementById('mkFix').value.trim();
-
-  if (!what) {
-    alert('Vui lòng nhập chuyện đã xảy ra!');
-    return;
-  }
-
-  appState.mistakes.unshift({ id: uid(), date, what, cause, lesson, fix });
-  document.getElementById('mkWhat').value = '';
-  document.getElementById('mkCause').value = '';
-  document.getElementById('mkLesson').value = '';
-  document.getElementById('mkFix').value = '';
-  saveState();
-  renderMistakes();
-}
-
-function deleteMistake(id) {
-  if (!confirm('Xoá bản ghi lỗi sai này?')) return;
-  appState.mistakes = appState.mistakes.filter(m => m.id !== id);
-  saveState();
-  renderMistakes();
-}
-
-function clearMistakeFilter() {
-  document.getElementById('mkSearch').value = '';
-  document.getElementById('mkFilterDate').value = '';
-  renderMistakes();
-}
-
-function renderMistakes() {
-  const q = document.getElementById('mkSearch').value.trim().toLowerCase();
-  const fDate = document.getElementById('mkFilterDate').value;
-
-  const list = appState.mistakes.filter(m => {
-    if (fDate && m.date !== fDate) return false;
-    if (q) {
-      const hay = `${m.what} ${m.cause} ${m.lesson} ${m.fix}`.toLowerCase();
-      if (!hay.includes(q)) return false;
-    }
-    return true;
-  });
-
-  const el = document.getElementById('mkList');
-  if (list.length === 0) {
-    el.innerHTML = '<div class="empty-msg">Không có bản ghi lỗi sai nào.</div>';
-    return;
-  }
-
-  el.innerHTML = list.map(m => `
-    <div class="item-row" style="flex-direction:column;align-items:stretch;gap:3px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;">
-        <span class="badge badge-high">📅 ${formatDateVN(m.date)}</span>
-        <button class="btn btn-sm btn-danger" onclick="deleteMistake('${m.id}')">Xoá</button>
-      </div>
-      <div><strong>1. Chuyện đã xảy ra:</strong> ${esc(m.what)}</div>
-      ${m.cause ? `<div><strong>2. Nguyên nhân:</strong> ${esc(m.cause)}</div>` : ''}
-      ${m.lesson ? `<div><strong>3. Bài học:</strong> ${esc(m.lesson)}</div>` : ''}
-      ${m.fix ? `<div><strong>4. Cách sửa:</strong> ${esc(m.fix)}</div>` : ''}
-    </div>
-  `).join('');
-}
-
-/* =========================================================================
-   11. TRANG 6: THỜI GIAN BIỂU (4 BUỔI + TÌM CHỌN NHIỆM VỤ GÁN VÀO BUỔI)
-   ========================================================================= */
-function populateScheduleTaskSelect() {
-  const q = (document.getElementById('schTaskSearch')?.value || '').trim().toLowerCase();
-  const sel = document.getElementById('schTaskSelect');
-  if (!sel) return;
-
-  const matches = appState.tasks.filter(t => !q || t.title.toLowerCase().includes(q));
-  if (matches.length === 0) {
-    sel.innerHTML = `<option value="">-- Không tìm thấy nhiệm vụ --</option>`;
-    return;
-  }
-  sel.innerHTML = matches.map(t =>
-    `<option value="${t.id}">${esc(t.title)} (Stack ${t.stackCount || 0}/${t.stackMax || 1})</option>`
-  ).join('');
-}
-
-function addLinkedTaskToSchedule() {
-  const date = document.getElementById('schDate').value || getTodayISO();
-  const taskId = document.getElementById('schTaskSelect').value;
-  const session = document.getElementById('schLinkSession').value;
-  const time = document.getElementById('schLinkTime').value || '07:30';
-
-  if (!taskId) {
-    alert('Vui lòng chọn một nhiệm vụ trong danh sách!');
-    return;
-  }
-  const t = appState.tasks.find(x => x.id === taskId);
-  if (!t) return;
-
-  if (!appState.schedules[date]) appState.schedules[date] = [];
-  appState.schedules[date].push({
-    id: uid(),
-    session,
-    time,
-    title: t.title,
-    done: t.done,
-    linkedTaskId: t.id
-  });
-
-  saveState();
-  renderSchedule();
-}
-
-function addScheduleFreeItem() {
-  const date = document.getElementById('schDate').value || getTodayISO();
-  const session = document.getElementById('schSession').value;
-  const time = document.getElementById('schTime').value || '07:00';
-  const title = document.getElementById('schTitle').value.trim();
-
-  if (!title) {
-    alert('Vui lòng nhập tên công việc!');
-    return;
-  }
-
-  if (!appState.schedules[date]) appState.schedules[date] = [];
-  appState.schedules[date].push({
-    id: uid(),
-    session,
-    time,
-    title,
-    done: false,
-    linkedTaskId: null
-  });
-
-  document.getElementById('schTitle').value = '';
-  saveState();
-  renderSchedule();
-}
-
-function toggleScheduleItem(date, itemId) {
-  const list = appState.schedules[date] || [];
-  const item = list.find(x => x.id === itemId);
-  if (!item) return;
-
-  if (item.linkedTaskId) {
-    toggleTaskCheckbox(item.linkedTaskId);
-  } else {
-    item.done = !item.done;
-    saveState();
-    renderSchedule();
-  }
-}
-
-function deleteScheduleItem(date, itemId) {
-  if (!appState.schedules[date]) return;
-  appState.schedules[date] = appState.schedules[date].filter(x => x.id !== itemId);
-  saveState();
-  renderSchedule();
-}
-
-function copyYesterdaySchedule() {
-  const today = getTodayISO();
-  const d = new Date(today + 'T00:00:00');
-  d.setDate(d.getDate() - 1);
-  const yISO = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-
-  const yList = appState.schedules[yISO] || [];
-  if (yList.length === 0) {
-    alert(`Không có thời gian biểu nào ở ngày hôm qua (${formatDateVN(yISO)})!`);
-    return;
-  }
-
-  if (!appState.schedules[today]) appState.schedules[today] = [];
-  yList.forEach(item => {
-    appState.schedules[today].push({
-      id: uid(),
-      session: item.session,
-      time: item.time,
-      title: item.title,
-      done: false,
-      linkedTaskId: item.linkedTaskId || null
-    });
-  });
-
-  document.getElementById('schDate').value = today;
-  saveState();
-  renderSchedule();
-  alert(`Đã sao chép ${yList.length} việc từ hôm qua sang hôm nay!`);
-}
-
-function renderSchedule() {
-  populateScheduleTaskSelect();
-  const date = document.getElementById('schDate').value || getTodayISO();
-  const list = appState.schedules[date] || [];
-  const sessions = [
-    { key: 'Sáng', label: '🌅 Buổi Sáng' },
-    { key: 'Trưa', label: '☀️ Buổi Trưa' },
-    { key: 'Chiều', label: '🌇 Buổi Chiều' },
-    { key: 'Tối', label: '🌙 Buổi Tối' }
-  ];
-
-  const container = document.getElementById('schSessionsContainer');
-  container.innerHTML = sessions.map(s => {
-    const items = list.filter(x => x.session === s.key).sort((a, b) => a.time.localeCompare(b.time));
-    const bodyHtml = items.length === 0
-      ? `<div class="empty-msg" style="padding:6px;">Chưa có việc buổi ${s.key.toLowerCase()}.</div>`
-      : items.map(item => {
-          const linkedTask = item.linkedTaskId ? appState.tasks.find(t => t.id === item.linkedTaskId) : null;
-          const isDone = linkedTask ? linkedTask.done : item.done;
-          const titleTxt = linkedTask ? linkedTask.title : item.title;
-
-          return `
-            <div class="item-row">
-              <label class="check-wrap">
-                <input type="checkbox" ${isDone ? 'checked' : ''} onchange="toggleScheduleItem('${date}','${item.id}')">
-                <div class="${isDone ? 'done-text' : ''}">
-                  <strong>${esc(item.time)}</strong> - ${esc(titleTxt)}
-                  ${linkedTask ? `<span style="margin-left:6px;">${getStatBadgeHTML(linkedTask.statType)}</span>` : ''}
-                </div>
-              </label>
-              <div style="display:flex;gap:6px;align-items:center;">
-                ${linkedTask ? `
-                  <div class="stack-box">
-                    <button class="btn btn-sm btn-outline" style="padding:2px 6px;min-height:24px;" onclick="stepTaskStack('${linkedTask.id}',-1)">-</button>
-                    <span>📦 ${linkedTask.stackCount || 0}/${linkedTask.stackMax || 1}</span>
-                    <button class="btn btn-sm btn-success" style="padding:2px 6px;min-height:24px;" onclick="stepTaskStack('${linkedTask.id}',1)">+1</button>
-                  </div>
-                ` : ''}
-                <button class="btn btn-sm btn-danger" onclick="deleteScheduleItem('${date}','${item.id}')">Xoá</button>
-              </div>
-            </div>
-          `;
-        }).join('');
-
-    return `
-      <div class="card">
-        <div class="card-title">${s.label}</div>
-        ${bodyHtml}
-      </div>
-    `;
-  }).join('');
-}
-
-/* =========================================================================
-   12. TRANG 7: LỊCH THÁNG TỔNG HỢP
-   ========================================================================= */
-let mainCalYear = new Date().getFullYear();
-let mainCalMonth = new Date().getMonth();
-let selectedCalDate = getTodayISO();
-
-function changeMainCalMonth(delta) {
-  mainCalMonth += delta;
-  if (mainCalMonth < 0) { mainCalMonth = 11; mainCalYear--; }
-  if (mainCalMonth > 11) { mainCalMonth = 0; mainCalYear++; }
-  renderMainCalendar();
-}
-
-function selectCalendarDay(iso) {
-  selectedCalDate = iso;
-  renderMainCalendar();
-}
-
-function addQuickTaskFromCal() {
-  const title = document.getElementById('calQuickTaskTitle').value.trim();
-  const statType = document.getElementById('calQuickTaskStat').value;
-  if (!title) {
-    alert('Vui lòng nhập tên nhiệm vụ!');
-    return;
-  }
-  appState.tasks.push({
-    id: uid(),
-    title,
-    statType,
-    stackCount: 0,
-    stackMax: 1,
-    priority: 'medium',
-    dueDate: selectedCalDate,
-    remindTime: '',
-    done: false,
-    notifiedDate: ''
-  });
-  document.getElementById('calQuickTaskTitle').value = '';
-  saveState();
-  renderMainCalendar();
-}
-
-function renderMainCalendar() {
-  document.getElementById('mainCalMonthLabel').textContent =
-    `Tháng ${String(mainCalMonth + 1).padStart(2, '0')}/${mainCalYear}`;
-  const grid = document.getElementById('mainCalGrid');
-  const dows = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
-  let html = dows.map(d => `<div class="cal-dow">${d}</div>`).join('');
-
-  const firstDay = new Date(mainCalYear, mainCalMonth, 1).getDay();
-  const offset = (firstDay + 6) % 7;
-  const daysInMonth = new Date(mainCalYear, mainCalMonth + 1, 0).getDate();
-  const today = getTodayISO();
-  const checkSet = new Set(appState.checkins);
-
-  for (let i = 0; i < offset; i++) html += `<div></div>`;
-  for (let day = 1; day <= daysInMonth; day++) {
-    const iso = `${mainCalYear}-${String(mainCalMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-    const hasT = appState.tasks.some(t => t.dueDate === iso);
-    const hasC = appState.countdowns.some(c => c.targetDate === iso);
-    const hasK = checkSet.has(iso);
-
-    html += `
-      <div class="cal-cell ${iso === today ? 'today' : ''} ${iso === selectedCalDate ? 'selected' : ''}" onclick="selectCalendarDay('${iso}')">
-        <span>${day}</span>
-        <div class="cal-dots">
-          ${hasT ? '<span class="dot dot-task"></span>' : ''}
-          ${hasC ? '<span class="dot dot-cd"></span>' : ''}
-          ${hasK ? '<span class="dot dot-check"></span>' : ''}
-        </div>
-      </div>
-    `;
-  }
-  grid.innerHTML = html;
-
-  document.getElementById('calSelectedDateLabel').textContent = formatDateVN(selectedCalDate);
-  const dayTasks = appState.tasks.filter(t => t.dueDate === selectedCalDate);
-  const dayCds = appState.countdowns.filter(c => c.targetDate === selectedCalDate);
-  const isChecked = checkSet.has(selectedCalDate);
-
-  let dHtml = `<div style="margin-bottom:6px;"><strong>Điểm danh:</strong> ${isChecked ? '✅ Đã điểm danh' : '❌ Chưa điểm danh'}</div>`;
-  if (dayCds.length > 0) {
-    dHtml += `<div style="margin-bottom:6px;"><strong>Sự kiện đếm ngày:</strong> ${dayCds.map(c => esc(c.title)).join(', ')}</div>`;
-  }
-  if (dayTasks.length === 0) {
-    dHtml += `<div style="color:var(--text-muted);font-size:0.84rem;">Chưa có nhiệm vụ nào vào ngày này.</div>`;
-  } else {
-    dHtml += dayTasks.map(t => renderSingleTaskRowHTML(t)).join('');
-  }
-  document.getElementById('calDayDetails').innerHTML = dHtml;
-}
-
-/* =========================================================================
-   13. TRANG 8: CHI TIÊU, KHOÁ QUỸ, ĐỔI ĐIỂM & VAY LÃI 20%/NGÀY (+ AI GÁC CỔNG)
-   ========================================================================= */
-function setVaultBalance() {
-  const val = Number(document.getElementById('vaultSetInput').value);
-  if (isNaN(val) || val < 0) {
-    alert('Vui lòng nhập số tiền hợp lệ!');
-    return;
-  }
-  appState.expenses.vaultBalance = Math.round(val);
-  document.getElementById('vaultSetInput').value = '';
-  saveState();
-  renderExpenses();
-}
-
-// Đổi Điểm Kiên Trì mở khoá tiền từ Quỹ Trong Két -> Quỹ Được Phép Tiêu
-function redeemGemsToCash() {
-  const gemsToUse = Math.floor(Number(document.getElementById('redeemGemsInput').value) || 0);
-  if (gemsToUse <= 0) {
-    alert('Vui lòng nhập số Điểm Kiên Trì muốn đổi (> 0)!');
-    return;
-  }
-  if (gemsToUse > (appState.rpg.perseverance || 0)) {
-    alert('Bạn không đủ Điểm Kiên Trì (💎) để đổi!');
-    return;
-  }
-
-  const discInfo = getDisciplineInfo();
-  const cashUnlock = gemsToUse * discInfo.exchangeRate; // 1 💎 = Lv.Kỷ Luật * 1.000đ
-
-  if (cashUnlock > (appState.expenses.vaultBalance || 0)) {
-    alert(`Quỹ Trong Két hiện chỉ còn ${formatVND(appState.expenses.vaultBalance)}, không đủ để mở khoá ${formatVND(cashUnlock)}!`);
-    return;
-  }
-
-  appState.rpg.perseverance -= gemsToUse;
-  appState.expenses.vaultBalance -= cashUnlock;
-  appState.expenses.spendableBalance = (appState.expenses.spendableBalance || 0) + cashUnlock;
-
-  document.getElementById('redeemGemsInput').value = '';
-  saveState();
-  renderExpenses();
-  alert(`🎉 Đã đổi ${gemsToUse} 💎 thành công! Đã rút ${formatVND(cashUnlock)} từ Két sang Quỹ Được Phép Tiêu.`);
-}
-
-// Vay Khẩn Cấp từ Quỹ Trong Két (Có AI Nội Bộ Gác Cổng kiểm duyệt lý do vay)
-function takeEmergencyLoan() {
-  const amount = Math.round(Number(document.getElementById('loanAmountInput').value) || 0);
-  const reason = document.getElementById('loanReasonInput').value.trim();
-
-  if (amount <= 0 || !reason) {
-    alert('Vui lòng nhập số tiền cần vay và lý do khẩn cấp!');
-    return;
-  }
-  if (amount > (appState.expenses.vaultBalance || 0)) {
-    alert(`Quỹ Trong Két không đủ ${formatVND(amount)} để cho vay!`);
-    return;
-  }
-
-  const discInfo = getDisciplineInfo();
-  const baseGems = Math.max(1, Math.ceil(amount / discInfo.exchangeRate));
-  const dailyInterestGems = Math.ceil(baseGems * 0.20);
-
-  // AI Nội Bộ quét từ khoá tiêu xài cảm tính / không khẩn cấp
-  const impulseRegex = /(trà sữa|cafe|cà phê|game|nạp|skin|đi chơi|nhậu|xem phim|quần áo|giày|mua sắm|ăn vặt|lẩu|nướng|bida|net|chơi|thèm)/i;
-  if (impulseRegex.test(reason) || reason.length < 4) {
-    const warnMsg =
-      `🤖 HỆ THỐNG AI GÁC CỔNG CẢNH BÁO:\n\n` +
-      `Lý do "${reason}" có dấu hiệu tiêu xài cảm tính, KHÔNG PHẢI tình huống khẩn cấp!\n` +
-      `- Số tiền rút: ${formatVND(amount)}\n` +
-      `- Nợ gốc: ${baseGems} 💎\n` +
-      `- Lãi phạt mỗi ngày (20%): +${dailyInterestGems} 💎/ngày (Ngay hôm nay tổng nợ sẽ là ${baseGems + dailyInterestGems} 💎).\n\n` +
-      `Hệ thống khuyên bạn bấm Cancel (Huỷ) và quay lại làm ${baseGems} hiệp nhiệm vụ để đổi tiền đường hoàng. Bạn có thực sự muốn CƯỠNG CHẾ VAY không?`;
-    if (!confirm(warnMsg)) return;
-  } else {
-    const confirmNormal =
-      `🤖 AI Xác nhận khoản vay khẩn cấp:\n` +
-      `- Rút từ Két: ${formatVND(amount)} (Lý do: ${reason})\n` +
-      `- Nợ gốc: ${baseGems} 💎 + Lãi 20%/ngày (+${dailyInterestGems} 💎/ngày).\n` +
-      `Xác nhận thực hiện khoản vay này?`;
-    if (!confirm(confirmNormal)) return;
-  }
-
-  appState.expenses.vaultBalance -= amount;
-  appState.expenses.spendableBalance = (appState.expenses.spendableBalance || 0) + amount;
-
-  appState.expenses.loans.push({
-    id: uid(),
-    amountVND: amount,
-    baseGems,
-    paidGems: 0,
-    borrowDate: getTodayISO(),
-    reason
-  });
-
-  document.getElementById('loanAmountInput').value = '';
-  document.getElementById('loanReasonInput').value = '';
-  saveState();
-  renderExpenses();
-}
-
-// Tính tổng nợ gốc + lãi 20%/ngày cho khoản vay
-function calcLoanTotalOwedGems(loan) {
-  const startMs = new Date(loan.borrowDate + 'T00:00:00').getTime();
-  const todayMs = new Date(getTodayISO() + 'T00:00:00').getTime();
-  const diffDays = Math.max(1, Math.round((todayMs - startMs) / 86400000) + 1);
-  const interestGems = Math.ceil(loan.baseGems * 0.20 * diffDays);
-  const totalGems = loan.baseGems + interestGems;
-  const remainingGems = Math.max(0, totalGems - (loan.paidGems || 0));
-  return { diffDays, interestGems, totalGems, remainingGems };
-}
-
-function payLoanWithGems(loanId) {
-  const loan = appState.expenses.loans.find(x => x.id === loanId);
-  if (!loan) return;
-  const calc = calcLoanTotalOwedGems(loan);
-  const availGems = appState.rpg.perseverance || 0;
-
-  if (availGems <= 0) {
-    alert('Bạn chưa có Điểm Kiên Trì (💎) nào. Hãy hoàn thành nhiệm vụ để cày điểm trả nợ!');
-    return;
-  }
-
-  const payAmount = Math.min(availGems, calc.remainingGems);
-  appState.rpg.perseverance -= payAmount;
-  loan.paidGems = (loan.paidGems || 0) + payAmount;
-
-  if (loan.paidGems >= calc.totalGems) {
-    appState.expenses.loans = appState.expenses.loans.filter(x => x.id !== loanId);
-    alert('🎉 Bạn đã tất toán xong toàn bộ gốc và lãi của khoản vay khẩn cấp này!');
-  } else {
-    alert(`Đã trả ${payAmount} 💎. Vẫn còn nợ ${calc.totalGems - loan.paidGems} 💎.`);
-  }
-
-  saveState();
-  renderExpenses();
-}
-
-function saveMonthlyBudget() {
-  const month = document.getElementById('expMonthFilter').value || getTodayISO().slice(0, 7);
-  const val = Number(document.getElementById('expBudgetInput').value) || 0;
-  appState.expenses.budgets[month] = val;
-  saveState();
-  renderExpenses();
-}
-
-function addTransaction() {
-  const type = document.getElementById('expType').value;
-  const amount = Math.round(Number(document.getElementById('expAmount').value) || 0);
-  const category = document.getElementById('expCategory').value;
-  const date = document.getElementById('expDate').value || getTodayISO();
-  const note = document.getElementById('expNote').value.trim();
-
-  if (amount <= 0) {
-    alert('Vui lòng nhập số tiền hợp lệ lớn hơn 0!');
-    return;
-  }
-
-  if (type === 'expense') {
-    if (amount > (appState.expenses.spendableBalance || 0)) {
-      if (!confirm(`Quỹ Được Phép Tiêu hiện chỉ có ${formatVND(appState.expenses.spendableBalance)}. Bạn có chắc vẫn muốn ghi khoản chi này (Số dư Được Tiêu sẽ bị âm)?`)) {
-        return;
-      }
-    }
-    appState.expenses.spendableBalance = (appState.expenses.spendableBalance || 0) - amount;
-  } else {
-    appState.expenses.vaultBalance = (appState.expenses.vaultBalance || 0) + amount;
-  }
-
-  appState.expenses.items.unshift({
-    id: uid(),
-    type,
-    amount,
-    category,
-    date,
-    note
-  });
-
-  document.getElementById('expAmount').value = '';
-  document.getElementById('expNote').value = '';
-  saveState();
-  renderExpenses();
-}
-
-function deleteTransaction(id) {
-  const item = appState.expenses.items.find(x => x.id === id);
-  if (!item) return;
-  if (!confirm('Xoá giao dịch này và hoàn lại số dư tương ứng?')) return;
-
-  if (item.type === 'expense') {
-    appState.expenses.spendableBalance += item.amount;
-  } else {
-    appState.expenses.vaultBalance = Math.max(0, appState.expenses.vaultBalance - item.amount);
-  }
-  appState.expenses.items = appState.expenses.items.filter(x => x.id !== id);
-  saveState();
-  renderExpenses();
-}
-
-function renderExpenses() {
-  const discInfo = getDisciplineInfo();
-  document.getElementById('expRateBadge').textContent =
-    `Lv.${discInfo.level} Kỷ Luật: 1 💎 = ${formatVND(discInfo.exchangeRate)}`;
-  document.getElementById('vaultBalanceTxt').textContent = formatVND(appState.expenses.vaultBalance || 0);
-  document.getElementById('spendableBalanceTxt').textContent = formatVND(appState.expenses.spendableBalance || 0);
-  document.getElementById('expGemsTxt').textContent = `${appState.rpg.perseverance || 0} 💎`;
-
-  // Render danh sách khoản vay khẩn cấp
-  const loansEl = document.getElementById('activeLoansList');
-  if (!appState.expenses.loans || appState.expenses.loans.length === 0) {
-    loansEl.innerHTML = '<div class="empty-msg" style="padding:6px;">Không có khoản vay khẩn cấp nào đang nợ.</div>';
-  } else {
-    loansEl.innerHTML = appState.expenses.loans.map(loan => {
-      const c = calcLoanTotalOwedGems(loan);
-      return `
-        <div class="item-row">
-          <div>
-            <strong>🚨 Vay ${formatVND(loan.amountVND)} - ${esc(loan.reason)}</strong>
-            <div style="font-size:0.78rem;color:var(--danger);">
-              Ngày vay: ${formatDateVN(loan.borrowDate)} (${c.diffDays} ngày) |
-              Gốc: ${loan.baseGems} 💎 + Lãi (20%/ngày): ${c.interestGems} 💎 =
-              <strong>Còn nợ: ${c.remainingGems} 💎</strong>
-            </div>
-          </div>
-          <button class="btn btn-sm btn-purple" onclick="payLoanWithGems('${loan.id}')">💎 Trả nợ</button>
-        </div>
-      `;
-    }).join('');
-  }
-
-  // Thống kê theo tháng
-  const mInput = document.getElementById('expMonthFilter');
-  if (!mInput.value) mInput.value = getTodayISO().slice(0, 7);
-  const month = mInput.value;
-
-  const budget = appState.expenses.budgets[month] || 0;
-  document.getElementById('expBudgetInput').value = budget || '';
-
-  const mItems = appState.expenses.items.filter(x => x.date && x.date.startsWith(month));
-  let totalIn = 0, totalOut = 0;
-  const catSums = {};
-
-  mItems.forEach(item => {
-    if (item.type === 'income') totalIn += item.amount;
-    else {
-      totalOut += item.amount;
-      catSums[item.category] = (catSums[item.category] || 0) + item.amount;
-    }
-  });
-
-  document.getElementById('expTotalIn').textContent = formatVND(totalIn);
-  document.getElementById('expTotalOut').textContent = formatVND(totalOut);
-  document.getElementById('expMonthBal').textContent = formatVND(totalIn - totalOut);
-
-  const bAlert = document.getElementById('expBudgetAlert');
-  if (budget > 0 && totalOut > budget) {
-    bAlert.innerHTML = `<div class="banner banner-danger"><span>🚨 Cảnh báo: Chi tiêu tháng (${formatVND(totalOut)}) đã vượt ngân sách (${formatVND(budget)}) là <strong>${formatVND(totalOut - budget)}</strong>!</span></div>`;
-  } else if (budget > 0) {
-    bAlert.innerHTML = `<div style="font-size:0.8rem;margin-bottom:8px;color:var(--text-muted);">Đã tiêu ${Math.round((totalOut / budget) * 100)}% ngân sách tháng (${formatVND(totalOut)} / ${formatVND(budget)})</div>`;
-  } else {
-    bAlert.innerHTML = '';
-  }
-
-  drawExpensePieChart(catSums, totalOut);
-
-  const listEl = document.getElementById('expList');
-  if (mItems.length === 0) {
-    listEl.innerHTML = '<div class="empty-msg">Chưa có giao dịch nào trong tháng này.</div>';
-  } else {
-    listEl.innerHTML = mItems.map(item => `
-      <div class="item-row">
-        <div>
-          <strong>${esc(item.category)}</strong>
-          <span style="font-size:0.78rem;color:var(--text-muted);"> (${formatDateVN(item.date)})</span>
-          ${item.note ? `<div style="font-size:0.8rem;color:var(--text-muted);">${esc(item.note)}</div>` : ''}
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;">
-          <strong style="color:${item.type === 'income' ? 'var(--success)' : 'var(--danger)'};">
-            ${item.type === 'income' ? '+' : '-'}${formatVND(item.amount)}
-          </strong>
-          <button class="btn btn-sm btn-danger" onclick="deleteTransaction('${item.id}')">Xoá</button>
-        </div>
-      </div>
-    `).join('');
-  }
-}
-
-function drawExpensePieChart(catSums, totalOut) {
-  const canvas = document.getElementById('expCanvas');
-  const ctx = canvas.getContext('2d');
-  const legendEl = document.getElementById('expLegend');
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  const entries = Object.entries(catSums).sort((a, b) => b[1] - a[1]);
-  if (totalOut <= 0 || entries.length === 0) {
-    ctx.fillStyle = '#94a3b8';
-    ctx.font = '14px sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('Chưa có dữ liệu chi tiêu trong tháng', canvas.width / 2, canvas.height / 2);
-    legendEl.innerHTML = '';
-    return;
-  }
-
-  const colors = ['#2563eb', '#dc2626', '#16a34a', '#d97706', '#7c3aed', '#0891b2', '#db2777', '#64748b'];
-  const cx = canvas.width / 2, cy = canvas.height / 2;
-  const r = Math.min(cx, cy) - 14;
-  let start = -Math.PI / 2;
-  let legHtml = '';
-
-  entries.forEach(([cat, val], i) => {
-    const slice = (val / totalOut) * Math.PI * 2;
-    const col = colors[i % colors.length];
-    ctx.beginPath();
-    ctx.moveTo(cx, cy);
-    ctx.arc(cx, cy, r, start, start + slice);
-    ctx.closePath();
-    ctx.fillStyle = col;
-    ctx.fill();
-    start += slice;
-
-    const pct = ((val / totalOut) * 100).toFixed(1);
-    legHtml += `
-      <div style="display:flex;justify-content:space-between;padding:2px 0;">
-        <span><span style="display:inline-block;width:10px;height:10px;background:${col};margin-right:6px;"></span>${esc(cat)}</span>
-        <strong>${formatVND(val)} (${pct}%)</strong>
-      </div>
-    `;
-  });
-  legendEl.innerHTML = legHtml;
-}
-
-/* =========================================================================
-   14. TRANG 9: NHẮC NHỞ, CHUÔNG BÁO MÁY TÍNH (WEB AUDIO) & XUẤT LỊCH .ICS
-   ========================================================================= */
-function playAlarmBeep() {
-  try {
-    const AudioCtx = window.AudioContext || window.webkitAudioContext;
-    const ctx = new AudioCtx();
-    const times = [0, 0.25, 0.5];
-    times.forEach(t => {
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(880, ctx.currentTime + t);
-      gain.gain.setValueAtTime(0.25, ctx.currentTime + t);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + t + 0.18);
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.start(ctx.currentTime + t);
-      osc.stop(ctx.currentTime + t + 0.18);
-    });
-  } catch (e) {}
-}
-
-function renderRemindersTab() {
-  const stEl = document.getElementById('notifPermStatus');
-  if (!('Notification' in window)) {
-    stEl.textContent = 'Trình duyệt không hỗ trợ Notification API (Vẫn dùng được chuông Web Audio & Xuất .ics)';
-  } else if (Notification.permission === 'granted') {
-    stEl.textContent = 'Đã cấp quyền (Tự động đẩy thông báo & đổ chuông khi mở app)';
-  } else if (Notification.permission === 'denied') {
-    stEl.textContent = 'Đã bị từ chối quyền thông báo (Hãy dùng chuông báo hoặc xuất file .ics)';
-  } else {
-    stEl.textContent = 'Chưa cấp quyền (Bấm nút bên dưới để bật)';
-  }
-
-  const today = getTodayISO();
-  const due = appState.tasks.filter(t => !t.done && t.dueDate && t.dueDate <= today);
-  const el = document.getElementById('dueTasksReminderList');
-
-  if (due.length === 0) {
-    el.innerHTML = '<div class="empty-msg">🎉 Tuyệt vời! Không có việc nào đến hạn hay quá hạn hôm nay.</div>';
-  } else {
-    el.innerHTML = due.map(t => renderSingleTaskRowHTML(t)).join('');
-  }
-}
-
-function requestNotifPermission() {
-  if (!('Notification' in window)) {
-    alert('Trình duyệt không hỗ trợ Notification API. Bạn hãy dùng nút Xuất sang lịch (.ics) nhé!');
-    return;
-  }
-  Notification.requestPermission().then(p => {
-    renderRemindersTab();
-    if (p === 'granted') {
-      playAlarmBeep();
-      new Notification('Life RPG - Sổ Tay Kỷ Luật', { body: 'Đã bật thông báo và chuông nhắc việc!' });
-    }
-  });
-}
-
-function checkActiveReminders() {
-  const today = getTodayISO();
-  const now = new Date();
-  const curHM = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-
-  let changed = false;
-  appState.tasks.forEach(t => {
-    if (!t.done && t.dueDate === today && t.remindTime) {
-      if (t.remindTime <= curHM && t.notifiedDate !== today) {
-        t.notifiedDate = today;
-        changed = true;
-        playAlarmBeep();
-        if ('Notification' in window && Notification.permission === 'granted') {
-          try {
-            new Notification('⏰ Đến giờ nhiệm vụ: ' + t.title, {
-              body: `Giờ nhắc: ${t.remindTime} (Stack ${t.stackCount || 0}/${t.stackMax || 1})`
-            });
-          } catch (e) {}
-        }
-      }
-    }
-  });
-  if (changed) saveState();
-}
-
-function exportICS() {
-  const lines = [
-    'BEGIN:VCALENDAR',
-    'VERSION:2.0',
-    'PRODID:-//AppCuaToi//LifeRPG//VI',
-    'CALSCALE:GREGORIAN'
-  ];
-  const stamp = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
-
-  appState.tasks.filter(t => !t.done && t.dueDate).forEach(t => {
-    const dClean = t.dueDate.replace(/-/g, '');
-    let dtStart = `DTSTART;VALUE=DATE:${dClean}`;
-    if (t.remindTime) {
-      dtStart = `DTSTART:${dClean}T${t.remindTime.replace(':', '')}00`;
-    }
-    lines.push(
-      'BEGIN:VEVENT',
-      `UID:task-${t.id}@appcuatoi.local`,
-      `DTSTAMP:${stamp}`,
-      dtStart,
-      `SUMMARY:[Nhiệm vụ RPG] ${t.title} (Stack ${t.stackMax || 1})`,
-      'BEGIN:VALARM',
-      'TRIGGER:-PT10M',
-      'ACTION:DISPLAY',
-      `DESCRIPTION:Nhắc việc: ${t.title}`,
-      'END:VALARM',
-      'END:VEVENT'
-    );
-  });
-
-  appState.countdowns.forEach(c => {
-    const dClean = c.targetDate.replace(/-/g, '');
-    lines.push(
-      'BEGIN:VEVENT',
-      `UID:cd-${c.id}@appcuatoi.local`,
-      `DTSTAMP:${stamp}`,
-      `DTSTART;VALUE=DATE:${dClean}`,
-      `SUMMARY:[Sự kiện] ${c.title}`,
-      'END:VEVENT'
-    );
-  });
-
-  lines.push('END:VCALENDAR');
-  const blob = new Blob([lines.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `lich-nhac-viec-${getTodayISO()}.ics`;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-}
-
-/* =========================================================================
-   15. TRANG 10: GIAO DIỆN TUỲ CHỈNH, SAO LƯU JSON & ĐẶT LẠI TỪ ĐẦU
-   ========================================================================= */
-async function applySavedAppearance() {
-  const ui = appState.ui;
-  document.documentElement.setAttribute('data-theme', ui.mode || 'light');
-  document.documentElement.setAttribute('data-style', ui.style || 'modern');
-  document.documentElement.style.setProperty('--primary', ui.primary || '#2563eb');
-  document.documentElement.style.setProperty('--font-size', (ui.fontSize || 15) + 'px');
-  document.documentElement.style.setProperty('--bg-blur', (ui.blur || 0) + 'px');
-
-  const dimPct = (ui.dim !== undefined ? ui.dim : 45) / 100;
-  const overlayCol = ui.mode === 'dark'
-    ? `rgba(15, 23, 42, ${dimPct})`
-    : `rgba(241, 245, 249, ${dimPct})`;
-  document.documentElement.style.setProperty('--bg-overlay', overlayCol);
-
-  const meta = document.getElementById('metaThemeColor');
-  if (meta) meta.setAttribute('content', ui.primary || '#2563eb');
-
-  const bgData = await idbGetImage(ui.currentBgId || 'active_bg');
-  const bgLayer = document.getElementById('bgLayer');
-  bgLayer.style.backgroundImage = bgData ? `url("${bgData}")` : 'none';
-}
-
-function applyQuickStyle(presetType) {
-  if (presetType === 'light') {
-    appState.ui.mode = 'light';
-    appState.ui.style = 'modern';
-    appState.ui.primary = '#2563eb';
-  } else if (presetType === 'dark') {
-    appState.ui.mode = 'dark';
-    appState.ui.style = 'modern';
-    appState.ui.primary = '#3b82f6';
-  } else if (presetType === 'minecraft') {
-    appState.ui.mode = 'dark';
-    appState.ui.style = 'minecraft';
-    appState.ui.primary = '#52a535';
-  }
-  saveState();
-  applySavedAppearance();
-  renderSettingsTab();
-}
-
-function applyLiveThemeSettings() {
-  appState.ui.mode = document.getElementById('uiThemeMode').value;
-  appState.ui.primary = document.getElementById('uiPrimaryColor').value;
-  appState.ui.fontSize = parseInt(document.getElementById('uiFontSize').value, 10) || 15;
-  appState.ui.blur = parseInt(document.getElementById('uiBgBlur').value, 10) || 0;
-  appState.ui.dim = parseInt(document.getElementById('uiBgDim').value, 10) || 45;
-
-  document.getElementById('lblFontSize').textContent = appState.ui.fontSize + 'px';
-  document.getElementById('lblBlur').textContent = appState.ui.blur + 'px';
-  document.getElementById('lblDim').textContent = appState.ui.dim + '%';
-
-  saveState();
-  applySavedAppearance();
-}
-
-function handleBgImageUpload(event) {
-  const file = event.target.files && event.target.files[0];
-  if (!file) return;
-
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    const img = new Image();
-    img.onload = async function() {
-      const MAX_DIM = 1280;
-      let w = img.width, h = img.height;
-      if (w > MAX_DIM || h > MAX_DIM) {
-        if (w > h) { h = Math.round((h * MAX_DIM) / w); w = MAX_DIM; }
-        else { w = Math.round((w * MAX_DIM) / h); h = MAX_DIM; }
-      }
-      const canvas = document.createElement('canvas');
-      canvas.width = w;
-      canvas.height = h;
-      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-      const compressed = canvas.toDataURL('image/jpeg', 0.72);
-
-      appState.ui.currentBgId = 'active_bg';
-      await idbSetImage('active_bg', compressed);
-      saveState();
-      await applySavedAppearance();
-    };
-    img.src = e.target.result;
-  };
-  reader.readAsDataURL(file);
-}
-
-async function removeCurrentBgImage() {
-  await idbDeleteImage(appState.ui.currentBgId || 'active_bg');
-  saveState();
-  await applySavedAppearance();
-}
-
-async function saveThemePreset() {
-  const name = document.getElementById('presetThemeName').value.trim();
-  if (!name) {
-    alert('Vui lòng nhập tên chủ đề!');
-    return;
-  }
-  const pid = 'preset_' + uid();
-  const curImg = await idbGetImage(appState.ui.currentBgId || 'active_bg');
-  if (curImg) await idbSetImage(pid, curImg);
-
-  appState.ui.presets.push({
-    id: pid,
-    name,
-    mode: appState.ui.mode,
-    style: appState.ui.style || 'modern',
-    primary: appState.ui.primary,
-    fontSize: appState.ui.fontSize,
-    blur: appState.ui.blur,
-    dim: appState.ui.dim,
-    hasImage: !!curImg
-  });
-
-  document.getElementById('presetThemeName').value = '';
-  saveState();
-  renderSettingsTab();
-}
-
-async function applyThemePreset(pid) {
-  const p = appState.ui.presets.find(x => x.id === pid);
-  if (!p) return;
-  appState.ui.mode = p.mode;
-  appState.ui.style = p.style || 'modern';
-  appState.ui.primary = p.primary;
-  appState.ui.fontSize = p.fontSize;
-  appState.ui.blur = p.blur;
-  appState.ui.dim = p.dim;
-
-  if (p.hasImage) {
-    const img = await idbGetImage(p.id);
-    if (img) await idbSetImage('active_bg', img);
-  } else {
-    await idbDeleteImage('active_bg');
-  }
-  saveState();
-  await applySavedAppearance();
-  renderSettingsTab();
-}
-
-async function deleteThemePreset(pid) {
-  if (!confirm('Xoá chủ đề này?')) return;
-  await idbDeleteImage(pid);
-  appState.ui.presets = appState.ui.presets.filter(x => x.id !== pid);
-  saveState();
-  renderSettingsTab();
-}
-
-function renderSettingsTab() {
-  const ui = appState.ui;
-  document.getElementById('uiThemeMode').value = ui.mode || 'light';
-  document.getElementById('uiPrimaryColor').value = ui.primary || '#2563eb';
-  document.getElementById('uiFontSize').value = ui.fontSize || 15;
-  document.getElementById('uiBgBlur').value = ui.blur || 0;
-  document.getElementById('uiBgDim').value = ui.dim !== undefined ? ui.dim : 45;
-
-  document.getElementById('lblFontSize').textContent = (ui.fontSize || 15) + 'px';
-  document.getElementById('lblBlur').textContent = (ui.blur || 0) + 'px';
-  document.getElementById('lblDim').textContent = (ui.dim !== undefined ? ui.dim : 45) + '%';
-
-  document.getElementById('lblDataVersion').textContent = appState.version || CURRENT_VERSION;
-  document.getElementById('lblLastBackup').textContent = appState.lastBackupDate
-    ? formatDateVN(appState.lastBackupDate.slice(0, 10))
-    : 'Chưa từng sao lưu';
-
-  const pEl = document.getElementById('presetThemeList');
-  if (!ui.presets || ui.presets.length === 0) {
-    pEl.innerHTML = '<div class="empty-msg" style="padding:6px;">Chưa có chủ đề riêng nào được lưu.</div>';
-  } else {
-    pEl.innerHTML = ui.presets.map(p => `
-      <div class="item-row">
-        <div>
-          <strong>${esc(p.name)}</strong>
-          <span style="font-size:0.76rem;color:var(--text-muted);">(${p.style === 'minecraft' ? 'Minecraft' : (p.mode === 'dark' ? 'Tối' : 'Sáng')}${p.hasImage ? ', Có ảnh nền' : ''})</span>
-        </div>
-        <div style="display:flex;gap:4px;">
-          <button class="btn btn-sm" onclick="applyThemePreset('${p.id}')">Áp dụng</button>
-          <button class="btn btn-sm btn-danger" onclick="deleteThemePreset('${p.id}')">Xoá</button>
-        </div>
-      </div>
-    `).join('');
-  }
-}
-
-function exportAllDataJSON() {
-  appState.lastBackupDate = new Date().toISOString();
-  saveState();
-  renderSettingsTab();
-
-  const blob = new Blob([JSON.stringify(appState, null, 2)], { type: 'application/json;charset=utf-8' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `sao-luu-${getTodayISO()}.json`;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-}
-
-function importAllDataJSON(event) {
-  const file = event.target.files && event.target.files[0];
-  if (!file) return;
-
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    try {
-      const parsed = JSON.parse(e.target.result);
-      if (!parsed || typeof parsed !== 'object' || !Array.isArray(parsed.tasks)) {
-        alert('File JSON không hợp lệ hoặc không đúng cấu trúc của ứng dụng!');
-        event.target.value = '';
-        return;
-      }
-      if (!confirm('Xác nhận: Nhập file JSON này sẽ GHI ĐÈ toàn bộ dữ liệu hiện tại. Bạn có chắc chắn muốn tiếp tục?')) {
-        event.target.value = '';
-        return;
-      }
-      appState = migrateData(parsed);
-      saveState();
-      applySavedAppearance();
-      renderSettingsTab();
-      updateAllHeaderAndRPG();
-      alert('🎉 Đã khôi phục toàn bộ dữ liệu thành công!');
-    } catch (err) {
-      alert('Lỗi đọc file JSON!');
-    }
-    event.target.value = '';
-  };
-  reader.readAsText(file);
-}
-
-async function resetAllDataToLevel1() {
-  if (!confirm('⚠️ CẢNH BÁO: Bạn có chắc chắn muốn XOÁ SẠCH dữ liệu hiện tại để bắt đầu lại từ Level 1 không?')) return;
-  if (!confirm('Xác nhận lần cuối: Mọi nhiệm vụ, chuỗi điểm danh và quỹ sẽ về 0. Tiếp tục Reset?')) return;
-  appState = getDefaultState();
-  await idbDeleteImage('active_bg');
-  saveState();
-  await applySavedAppearance();
-  renderSettingsTab();
-  switchTab('tab-home');
-  alert('🔄 Đã đặt lại toàn bộ hệ thống về Level 1!');
-}
-
-/* =========================================================================
-   16. KHỞI TẠO MANIFEST PWA & CHẠY ỨNG DỤNG
-   ========================================================================= */
-function setupDynamicManifest() {
-  try {
-    const manifest = {
-      name: 'Life RPG - Sổ Tay Kỷ Luật',
-      short_name: 'Life RPG',
-      start_url: './index.html',
-      display: 'standalone',
-      background_color: '#f1f5f9',
-      theme_color: appState.ui.primary || '#2563eb'
-    };
-    const blob = new Blob([JSON.stringify(manifest)], { type: 'application/manifest+json' });
-    const link = document.createElement('link');
-    link.rel = 'manifest';
-    link.href = URL.createObjectURL(blob);
-    document.head.appendChild(link);
-  } catch (e) {}
-}
-
-window.addEventListener('DOMContentLoaded', async () => {
-  loadState();
-  setupDynamicManifest();
-
-  const today = getTodayISO();
-  document.getElementById('taskDueDate').value = today;
-  document.getElementById('cdDate').value = today;
-  document.getElementById('mkDate').value = today;
-  document.getElementById('schDate').value = today;
-  document.getElementById('expDate').value = today;
-  document.getElementById('expMonthFilter').value = today.slice(0, 7);
-
-  processExpiredWeekendPenalties();
-  await applySavedAppearance();
-  updateAllHeaderAndRPG();
-  populateScheduleTaskSelect();
-
-  setInterval(checkActiveReminders, 30000);
-});
-</script>
-</body>
-</html>
+    fix = 'Áp dụng quy tắc 2 phút: Bắt tay làm ngay
