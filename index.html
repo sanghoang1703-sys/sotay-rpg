@@ -39,7 +39,6 @@
   --bg-overlay: rgba(15, 23, 42, 0.65);
 }
 
-/* Chế độ Khối Pixel kiểu Minecraft - Đồng bộ toàn bộ Card, Cẩm nang, AI Box & Chữ */
 [data-style="minecraft"] {
   --bg: #2b2b2b;
   --card-bg: #c6c6c6;
@@ -117,17 +116,9 @@
   background: #52a535 !important;
 }
 
-[data-style="minecraft"] .btn-danger {
-  background: #b71c1c !important;
-}
-
-[data-style="minecraft"] .btn-purple {
-  background: #6a1b9a !important;
-}
-
-[data-style="minecraft"] .btn-warn {
-  background: #e65100 !important;
-}
+[data-style="minecraft"] .btn-danger { background: #b71c1c !important; }
+[data-style="minecraft"] .btn-purple { background: #6a1b9a !important; }
+[data-style="minecraft"] .btn-warn { background: #e65100 !important; }
 
 [data-style="minecraft"] input,
 [data-style="minecraft"] select,
@@ -176,7 +167,7 @@ html, body {
 }
 
 /* =========================================================================
-   2. HEADER 2 TẦNG CỐ ĐỊNH Ở ĐẦU TRANG (TRẠNG THÁI + DẢI TAB NGANG KIỂU 1)
+   2. HEADER 2 TẦNG CỐ ĐỊNH Ở ĐẦU TRANG
    ========================================================================= */
 #topHeader {
   position: fixed;
@@ -254,14 +245,8 @@ html, body {
   scrollbar-width: thin;
 }
 
-#topNav::-webkit-scrollbar {
-  height: 4px;
-}
-
-#topNav::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 3px;
-}
+#topNav::-webkit-scrollbar { height: 4px; }
+#topNav::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
 .nav-btn {
   flex: 0 0 auto;
@@ -286,7 +271,7 @@ html, body {
 }
 
 /* =========================================================================
-   3. KHUNG NỘI DUNG & COMPONENT DÙNG CHUNG (ĐỒNG BỘ MÀU CHỮ & CỠ CHỮ)
+   3. KHUNG NỘI DUNG & COMPONENT DÙNG CHUNG
    ========================================================================= */
 #mainContainer {
   max-width: 920px;
@@ -294,13 +279,8 @@ html, body {
   padding: 112px 10px 40px 10px;
 }
 
-.tab-pane {
-  display: none;
-}
-
-.tab-pane.active {
-  display: block;
-}
+.tab-pane { display: none; }
+.tab-pane.active { display: block; }
 
 .banner {
   padding: 9px 12px;
@@ -313,17 +293,12 @@ html, body {
   gap: 8px;
   border: 1px solid transparent;
   color: var(--text);
+  flex-wrap: wrap;
 }
 
-.banner-warn {
-  background: rgba(217, 119, 6, 0.16);
-  border-color: var(--warning);
-}
-
-.banner-danger {
-  background: rgba(220, 38, 38, 0.16);
-  border-color: var(--danger);
-}
+.banner-warn { background: rgba(217, 119, 6, 0.16); border-color: var(--warning); }
+.banner-danger { background: rgba(220, 38, 38, 0.16); border-color: var(--danger); }
+.banner-purple { background: rgba(124, 58, 237, 0.14); border-color: var(--purple); }
 
 .card {
   background: var(--card-bg);
@@ -447,7 +422,6 @@ textarea {
 .badge-purple { background: rgba(124,58,237,0.16); color: var(--purple); }
 .badge-blue { background: rgba(37,99,235,0.16); color: var(--primary); }
 
-/* Hệ thống Bảng Level RPG */
 .rpg-master-box {
   background: var(--sub-bg);
   border: 2px solid var(--primary);
@@ -490,7 +464,6 @@ textarea {
   transition: width 0.25s;
 }
 
-/* Cẩm nang hướng dẫn & AI Box - Đồng bộ biến màu chữ và cỡ chữ */
 .manual-section {
   border-left: 3px solid var(--primary);
   padding-left: 10px;
@@ -571,7 +544,6 @@ textarea {
   color: var(--text);
 }
 
-/* Lịch tháng */
 .cal-header {
   display: flex;
   justify-content: space-between;
@@ -642,6 +614,13 @@ textarea {
   padding: 14px 8px;
   font-size: 0.88rem;
 }
+
+.quick-chip-bar {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
 </style>
 </head>
 <body>
@@ -677,7 +656,7 @@ textarea {
     </div>
   </div>
 
-  <!-- Tầng 2: Dải nút ngang chọn trang (1 Trang Chính + 10 Trang Chức Năng) -->
+  <!-- Tầng 2: Dải nút ngang chọn trang -->
   <nav id="topNav">
     <button class="nav-btn active" data-tab="tab-home" onclick="switchTab('tab-home')">🏠 Trang Chính</button>
     <button class="nav-btn" data-tab="tab-tasks" onclick="switchTab('tab-tasks')">☑️ 1. Nhiệm vụ</button>
@@ -695,10 +674,10 @@ textarea {
 
 <!-- KHUNG NỘI DUNG CHÍNH -->
 <main id="mainContainer">
-  <!-- Khu vực hiển thị Banner cảnh báo -->
+  <!-- Khu vực hiển thị Banner cảnh báo & Hỏi lại lỗi sai hôm qua -->
   <div id="alertArea"></div>
 
-  <!-- ================= TRANG 0: 🏠 TRANG CHÍNH (LEVEL, CẨM NANG & AI NỘI BỘ) ================= -->
+  <!-- ================= TRANG 0: 🏠 TRANG CHÍNH (LEVEL, CẨM NANG & TRỢ LÝ) ================= -->
   <section id="tab-home" class="tab-pane active">
     <!-- Khung 1: Bảng Level RPG & Nút bật Cẩm Nang Tân Thủ -->
     <div class="card">
@@ -710,7 +689,7 @@ textarea {
         </div>
       </div>
 
-      <!-- Khung Cẩm Nang Tân Thủ (Đồng bộ 100% chế độ Sáng / Tối / Minecraft & Cỡ chữ) -->
+      <!-- Khung Cẩm Nang Tân Thủ -->
       <div id="manualBox" class="sub-panel" style="display:none;">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;border-bottom:1px solid var(--border);padding-bottom:6px;">
           <strong style="font-size:1em;color:var(--primary);">📖 CẨM NANG TÂN THỦ - CƠ CHẾ VẬN HÀNH LIFE RPG</strong>
@@ -720,31 +699,33 @@ textarea {
         <div class="manual-section">
           <h4>1. Cơ chế Điểm EXP, Điểm Kiên Trì (💎) & Level Kỷ Luật</h4>
           <ul>
-            <li><strong>3 Chỉ số gốc (💪 Thể lực, 🧠 Trí tuệ, ❤️ Sức khỏe):</strong> Bắt đầu từ <strong>Lv.1</strong>. Mỗi lần hoàn thành 1 đơn vị nhiệm vụ thuộc nhóm nào sẽ cộng <strong>+1 EXP</strong> vào thanh đó VÀ <strong>+1 💎 Điểm Kiên Trì</strong> vào ví. Độ khó lên cấp <strong>nhân đôi (x2) EXP</strong> sau mỗi Level (Lv.1 lên Lv.2 cần <strong>50 EXP</strong>; Lv.2 lên Lv.3 cần <strong>100 EXP</strong>; Lv.3 lên Lv.4 cần <strong>200 EXP</strong>; Lv.4 lên Lv.5 cần <strong>400 EXP</strong>...).</li>
-            <li><strong>🛡️ Level Kỷ Luật (Thanh Tổng Thể) & Đổi Tiền:</strong> Chỉ lên cấp khi <strong>cả 3 thanh thành phần đều đã đạt tới cấp độ đó</strong>. Level Kỷ Luật quyết định tỷ giá đổi Điểm Kiên Trì ra tiền được phép tiêu theo công thức tăng đều: <strong>1 💎 = [Level Kỷ Luật] x 1.000đ</strong> (Lv.1 = 1.000đ, Lv.2 = 2.000đ, Lv.3 = 3.000đ, Lv.4 = 4.000đ...).</li>
+            <li><strong>3 Chỉ số gốc (💪 Thể lực, 🧠 Trí tuệ, ❤️ Sức khỏe):</strong> Bắt đầu từ <strong>Lv.1</strong>. Mỗi lần hoàn thành 1 đơn vị nhiệm vụ thuộc nhóm nào sẽ cộng <strong>+1 EXP</strong> vào thanh đó VÀ <strong>+1 💎 Điểm Kiên Trì</strong> vào ví. Độ khó lên cấp <strong>nhân đôi (x2) EXP</strong> sau mỗi Level (Lv.1 lên Lv.2 cần <strong>50 EXP</strong>; Lv.2 lên Lv.3 cần <strong>100 EXP</strong>; Lv.3 lên Lv.4 cần <strong>200 EXP</strong>...).</li>
+            <li><strong>🛡️ Level Kỷ Luật (Thanh Tổng Thể) & Đổi Tiền:</strong> Chỉ lên cấp khi <strong>cả 3 thanh thành phần đều đã đạt tới cấp độ đó</strong>. Level Kỷ Luật quyết định tỷ giá đổi Điểm Kiên Trì ra tiền được phép tiêu theo công thức tăng đều: <strong>1 💎 = [Level Kỷ Luật] x 1.000đ</strong> (Lv.1 = 1.000đ, Lv.2 = 2.000đ, Lv.3 = 3.000đ...).</li>
           </ul>
         </div>
 
         <div class="manual-section">
-          <h4>2. Cơ chế Nhiệm vụ, Stack & Chế độ Hardcore</h4>
+          <h4>2. Cơ chế Nhiệm vụ, Stack, Khẩn cấp & Luật Xoá Nhiệm Vụ</h4>
           <ul>
-            <li><strong>📦 Stack nhiệm vụ (Gộp hiệp):</strong> Thay vì viết 10 dòng rời rạc, hãy nhập số hiệp vào ô <strong>Số lượng Stack</strong> (VD: <em>"Hít đất 13 cái"</em> với Stack = 10). Mỗi hiệp tập xong bấm nút <strong>[+1]</strong> sẽ cộng ngay 1 EXP & 1 💎; hoặc ấn ô <strong>[✓]</strong> để hoàn thành cả cụm.</li>
-            <li><strong>🔥 Muốn chơi hệ Hardcore (Khắc nghiệt):</strong> Hãy tạo nhiều đầu việc hoặc đặt Stack cao mỗi ngày, đồng thời tham gia <strong>Nhiệm vụ Vượt Cấp Cuối Tuần (Thứ 7 & Chủ Nhật)</strong>. Khi bấm <em>"Đồng ý nhận"</em> và hoàn thành trong cuối tuần sẽ được <strong>nhân đôi (x2) EXP & x2 💎</strong>; nhưng nếu hết Chủ Nhật không xong sẽ bị <strong>phạt trừ EXP</strong> (-1 EXP với Thể lực/Sức khỏe, -2 EXP với Trí tuệ).</li>
+            <li><strong>📦 Stack nhiệm vụ (Gộp hiệp):</strong> Nhập số hiệp vào ô <strong>Số lượng Stack</strong> (VD: <em>"Hít đất 13 cái"</em> với Stack = 10). Mỗi hiệp tập xong bấm nút <strong>[+1]</strong> sẽ cộng ngay 1 EXP & 1 💎; hoặc ấn ô <strong>[✓]</strong> để hoàn thành cả cụm.</li>
+            <li><strong>🚨 Chế độ Khẩn Cấp (Giảm 50% phạt):</strong> Khi bận việc đột xuất ngoài ý muốn, bạn có thể bật trạng thái <strong>"🚨 Khẩn cấp"</strong> trên nhiệm vụ. Nếu nhiệm vụ đó không hoàn thành, bạn chỉ bị <strong>trừ 50% điểm phạt</strong> thay vì trừ đủ 100%.</li>
+            <li><strong>⚠️ Luật Xoá Nhiệm Vụ Khắc Nghiệt:</strong> Khi bấm Xoá một nhiệm vụ chưa xong, bạn bắt buộc phải ghi rõ lý do chính đáng. <strong>Nếu không nhập lý do, hệ thống sẽ lập tức RESET TOÀN BỘ LEVEL VỀ LV.1!</strong></li>
+            <li><strong>🔥 Nhiệm vụ Vượt Cấp Cuối Tuần (Thứ 7 & Chủ Nhật):</strong> Hoàn thành trong cuối tuần được <strong>x2 EXP & x2 💎</strong>; nếu thất bại bị trừ điểm (-1 EXP Thể lực/Sức khỏe, -2 EXP Trí tuệ; nếu bật Khẩn cấp chỉ trừ 50%).</li>
           </ul>
         </div>
 
         <div class="manual-section">
           <h4>3. Điểm danh hằng ngày & Đếm ngày (Countdown)</h4>
           <ul>
-            <li><strong>🔥 Điểm danh:</strong> Mỗi ngày vào bấm Điểm danh 1 lần để duy trì chuỗi ngày kỷ luật liên tiếp (Streak) và phá kỷ lục cá nhân.</li>
-            <li><strong>⏳ Đếm ngày:</strong> Ghim các sự kiện quan trọng sắp tới hoặc đã qua (VD: Kỳ thi tốt nghiệp, Ngày bắt đầu rèn luyện) để hệ thống tự đếm <strong>Còn X ngày</strong> hoặc <strong>Đã qua X ngày</strong>.</li>
+            <li><strong>🔥 Điểm danh:</strong> Mỗi ngày vào bấm Điểm danh 1 lần để duy trì chuỗi ngày kỷ luật liên tiếp (Streak).</li>
+            <li><strong>⏳ Đếm ngày:</strong> Ghim các sự kiện quan trọng (VD: Kỳ thi tốt nghiệp) hoặc gõ thẳng vào khung chat Trợ Lý: <code>Đếm ngày: Thi học kỳ 25/12/2026</code>.</li>
           </ul>
         </div>
 
         <div class="manual-section">
           <h4>4. Mục tiêu (Tuần / Tháng / Năm) & Ví dụ thực tế</h4>
           <ul>
-            <li>Kéo thanh tiến độ từ <strong>0% đến 100%</strong>. Khi bước sang kỳ mới, mục tiêu kỳ cũ tự chuyển xuống bảng Lịch sử. Nếu chưa đạt 100%, hệ thống báo đỏ bắt buộc bạn thực hiện <strong>Hình phạt đã tự ghi</strong>.</li>
+            <li>Kéo thanh tiến độ từ <strong>0% đến 100%</strong> hoặc nhờ Trợ Lý ghi giúp qua chat. Khi bước sang kỳ mới, nếu mục tiêu cũ chưa đạt 100%, hệ thống báo đỏ bắt buộc bạn thực hiện <strong>Hình phạt đã tự ghi</strong>.</li>
             <li><strong>Ví dụ Mục tiêu Tuần:</strong> <em>"Giải xong 5 đề ôn tập & chạy bộ đủ 15km"</em> — Hình phạt: <em>Hít đất 100 cái + Nhịn đồ ngọt cả tuần sau</em>.</li>
             <li><strong>Ví dụ Mục tiêu Tháng:</strong> <em>"Thuộc 400 từ vựng tiếng Anh & ngủ trước 23h đủ 25 ngày"</em> — Hình phạt: <em>Khoá toàn bộ chi tiêu giải trí trong 10 ngày</em>.</li>
             <li><strong>Ví dụ Mục tiêu Năm:</strong> <em>"Đạt điểm tổng kết loại Giỏi & tiết kiệm đủ 15.000.000đ trong Két"</em> — Hình phạt: <em>Cắt toàn bộ ngân sách mua sắm cá nhân quý đầu năm sau</em>.</li>
@@ -752,20 +733,18 @@ textarea {
         </div>
 
         <div class="manual-section">
-          <h4>5. Ghi lỗi sai hôm nay (Ví dụ phản tỉnh 4 bước)</h4>
+          <h4>5. Ghi lỗi sai & Cơ chế Trợ Lý hỏi lại vào ngày hôm sau</h4>
           <ul>
-            <li><strong>1. Chuyện đã xảy ra:</strong> <em>Thức tới 2h sáng lướt điện thoại làm sáng nay dậy muộn, bỏ tập thể dục.</em></li>
-            <li><strong>2. Nguyên nhân:</strong> <em>Đặt điện thoại ngay đầu giường khi đi ngủ và không bật chế độ im lặng.</em></li>
-            <li><strong>3. Bài học:</strong> <em>Ý chí buổi tối rất yếu, không thể thắng được cám dỗ nếu cầm điện thoại trên tay.</em></li>
-            <li><strong>4. Cách sửa:</strong> <em>Từ 22h30 tối nay cắm sạc điện thoại ở bàn học cách xa giường 3 mét.</em></li>
+            <li>Ghi 4 mục: <em>1. Chuyện đã xảy ra ➔ 2. Nguyên nhân ➔ 3. Bài học ➔ 4. Cách sửa</em> (hoặc gõ nhanh vào Trợ Lý: <code>Lỗi sai: Thức khuya lướt điện thoại</code>).</li>
+            <li><strong>Hỏi lại ngày hôm sau:</strong> Sang ngày hôm sau, <strong>🤖 Trợ Lý</strong> sẽ tự động hỏi bạn: <em>"Hôm nay bạn có lặp lại lỗi sai của ngày hôm qua không?"</em>. Nếu giữ kỷ luật không tái phạm sẽ được thưởng <strong>+2 💎</strong>; nếu tái phạm sẽ tự động tạo nhiệm vụ phạt khắc phục ngay!</li>
           </ul>
         </div>
 
         <div class="manual-section">
           <h4>6. Thời gian biểu 4 buổi & Lịch tháng tổng hợp</h4>
           <ul>
-            <li><strong>🕒 Thời gian biểu:</strong> Chia 4 buổi (Sáng / Trưa / Chiều / Tối). Dùng ô <strong>🔍 Tìm nhiệm vụ</strong> để bốc nhiệm vụ có sẵn thả vào từng buổi (bấm +1 Stack hoặc tick ở Thời gian biểu cũng tự cộng EXP & 💎), hoặc bấm <em>"Chép lịch hôm qua sang hôm nay"</em>.</li>
-            <li><strong>📅 Lịch tháng:</strong> Hiển thị chấm màu tổng hợp (Nhiệm vụ, Đếm ngày, Điểm danh). Bấm vào ngày bất kỳ để xem chi tiết và thêm nhanh việc mới.</li>
+            <li><strong>🕒 Thời gian biểu:</strong> Chia 4 buổi (Sáng / Trưa / Chiều / Tối). Nếu hôm nay để trống, Trợ Lý sẽ nhắc nhở bạn lập lịch ngay.</li>
+            <li><strong>📅 Lịch tháng:</strong> Hiển thị chấm màu tổng hợp (Nhiệm vụ, Đếm ngày, Điểm danh).</li>
           </ul>
         </div>
 
@@ -773,9 +752,8 @@ textarea {
           <h4>7. Chi tiêu, Quỹ Khoá - Quỹ Tiêu Được & Vay Khẩn Cấp (Lãi 20%/ngày)</h4>
           <ul>
             <li><strong>🔒 Quỹ Trong Két (Tiền đang khoá):</strong> Nhập tổng số tiền thật bạn đang có (VD: 5.000.000đ). Tiền này bị khoá lại, không được tự ý lấy tiêu.</li>
-            <li><strong>🔓 Quỹ Được Phép Tiêu (Mặc định 0đ):</strong> Muốn có tiền tiêu phải lấy <strong>💎 Điểm Kiên Trì</strong> để đổi. Đổi bao nhiêu hệ thống sẽ <strong>trừ trực tiếp từ Quỹ Trong Két đem cộng sang Quỹ Được Phép Tiêu</strong>. Mọi khoản chi hằng ngày sẽ trừ vào Quỹ Được Phép Tiêu.</li>
-            <li><strong>🚨 Vay Khẩn Cấp (Lãi phạt 20%/ngày):</strong> Rút ứng trước tiền từ Két sang Quỹ Được Tiêu khi có việc gấp. Số tiền vay quy ra nợ gốc 💎 và cộng thêm <strong>+20% lãi/ngày</strong> cho đến khi bạn cày nhiệm vụ lấy 💎 trả hết nợ.</li>
-            <li><strong>📊 Ngân sách & Biểu đồ:</strong> Đặt trần chi tiêu tháng (vượt sẽ báo đỏ) và xem biểu đồ tròn phân tích tỷ lệ chi tiêu theo danh mục.</li>
+            <li><strong>🔓 Quỹ Được Phép Tiêu (Mặc định 0đ):</strong> Dùng <strong>💎 Điểm Kiên Trì</strong> để đổi mở khoá tiền từ Két sang Quỹ Được Phép Tiêu.</li>
+            <li><strong>🚨 Vay Khẩn Cấp (Lãi phạt 20%/ngày):</strong> Rút ứng trước tiền từ Két sang Quỹ Được Tiêu khi có việc gấp, chịu lãi phạt <strong>+20% nợ gốc/ngày</strong> bằng 💎.</li>
           </ul>
         </div>
       </div>
@@ -803,7 +781,7 @@ textarea {
         </div>
       </div>
 
-      <!-- 3 Thanh Level thành phần: Thể lực, Trí tuệ, Sức khỏe (x2 EXP mỗi cấp) -->
+      <!-- 3 Thanh Level thành phần -->
       <div class="rpg-stat-grid">
         <div class="rpg-stat-card">
           <div style="display:flex;justify-content:space-between;font-weight:700;">
@@ -843,27 +821,44 @@ textarea {
       </div>
     </div>
 
-    <!-- Khung 2: HỆ THỐNG AI NỘI BỘ (CHẠY 100% OFFLINE KHÔNG CẦN KEY) -->
+    <!-- Khung 2: 🤖 TRỢ LÝ ĐA NĂNG (KIỂM TRA LỖI HÔM QUA, NHẮC THỜI GIAN BIỂU, GHI MỤC TIÊU/ĐẾM NGÀY/QUỸ) -->
     <div class="card" style="border:2px solid var(--purple);">
       <div class="card-title">
-        <span>🤖 Quân Sư Hệ Thống AI Nội Bộ (Offline 100%)</span>
-        <button class="btn btn-sm btn-purple" onclick="runInternalAIAnalysis()">🔍 Phân tích trạng thái & Gợi ý nhiệm vụ</button>
-      </div>
-
-      <!-- Kết quả phân tích trạng thái & Nút nhận nhiệm vụ gợi ý 1 chạm -->
-      <div id="aiAnalysisOutput" class="ai-box">
-        Bấm nút <strong>"🔍 Phân tích trạng thái & Gợi ý nhiệm vụ"</strong> ở góc phải để Hệ Thống AI quét chỉ số đang thiếu hụt của bạn và đề xuất nhiệm vụ cân bằng Level Kỷ Luật!
-      </div>
-
-      <!-- Ô nhập lệnh nhanh bằng câu tiếng Việt tự nhiên -->
-      <div style="margin-top:10px;">
-        <label style="color:var(--purple);font-weight:700;">⚡ Nhập lệnh nhanh bằng tiếng Việt (Tự tạo nhiệm vụ Stack hoặc ghi Thu/Chi):</label>
-        <div style="display:flex;gap:6px;margin-top:4px;">
-          <input type="text" id="aiCmdInput" placeholder="VD: Hít đất 13 cái 5 hiệp thể lực | hoặc: Chi 30k ăn sáng" onkeydown="if(event.key==='Enter') executeAICommand()">
-          <button class="btn btn-purple" onclick="executeAICommand()" style="white-space:nowrap;">⚡ Thực thi</button>
+        <span>🤖 Trợ Lý (Điều khiển toàn diện & Kiểm tra kỷ luật)</span>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <button class="btn btn-sm btn-purple" onclick="runAssistantFullCheck()">🔍 Kiểm tra tổng quát hôm nay</button>
+          <button class="btn btn-sm btn-outline" onclick="showAssistantFundGuide()">💰 Hướng dẫn Quỹ</button>
         </div>
-        <div id="aiCmdFeedback" style="font-size:0.84em;margin-top:5px;color:var(--text-muted);">
-          <em>Mẹo gõ nhanh:</em> Gõ <strong>"Học từ vựng 4 hiệp trí tuệ"</strong> (Tự tạo nhiệm vụ Stack 0/4 hệ Trí tuệ) hoặc <strong>"Chi 25k ăn bún"</strong> (Tự trừ 25.000đ Quỹ Được Tiêu).
+      </div>
+
+      <!-- Khung hỏi lại lỗi sai ngày hôm qua (Tự động hiện nếu hôm qua có ghi lỗi sai) -->
+      <div id="yesterdayMistakeFollowUpBox"></div>
+
+      <!-- Kết quả phân tích trạng thái của Trợ Lý -->
+      <div id="aiAnalysisOutput" class="ai-box">
+        Xin chào! Tôi là <strong>🤖 Trợ Lý</strong> của bạn. Hãy bấm <strong>"🔍 Kiểm tra tổng quát hôm nay"</strong> hoặc dùng khung chat bên dưới để ghi nhanh <em>Nhiệm vụ, Mục tiêu, Lỗi sai, Đếm ngày, Chi tiêu</em> và xem <em>Hướng dẫn Quỹ</em>!
+      </div>
+
+      <!-- Ô nhập lệnh đa năng bằng tiếng Việt -->
+      <div style="margin-top:10px;">
+        <label style="color:var(--purple);font-weight:700;">💬 Chat giao việc cho Trợ Lý (Tự động phân loại vào đúng trang):</label>
+        <div style="display:flex;gap:6px;margin-top:4px;">
+          <input type="text" id="aiCmdInput" placeholder="Gõ lệnh (VD: Mục tiêu tuần: Giải 5 đề | Lỗi sai: Ngủ muộn | Đếm ngày: Thi 25/12/2026)..." onkeydown="if(event.key==='Enter') executeAICommand()">
+          <button class="btn btn-purple" onclick="executeAICommand()" style="white-space:nowrap;">⚡ Gửi</button>
+        </div>
+
+        <!-- Nút điền mẫu lệnh 1 chạm -->
+        <div class="quick-chip-bar">
+          <button class="btn btn-sm btn-outline" onclick="fillAssistantSample('Nhiệm vụ: Hít đất 15 cái 5 hiệp thể lực')">+ Mẫu Nhiệm vụ</button>
+          <button class="btn btn-sm btn-outline" onclick="fillAssistantSample('Mục tiêu tuần: Giải xong 5 đề thi | Phạt: Hít đất 100 cái')">+ Mẫu Mục tiêu</button>
+          <button class="btn btn-sm btn-outline" onclick="fillAssistantSample('Lỗi sai: Thức khuya tới 1h sáng lướt điện thoại')">+ Mẫu Lỗi sai</button>
+          <button class="btn btn-sm btn-outline" onclick="fillAssistantSample('Đếm ngày: Kỳ thi quan trọng 25/12/2026')">+ Mẫu Đếm ngày</button>
+          <button class="btn btn-sm btn-outline" onclick="fillAssistantSample('Chi 30k ăn sáng')">+ Mẫu Chi tiêu</button>
+          <button class="btn btn-sm btn-outline" onclick="showAssistantFundGuide()">❓ Hỏi về Quỹ</button>
+        </div>
+
+        <div id="aiCmdFeedback" style="font-size:0.84em;margin-top:6px;color:var(--text-muted);">
+          Trợ Lý hiểu được: <strong>Nhiệm vụ</strong>, <strong>Mục tiêu (tuần/tháng/năm)</strong>, <strong>Lỗi sai</strong>, <strong>Đếm ngày (dd/mm/yyyy)</strong>, <strong>Thu/Chi tiền</strong> và <strong>Hướng dẫn Quỹ</strong>.
         </div>
       </div>
     </div>
@@ -881,11 +876,11 @@ textarea {
     </div>
   </section>
 
-  <!-- ================= TRANG 1: ☑️ NHIỆM VỤ (STACK + VƯỢT CẤP CUỐI TUẦN) ================= -->
+  <!-- ================= TRANG 1: ☑️ NHIỆM VỤ (STACK + KHẨN CẤP GIẢM 50% PHẠT + LUẬT XOÁ) ================= -->
   <section id="tab-tasks" class="tab-pane">
     <div class="card">
       <div class="card-title">
-        <span id="taskFormTitle">Tạo nhiệm vụ mới (Có hỗ trợ Stack)</span>
+        <span id="taskFormTitle">Tạo nhiệm vụ mới (Hỗ trợ Stack & Chế độ Khẩn cấp)</span>
         <button class="btn btn-sm btn-outline" id="btnCancelEditTask" style="display:none;" onclick="resetTaskForm()">Huỷ sửa</button>
       </div>
       <input type="hidden" id="taskEditId">
@@ -925,9 +920,17 @@ textarea {
           <label>Giờ nhắc (Tuỳ chọn)</label>
           <input type="time" id="taskRemindTime">
         </div>
-        <div style="display:flex;align-items:flex-end;">
-          <button class="btn btn-block" onclick="saveTask()">💾 Lưu nhiệm vụ</button>
+        <div>
+          <label>🚨 Trạng thái Khẩn cấp (Giảm 50% phạt)</label>
+          <select id="taskIsEmergency">
+            <option value="no">Bình thường (Phạt 100% nếu bỏ)</option>
+            <option value="yes">🚨 Khẩn cấp / Bận đột xuất (Chỉ trừ 50%)</option>
+          </select>
         </div>
+      </div>
+      <button class="btn btn-block" onclick="saveTask()">💾 Lưu nhiệm vụ</button>
+      <div style="font-size:0.8em;color:var(--danger);margin-top:6px;">
+        ⚠️ <strong>Quy tắc Kỷ Luật Thép:</strong> Khi bấm <strong>Xoá</strong> nhiệm vụ, bạn bắt buộc phải nhập lý do chính đáng. Nếu xoá không lý do sẽ bị <strong>RESET TOÀN BỘ LEVEL VỀ LV.1</strong>! Nếu không hoàn thành nhiệm vụ có thể bấm <strong>"Không hoàn thành"</strong> (Bật <em>🚨 Khẩn cấp</em> sẽ được giảm 50% điểm phạt).
       </div>
     </div>
 
@@ -938,7 +941,7 @@ textarea {
         <span class="badge badge-medium" id="wkStatusBadge">Đang kiểm tra</span>
       </div>
       <p style="font-size:0.86em;color:var(--text-muted);margin-bottom:8px;">
-        Khi bấm <strong>"Đồng ý nhận"</strong> và hoàn thành trong cuối tuần: <strong>Nhân đôi (x2) EXP & x2 💎 Điểm Kiên Trì</strong>. Nếu đã đồng ý nhận mà hết Chủ Nhật không hoàn thành: Tự động phạt trừ <strong>-1 EXP (Thể lực/Sức khỏe)</strong> hoặc <strong>-2 EXP (Trí tuệ)</strong> cho mỗi nhiệm vụ thất bại!
+        Khi bấm <strong>"Đồng ý nhận"</strong> và hoàn thành trong cuối tuần: <strong>Nhân đôi (x2) EXP & x2 💎 Điểm Kiên Trì</strong>. Nếu hết Chủ Nhật không hoàn thành: Tự động phạt trừ <strong>-1 EXP (Thể lực/Sức khỏe)</strong> hoặc <strong>-2 EXP (Trí tuệ)</strong> (Nếu bật <strong>🚨 Khẩn cấp</strong> thì chỉ bị trừ <strong>50% điểm phạt</strong>)!
       </p>
       <div class="form-row-3">
         <div>
@@ -976,6 +979,12 @@ textarea {
         </select>
       </div>
       <div id="taskList"></div>
+    </div>
+
+    <!-- Lịch sử lý do xoá nhiệm vụ -->
+    <div class="card">
+      <div class="card-title">📜 Nhật ký lý do xoá nhiệm vụ (Giám sát kỷ luật)</div>
+      <div id="deletedTaskLogsList"></div>
     </div>
   </section>
 
@@ -1078,12 +1087,15 @@ textarea {
     </div>
   </section>
 
-  <!-- ================= TRANG 5: 📓 GHI LỖI SAI HÔM NAY (+ AI BẮT BỆNH) ================= -->
+  <!-- ================= TRANG 5: 📓 GHI LỖI SAI HÔM NAY (+ TRỢ LÝ BẮT BỆNH & HỎI LẠI HÔM SAU) ================= -->
   <section id="tab-mistakes" class="tab-pane">
+    <!-- Khung hỏi lại lỗi sai hôm qua ngay trong tab Lỗi sai -->
+    <div id="mistakeTabFollowUpBox"></div>
+
     <div class="card">
       <div class="card-title">
         <span>Ghi nhận lỗi sai & Bài học rút kinh nghiệm</span>
-        <button class="btn btn-sm btn-purple" onclick="aiAnalyzeMistakeInput()">🤖 AI Bắt Bệnh & Đề Xuất Cách Sửa</button>
+        <button class="btn btn-sm btn-purple" onclick="aiAnalyzeMistakeInput()">🤖 Trợ Lý Bắt Bệnh & Đề Xuất Cách Sửa</button>
       </div>
       <div class="form-group">
         <label>Ngày xảy ra</label>
@@ -1091,7 +1103,7 @@ textarea {
       </div>
       <div class="form-row">
         <div>
-          <label>1. Chuyện gì đã xảy ra? * (Gõ xong bấm nút 🤖 AI ở trên để tự gợi ý)</label>
+          <label>1. Chuyện gì đã xảy ra? * (Gõ xong bấm nút 🤖 Trợ Lý ở trên để tự gợi ý)</label>
           <textarea id="mkWhat" placeholder="VD: Thức khuya tới 2h sáng lướt điện thoại làm dậy muộn..."></textarea>
         </div>
         <div>
@@ -1226,13 +1238,27 @@ textarea {
     </div>
   </section>
 
-  <!-- ================= TRANG 8: 💰 CHI TIÊU, KHOÁ QUỸ & VAY LÃI 20%/NGÀY (+ AI GÁC CỔNG) ================= -->
+  <!-- ================= TRANG 8: 💰 CHI TIÊU, KHOÁ QUỸ & VAY LÃI 20%/NGÀY (+ TRỢ LÝ HƯỚNG DẪN) ================= -->
   <section id="tab-expenses" class="tab-pane">
-    <!-- Khu vực 1: Hệ thống 2 Quỹ (Quỹ Trong Két & Quỹ Được Phép Tiêu) + Đổi Điểm Kiên Trì -->
+    <!-- Khu vực 1: Hệ thống 2 Quỹ + Hướng dẫn trực tiếp -->
     <div class="card" style="border:2px solid var(--purple);">
       <div class="card-title">
         <span>🏦 Hệ Thống Khoá Quỹ & Đổi Điểm Kiên Trì</span>
-        <span class="badge badge-purple" id="expRateBadge">Lv.1 Kỷ Luật: 1 💎 = 1.000đ</span>
+        <div style="display:flex;gap:6px;align-items:center;">
+          <span class="badge badge-purple" id="expRateBadge">Lv.1 Kỷ Luật: 1 💎 = 1.000đ</span>
+          <button class="btn btn-sm btn-outline" onclick="toggleFundGuideInTab()">❓ Hướng dẫn Quỹ</button>
+        </div>
+      </div>
+
+      <!-- Hộp hướng dẫn sử dụng Quỹ chi tiết -->
+      <div id="fundGuideBox" class="sub-panel" style="display:none;">
+        <strong style="color:var(--purple);">🤖 Trợ Lý Hướng Dẫn Cơ Chế Quản Lý Quỹ Kỷ Luật:</strong>
+        <ul style="padding-left:18px;margin-top:6px;font-size:0.9em;line-height:1.5;">
+          <li><strong>Bước 1 — Nhập Quỹ Trong Két (🔒 Tiền khoá):</strong> Nhập số tiền thật bạn đang có vào ô <em>"Cập nhật số tiền thực có trong Két"</em> (VD: <code>5000000</code>) rồi bấm <strong>Ghi nhận Két</strong>. Số tiền này bị khoá lại để chống tiêu hoang.</li>
+          <li><strong>Bước 2 — Cày Nhiệm vụ lấy 💎 Điểm Kiên Trì:</strong> Mỗi hiệp nhiệm vụ hoàn thành giúp bạn nhận <code>+1 💎</code>.</li>
+          <li><strong>Bước 3 — Đổi 💎 mở khoá sang Quỹ Được Phép Tiêu (🔓):</strong> Nhập số 💎 muốn đổi rồi bấm <strong>Đổi ra tiền</strong>. Hệ thống sẽ trừ tiền ở <em>Quỹ Trong Két</em> đem cộng sang <em>Quỹ Được Phép Tiêu</em> theo tỷ giá Level Kỷ Luật (<code>Lv.1 = 1.000đ/💎</code>, <code>Lv.2 = 2.000đ/💎</code>...).</li>
+          <li><strong>Bước 4 — Ghi Chi Tiêu & Vay Khẩn Cấp (🚨):</strong> Khi bạn ghi một <em>Khoản Chi</em>, tiền sẽ trừ vào <strong>Quỹ Được Phép Tiêu</strong>. Nếu có việc gấp mà chưa đủ 💎, bạn dùng mục <em>Vay Khẩn Cấp</em> bên dưới để ứng trước tiền từ Két (nhưng phải trả lãi phạt <strong>+20% nợ gốc/ngày</strong> bằng 💎).</li>
+        </ul>
       </div>
 
       <div class="form-row-3" style="text-align:center;">
@@ -1268,13 +1294,13 @@ textarea {
       </div>
     </div>
 
-    <!-- Khu vực 2: Vay Khẩn Cấp (Có AI Nội Bộ Gác Cổng kiểm duyệt lý do) -->
+    <!-- Khu vực 2: Vay Khẩn Cấp -->
     <div class="card" style="border:1px solid var(--danger);">
       <div class="card-title">
-        <span>🚨 Vay Khẩn Cấp Từ Quỹ Két (Lãi phạt 20%/ngày - Có 🤖 AI Gác Cổng)</span>
+        <span>🚨 Vay Khẩn Cấp Từ Quỹ Két (Lãi phạt 20%/ngày - Có 🤖 Trợ Lý Gác Cổng)</span>
       </div>
       <p style="font-size:0.84em;color:var(--text-muted);margin-bottom:8px;">
-        Khi khẩn cấp, tiền rút từ <strong>Quỹ Trong Két</strong> chuyển sang <strong>Quỹ Được Phép Tiêu</strong>. Nợ gốc quy ra 💎 theo tỷ giá hiện tại và cộng lãi <strong>+20% nợ gốc/ngày</strong>. Hệ thống AI sẽ kiểm duyệt lý do vay của bạn!
+        Khi khẩn cấp, tiền rút từ <strong>Quỹ Trong Két</strong> chuyển sang <strong>Quỹ Được Phép Tiêu</strong>. Nợ gốc quy ra 💎 theo tỷ giá hiện tại và cộng lãi <strong>+20% nợ gốc/ngày</strong>. Trợ Lý sẽ kiểm duyệt lý do vay của bạn!
       </p>
       <div class="form-row-3">
         <div>
@@ -1282,7 +1308,7 @@ textarea {
           <input type="number" id="loanAmountInput" placeholder="VD: 100000">
         </div>
         <div>
-          <label>Lý do khẩn cấp * (🤖 AI sẽ quét lý do)</label>
+          <label>Lý do khẩn cấp * (🤖 Trợ Lý sẽ quét lý do)</label>
           <input type="text" id="loanReasonInput" placeholder="VD: Sửa xe, Mua thuốc...">
         </div>
         <div style="display:flex;align-items:flex-end;">
@@ -1406,7 +1432,6 @@ textarea {
 
   <!-- ================= TRANG 10: ⚙️ GIAO DIỆN TUỲ CHỈNH, SAO LƯU & RESET LEVEL 1 ================= -->
   <section id="tab-settings" class="tab-pane">
-    <!-- Khung 1: Giao diện tuỳ chỉnh -->
     <div class="card">
       <div class="card-title">🎨 Giao diện tuỳ chỉnh (Có sẵn mẫu & Chọn ảnh nền)</div>
 
@@ -1463,7 +1488,6 @@ textarea {
       </div>
     </div>
 
-    <!-- Khung 2: Sao lưu & Khôi phục JSON -->
     <div class="card">
       <div class="card-title">💾 Sao lưu & Đồng bộ dữ liệu (File JSON)</div>
       <p style="font-size:0.86em;color:var(--text-muted);margin-bottom:10px;">
@@ -1478,7 +1502,6 @@ textarea {
       </div>
     </div>
 
-    <!-- Khung 3: BẮT ĐẦU LẠI TỪ ĐẦU (RESET HỆ THỐNG VỀ LEVEL 1) -->
     <div class="card" style="border:2px solid var(--danger);">
       <div class="card-title">
         <span style="color:var(--danger);">🔄 Bắt Đầu Lại Từ Đầu (Reset Hệ Thống)</span>
@@ -1521,6 +1544,7 @@ function getDefaultState() {
       perseverance: 0
     },
     tasks: [],
+    deletedTaskLogs: [],
     weekendTasks: [],
     checkins: [],
     countdowns: [],
@@ -1575,6 +1599,15 @@ function getTodayISO() {
   return `${y}-${m}-${day}`;
 }
 
+function getYesterdayISO() {
+  const d = new Date();
+  d.setDate(d.getDate() - 1);
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
+}
+
 function formatDateVN(isoStr) {
   if (!isoStr || !isoStr.includes('-')) return '--/--/----';
   const p = isoStr.split('-');
@@ -1584,8 +1617,13 @@ function formatDateVN(isoStr) {
 function formatVND(num) {
   const n = Number(num) || 0;
   const sign = n < 0 ? '-' : '';
-  const s = Math.abs(Math.round(n)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  const s = Math.abs(Math.round(n * 10) / 10).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   return `${sign}${s}đ`;
+}
+
+function fmtNum(n) {
+  const val = Math.round((Number(n) || 0) * 10) / 10;
+  return val;
 }
 
 function migrateData(raw) {
@@ -1596,6 +1634,7 @@ function migrateData(raw) {
   merged.goals = Object.assign({}, def.goals, raw.goals || {});
   merged.expenses = Object.assign({}, def.expenses, raw.expenses || {});
   if (!Array.isArray(merged.expenses.loans)) merged.expenses.loans = [];
+  if (!Array.isArray(merged.deletedTaskLogs)) merged.deletedTaskLogs = [];
   merged.ui = Object.assign({}, def.ui, raw.ui || {});
   merged.version = CURRENT_VERSION;
   return merged;
@@ -1611,7 +1650,7 @@ function loadState() {
       saveState();
     }
   } catch (e) {
-    storageErrorMessage = 'Không thể truy cập localStorage (Trình duyệt chặn hoặc bộ nhớ lỗi). Dữ liệu đang lưu tạm trong phiên.';
+    storageErrorMessage = 'Không thể truy cập localStorage. Dữ liệu đang lưu tạm trong phiên.';
     appState = getDefaultState();
   }
 }
@@ -1627,7 +1666,7 @@ function saveState() {
 }
 
 /* =========================================================================
-   2. QUẢN LÝ INDEXEDDB CHO HÌNH NỀN (TIỀN TỐ "appcuatoi_")
+   2. QUẢN LÝ INDEXEDDB CHO HÌNH NỀN
    ========================================================================= */
 function openBgDB() {
   return new Promise((resolve, reject) => {
@@ -1679,20 +1718,20 @@ async function idbDeleteImage(key) {
 }
 
 /* =========================================================================
-   3. CÔNG THỨC LEVEL RPG (NHÂN ĐÔI EXP MỖI CẤP) & LEVEL KỶ LUẬT ĐỒNG BỘ
+   3. CÔNG THỨC LEVEL RPG (HỖ TRỢ ĐIỂM LẺ 0.5 EXP KHI GIẢM 50% PHẠT KHẨN CẤP)
    ========================================================================= */
 function calcStatLevelInfo(totalExp) {
-  let exp = Math.max(0, Math.floor(Number(totalExp) || 0));
+  let exp = Math.max(0, Math.round((Number(totalExp) || 0) * 10) / 10);
   let level = 1;
   let reqForNext = 50;
   let rem = exp;
   while (rem >= reqForNext) {
-    rem -= reqForNext;
+    rem = Math.round((rem - reqForNext) * 10) / 10;
     level++;
     reqForNext *= 2;
   }
   const pct = Math.min(100, Math.round((rem / reqForNext) * 100));
-  return { level, currentExp: rem, reqForNext, totalExp: exp, pct };
+  return { level, currentExp: fmtNum(rem), reqForNext, totalExp: fmtNum(exp), pct };
 }
 
 function getDisciplineInfo() {
@@ -1732,19 +1771,19 @@ function getDisciplineInfo() {
 function addRpgExpAndGems(statType, amount, affectGems = true) {
   const delta = Number(amount) || 0;
   if (statType === 'str') {
-    appState.rpg.strExp = Math.max(0, (appState.rpg.strExp || 0) + delta);
+    appState.rpg.strExp = Math.max(0, fmtNum((appState.rpg.strExp || 0) + delta));
   } else if (statType === 'int') {
-    appState.rpg.intExp = Math.max(0, (appState.rpg.intExp || 0) + delta);
+    appState.rpg.intExp = Math.max(0, fmtNum((appState.rpg.intExp || 0) + delta));
   } else if (statType === 'hp') {
-    appState.rpg.hpExp = Math.max(0, (appState.rpg.hpExp || 0) + delta);
+    appState.rpg.hpExp = Math.max(0, fmtNum((appState.rpg.hpExp || 0) + delta));
   }
   if (affectGems && statType !== 'none') {
-    appState.rpg.perseverance = Math.max(0, (appState.rpg.perseverance || 0) + delta);
+    appState.rpg.perseverance = Math.max(0, fmtNum((appState.rpg.perseverance || 0) + delta));
   }
 }
 
 /* =========================================================================
-   4. CẨM NANG TÂN THỦ & HỆ THỐNG "AI NỘI BỘ" (RULE-BASED OFFLINE 100%)
+   4. 🤖 HỆ THỐNG "TRỢ LÝ" ĐA NĂNG (HỎI LẠI LỖI SAI HÔM QUA, NHẮC LỊCH, GHI ĐA NĂNG)
    ========================================================================= */
 function toggleManualBox() {
   const box = document.getElementById('manualBox');
@@ -1752,17 +1791,121 @@ function toggleManualBox() {
   box.style.display = (box.style.display === 'none' || !box.style.display) ? 'block' : 'none';
 }
 
-function runInternalAIAnalysis() {
+function fillAssistantSample(text) {
+  const el = document.getElementById('aiCmdInput');
+  if (!el) return;
+  el.value = text;
+  el.focus();
+}
+
+// 4.1. Kiểm tra và hiển thị câu hỏi: "Bạn có lặp lại lỗi sai ngày hôm qua không?"
+function renderYesterdayMistakeFollowUp() {
+  const today = getTodayISO();
+  const yesterday = getYesterdayISO();
+  const unreviewed = appState.mistakes.filter(m => m.date === yesterday && m.followedUpOn !== today);
+
+  const homeBox = document.getElementById('yesterdayMistakeFollowUpBox');
+  const tabBox = document.getElementById('mistakeTabFollowUpBox');
+
+  if (unreviewed.length === 0) {
+    if (homeBox) homeBox.innerHTML = '';
+    if (tabBox) tabBox.innerHTML = '';
+    return;
+  }
+
+  const html = unreviewed.map(m => `
+    <div class="banner banner-purple" style="margin-top:8px;">
+      <div>
+        <strong>🤖 Trợ Lý hỏi lại lỗi sai hôm qua (${formatDateVN(m.date)}):</strong><br>
+        Hôm qua bạn ghi lỗi: <em>"${esc(m.what)}"</em>${m.fix ? ` (Cách sửa: <strong>${esc(m.fix)}</strong>)` : ''}.<br>
+        <strong>Hôm nay bạn có lặp lại lỗi sai này không?</strong>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        <button class="btn btn-sm btn-success" onclick="answerYesterdayMistake('${m.id}', false)">
+          ✅ Không lặp lại (+2 💎)
+        </button>
+        <button class="btn btn-sm btn-danger" onclick="answerYesterdayMistake('${m.id}', true)">
+          ❌ Có lặp lại (Tạo việc sửa ngay)
+        </button>
+      </div>
+    </div>
+  `).join('');
+
+  if (homeBox) homeBox.innerHTML = html;
+  if (tabBox) tabBox.innerHTML = html;
+}
+
+function answerYesterdayMistake(mistakeId, repeated) {
+  const m = appState.mistakes.find(x => x.id === mistakeId);
+  if (!m) return;
+  const today = getTodayISO();
+  m.followedUpOn = today;
+
+  if (!repeated) {
+    appState.rpg.perseverance = fmtNum((appState.rpg.perseverance || 0) + 2);
+    saveState();
+    renderMistakes();
+    alert('🎉 Tuyệt vời! Bạn đã không lặp lại lỗi sai hôm qua. Trợ Lý thưởng cho bạn +2 💎 Điểm Kiên Trì!');
+  } else {
+    // Ghi nhận lại lỗi sai vào ngày hôm nay và tạo nhiệm vụ khắc phục
+    const fixText = m.fix || ('Khắc phục triệt để lỗi: ' + m.what);
+    appState.tasks.push({
+      id: uid(),
+      title: '[Khắc phục tái phạm] ' + fixText,
+      statType: 'hp',
+      stackCount: 0,
+      stackMax: 2,
+      priority: 'high',
+      dueDate: today,
+      remindTime: '',
+      isEmergency: false,
+      failed: false,
+      done: false,
+      notifiedDate: ''
+    });
+    saveState();
+    renderTasks();
+    renderMistakes();
+    alert('⚠️ Bạn đã tái phạm lỗi sai hôm qua! Trợ Lý đã tự động tạo nhiệm vụ "[Khắc phục tái phạm]" (Stack x2) vào danh sách hôm nay để bạn sửa sai ngay!');
+  }
+}
+
+// 4.2. Trợ Lý hướng dẫn cơ chế Quỹ
+function showAssistantFundGuide() {
+  const info = getDisciplineInfo();
+  const outEl = document.getElementById('aiAnalysisOutput');
+  if (!outEl) return;
+  outEl.innerHTML = `
+    <div style="font-weight:700;color:var(--purple);margin-bottom:6px;">💰 Trợ Lý Hướng Dẫn Cơ Chế Quản Lý Quỹ & Đổi Tiền:</div>
+    <ul style="padding-left:18px;margin-bottom:8px;line-height:1.5;">
+      <li><strong>1. 🔒 Quỹ Trong Két (Hiện có: ${formatVND(appState.expenses.vaultBalance)}):</strong> Là két sắt khoá toàn bộ tiền thật của bạn. Hãy sang mục <em>💰 8. Chi tiêu & Quỹ</em> nhập số tiền bạn đang có vào Két.</li>
+      <li><strong>2. 🔓 Quỹ Được Phép Tiêu (Hiện có: ${formatVND(appState.expenses.spendableBalance)}):</strong> Mặc định là 0đ. Bạn chỉ được tiêu số tiền nằm trong quỹ này.</li>
+      <li><strong>3. 🔄 Cách mở khoá tiền từ Két:</strong> Hoàn thành nhiệm vụ để nhận <strong>💎 Điểm Kiên Trì</strong> (Bạn đang có <strong>${appState.rpg.perseverance} 💎</strong>). Với <strong>Level Kỷ Luật Lv.${info.level}</strong> hiện tại, mỗi <strong>1 💎 đổi được ${formatVND(info.exchangeRate)}</strong> rút từ Két sang Quỹ Được Tiêu.</li>
+      <li><strong>4. 🚨 Vay Khẩn Cấp (Lãi phạt 20%/ngày):</strong> Chỉ dùng khi cấp bách (sửa xe, thuốc men). Số tiền vay sẽ tính thành nợ 💎 và cộng thêm <strong>20% lãi mỗi ngày</strong> cho tới khi bạn làm nhiệm vụ trả hết nợ.</li>
+    </ul>
+    <button class="btn btn-sm btn-purple" onclick="switchTab('tab-expenses')">👉 Mở trang Chi tiêu & Quỹ ngay</button>
+  `;
+}
+
+function toggleFundGuideInTab() {
+  const el = document.getElementById('fundGuideBox');
+  if (!el) return;
+  el.style.display = (el.style.display === 'none' || !el.style.display) ? 'block' : 'none';
+}
+
+// 4.3. Kiểm tra tổng quát hôm nay (Level, Điểm danh, Thời gian biểu trống, Nợ, Lỗi sai hôm qua)
+function runAssistantFullCheck() {
   const today = getTodayISO();
   const info = getDisciplineInfo();
   const checkedIn = appState.checkins.includes(today);
-  const pendingToday = appState.tasks.filter(t => !t.done && t.dueDate <= today);
+  const pendingToday = appState.tasks.filter(t => !t.done && !t.failed && t.dueDate <= today);
   const activeLoans = appState.expenses.loans || [];
+  const todaySchedule = appState.schedules[today] || [];
 
   const statsArr = [
-    { key: 'str', name: '💪 Thể lực', total: info.str.totalExp, level: info.str.level, rem: info.str.reqForNext - info.str.currentExp },
-    { key: 'int', name: '🧠 Trí tuệ', total: info.int.totalExp, level: info.int.level, rem: info.int.reqForNext - info.int.currentExp },
-    { key: 'hp', name: '❤️ Sức khỏe', total: info.hp.totalExp, level: info.hp.level, rem: info.hp.reqForNext - info.hp.currentExp }
+    { key: 'str', name: '💪 Thể lực', total: info.str.totalExp, level: info.str.level, rem: fmtNum(info.str.reqForNext - info.str.currentExp) },
+    { key: 'int', name: '🧠 Trí tuệ', total: info.int.totalExp, level: info.int.level, rem: fmtNum(info.int.reqForNext - info.int.currentExp) },
+    { key: 'hp', name: '❤️ Sức khỏe', total: info.hp.totalExp, level: info.hp.level, rem: fmtNum(info.hp.reqForNext - info.hp.currentExp) }
   ];
   statsArr.sort((a, b) => a.total - b.total);
   const weakest = statsArr[0];
@@ -1775,19 +1918,26 @@ function runInternalAIAnalysis() {
     lines.push(`<li>✅ <strong>Điểm danh:</strong> Hôm nay đã điểm danh thành công (Chuỗi ${calcStreaks().current} ngày).</li>`);
   }
 
+  if (todaySchedule.length === 0) {
+    lines.push(`<li>🕒 <strong style="color:var(--warning);">Thời gian biểu trống:</strong> Hôm nay bạn chưa lập Thời gian biểu cho 4 buổi (Sáng/Trưa/Chiều/Tối)! <button class="btn btn-sm btn-outline" onclick="switchTab('tab-schedule')">Lập lịch ngay</button></li>`);
+  } else {
+    const doneSch = todaySchedule.filter(s => s.done).length;
+    lines.push(`<li>🕒 <strong>Thời gian biểu:</strong> Đã lên ${todaySchedule.length} khung giờ hôm nay (Hoàn thành ${doneSch}/${todaySchedule.length}).</li>`);
+  }
+
   if (activeLoans.length > 0) {
     const totalDebtGems = activeLoans.reduce((sum, l) => sum + calcLoanTotalOwedGems(l).remainingGems, 0);
-    lines.push(`<li>🚨 <strong>Cảnh báo Nợ Khẩn Cấp:</strong> Bạn đang nợ <strong>${totalDebtGems} 💎</strong> (lãi phạt +20%/ngày). Hãy ưu tiên cày nhiệm vụ Stack để trả dứt điểm khoản vay!</li>`);
+    lines.push(`<li>🚨 <strong>Nợ Khẩn Cấp:</strong> Bạn đang nợ <strong>${totalDebtGems} 💎</strong> (lãi phạt +20%/ngày). Hãy ưu tiên cày nhiệm vụ Stack để trả nợ!</li>`);
   }
 
   if (weakest.total < strongest.total) {
-    lines.push(`<li>⚖️ <strong>Phân tích độ lệch chỉ số:</strong> Chỉ số <strong>${weakest.name} (Lv.${weakest.level} - ${weakest.total} EXP)</strong> đang thấp hơn <strong>${strongest.name} (${strongest.total} EXP)</strong> và đang kìm hãm <strong>🛡️ Level Kỷ Luật</strong>. Bạn cần thêm <strong>${weakest.rem} EXP</strong> ở hệ ${weakest.name} để lên cấp tiếp theo!</li>`);
+    lines.push(`<li>⚖️ <strong>Độ lệch chỉ số:</strong> Chỉ số <strong>${weakest.name} (Lv.${weakest.level} - ${weakest.total} EXP)</strong> đang thấp nhất và kìm hãm <strong>🛡️ Level Kỷ Luật</strong>. Cần thêm <strong>${weakest.rem} EXP</strong> ở hệ ${weakest.name} để lên cấp tiếp theo!</li>`);
   } else {
-    lines.push(`<li>⚖️ <strong>Trạng thái cân bằng:</strong> Cả 3 chỉ số của bạn đang phát triển rất đồng đều. Hãy tập trung đẩy <strong>${weakest.name}</strong> (còn thiếu ${weakest.rem} EXP) để bứt phá Level Kỷ Luật lên Lv.${info.nextTarget} (Tỷ giá đổi tiền tăng lên ${formatVND(info.nextTarget * 1000)}/💎).</li>`);
+    lines.push(`<li>⚖️ <strong>Cân bằng chỉ số:</strong> 3 chỉ số đang rất đều. Hãy đẩy <strong>${weakest.name}</strong> (thiếu ${weakest.rem} EXP) để nâng Level Kỷ Luật lên Lv.${info.nextTarget}.</li>`);
   }
 
   if (pendingToday.length > 0) {
-    lines.push(`<li>📋 <strong>Việc tồn đọng:</strong> Bạn còn <strong>${pendingToday.length} nhiệm vụ</strong> đến hạn hôm nay chưa hoàn thành.</li>`);
+    lines.push(`<li>📋 <strong>Nhiệm vụ hôm nay:</strong> Còn <strong>${pendingToday.length} nhiệm vụ</strong> cần hoàn thành.</li>`);
   }
 
   const templates = {
@@ -1814,9 +1964,9 @@ function runInternalAIAnalysis() {
 
   const outEl = document.getElementById('aiAnalysisOutput');
   outEl.innerHTML = `
-    <div style="font-weight:700;color:var(--purple);margin-bottom:6px;">🤖 Báo cáo phân tích từ Hệ Thống AI Nội Bộ:</div>
+    <div style="font-weight:700;color:var(--purple);margin-bottom:6px;">🤖 Báo cáo kiểm tra tổng quát từ Trợ Lý:</div>
     <ul style="padding-left:18px;margin-bottom:8px;">${lines.join('')}</ul>
-    <div style="font-size:0.9em;font-weight:600;margin-bottom:4px;">💡 Nhiệm vụ đề xuất để kéo nhanh chỉ số ${weakest.name}:</div>
+    <div style="font-size:0.9em;font-weight:600;margin-bottom:4px;">💡 Nhiệm vụ gợi ý kéo nhanh chỉ số ${weakest.name}:</div>
     <div style="display:flex;gap:6px;flex-wrap:wrap;">${btnHtml}</div>
   `;
 }
@@ -1831,26 +1981,176 @@ function aiQuickAddSuggestedTask(title, statType, stackMax) {
     priority: 'high',
     dueDate: getTodayISO(),
     remindTime: '',
+    isEmergency: false,
+    failed: false,
     done: false,
     notifiedDate: ''
   });
   saveState();
   renderTasks();
   populateScheduleTaskSelect();
-  alert(`🤖 Hệ Thống đã thêm nhiệm vụ "${title}" (Stack 0/${stackMax}) vào danh sách hôm nay!`);
+  alert(`🤖 Trợ Lý đã thêm nhiệm vụ "${title}" (Stack 0/${stackMax}) vào danh sách hôm nay!`);
 }
 
+// 4.4. Bộ phân tích lỗi sai tự động dùng chung cho cả Chat Trợ Lý và Tab Lỗi Sai
+function generateMistakeAnalysis(whatText) {
+  const lower = whatText.toLowerCase();
+  if (/(thức khuya|ngủ muộn|dậy muộn|dậy trễ|ngủ quên)/.test(lower)) {
+    return {
+      cause: 'Cầm điện thoại lên giường ban đêm hoặc không đặt giới hạn giờ ngắt màn hình.',
+      lesson: 'Ý chí vào ban đêm rất thấp, kỷ luật giấc ngủ phải được thiết lập từ lúc 22h00.',
+      fix: 'Đúng 22h30 cắm sạc điện thoại ở bàn học cách xa giường 3 mét và đặt báo thức cố định.'
+    };
+  } else if (/(điện thoại|tiktok|youtube|facebook|lướt|mạng xã hội|game|chơi)/.test(lower)) {
+    return {
+      cause: 'Não bộ tìm kiếm dopamine rẻ tiền khi gặp việc khó hoặc khi rảnh rỗi không có kế hoạch.',
+      lesson: 'Chỉ "xem 5 phút" là cái bẫy lớn nhất làm đứt gãy hoàn toàn sự tập trung.',
+      fix: 'Bật chế độ Không làm phiền và cất điện thoại sang phòng khác khi ngồi vào bàn học (45 phút).'
+    };
+  } else if (/(trì hoãn|lười|bỏ tập|không làm|ngại|chần chừ)/.test(lower)) {
+    return {
+      cause: 'Đặt mục tiêu lúc bắt đầu quá nặng nề khiến não bộ sinh tâm lý ngại khó.',
+      lesson: 'Hành động tạo ra động lực. Chia nhỏ việc thành các Stack nhỏ sẽ dễ bắt đầu hơn.',
+      fix: 'Áp dụng quy tắc 2 phút: Bắt tay làm ngay 1 hiệp Stack đầu tiên mà không suy nghĩ.'
+    };
+  } else if (/(tiêu hoang|mua|trà sữa|ăn vặt|nạp|hết tiền|vung tay)/.test(lower)) {
+    return {
+      cause: 'Mua sắm theo cảm xúc nhất thời mà không đối chiếu với công sức cày Điểm Kiên Trì (💎).',
+      lesson: 'Mỗi đồng tiền tiêu hoang đều lấy đi tự do tài chính và làm tăng áp lực nợ Điểm Kiên Trì.',
+      fix: 'Trì hoãn mọi quyết định mua đồ không thiết yếu tối thiểu 24 giờ và chỉ tiêu trong Quỹ Được Phép Tiêu.'
+    };
+  }
+  return {
+    cause: 'Thiếu sự chuẩn bị trước và để cảm xúc nhất thời lấn át quy tắc kỷ luật.',
+    lesson: 'Nhận diện thẳng thắn lỗi sai ngay trong ngày là bước đầu tiên để nâng cấp bản thân.',
+    fix: 'Thiết lập 1 nhiệm vụ khắc phục cụ thể vào Thời gian biểu sáng mai và hoàn thành đủ 100% Stack.'
+  };
+}
+
+// 4.5. Trợ Lý xử lý mọi câu lệnh tiếng Việt từ khung Chat
 function executeAICommand() {
   const inputEl = document.getElementById('aiCmdInput');
   const fbEl = document.getElementById('aiCmdFeedback');
   const raw = (inputEl.value || '').trim();
   if (!raw) {
-    alert('Vui lòng gõ câu lệnh tiếng Việt vào ô!');
+    alert('Vui lòng gõ nội dung bạn muốn giao cho Trợ Lý!');
     return;
   }
 
   const lower = raw.toLowerCase();
 
+  // A. HƯỚNG DẪN QUỸ
+  if (/^(quỹ|hướng dẫn quỹ|cách dùng quỹ|khoá quỹ|đổi điểm)/.test(lower)) {
+    showAssistantFundGuide();
+    inputEl.value = '';
+    fbEl.innerHTML = `<span style="color:var(--purple);font-weight:700;">🤖 Trợ Lý đã hiển thị bảng Hướng dẫn Quỹ chi tiết ở khung phía trên!</span>`;
+    return;
+  }
+
+  // B. GHI MỤC TIÊU TỪ CHAT (VD: "Mục tiêu tuần: Giải 5 đề thi | Phạt: Hít đất 100 cái")
+  const goalMatch = raw.match(/^mục tiêu\s*(tuần|tháng|năm)?\s*[:\-]?\s*(.+)$/i);
+  if (goalMatch) {
+    const scopeWord = (goalMatch[1] || 'tuần').toLowerCase();
+    let scope = 'week';
+    if (scopeWord === 'tháng') scope = 'month';
+    else if (scopeWord === 'năm') scope = 'year';
+
+    const body = goalMatch[2].trim();
+    let title = body;
+    let penalty = 'Hít đất 50 cái & Tự kiểm điểm kỷ luật';
+
+    const penSplit = body.split(/\||\bphạt\s*[:\-]/i);
+    if (penSplit.length > 1) {
+      title = penSplit[0].trim();
+      penalty = penSplit.slice(1).join(' ').replace(/^phạt\s*[:\-]?\s*/i, '').trim() || penalty;
+    }
+
+    const period = getCurrentPeriodKey(scope);
+    appState.goals[scope].push({
+      id: uid(),
+      periodKey: period.key,
+      periodLabel: period.label,
+      title,
+      penalty,
+      progress: 0,
+      penaltyDone: false
+    });
+
+    inputEl.value = '';
+    saveState();
+    renderGoals();
+    fbEl.innerHTML = `<span style="color:var(--success);font-weight:700;">🤖 Trợ Lý đã ghi vào [${period.label}]: "${esc(title)}" | ⚠️ Hình phạt: "${esc(penalty)}"!</span>`;
+    return;
+  }
+
+  // C. GHI LỖI SAI TỪ CHAT (VD: "Lỗi sai: Thức khuya lướt điện thoại")
+  const mistakeMatch = raw.match(/^(lỗi sai|ghi lỗi|lỗi hôm nay|sai lầm)\s*[:\-]?\s*(.+)$/i);
+  if (mistakeMatch) {
+    const whatText = mistakeMatch[2].trim();
+    const auto = generateMistakeAnalysis(whatText);
+    appState.mistakes.unshift({
+      id: uid(),
+      date: getTodayISO(),
+      what: whatText,
+      cause: auto.cause,
+      lesson: auto.lesson,
+      fix: auto.fix,
+      followedUpOn: ''
+    });
+
+    inputEl.value = '';
+    saveState();
+    renderMistakes();
+    fbEl.innerHTML = `<span style="color:var(--success);font-weight:700;">🤖 Trợ Lý đã ghi Lỗi sai: "${esc(whatText)}" kèm Cách sửa: "${esc(auto.fix)}" (Sẽ hỏi lại bạn vào ngày mai)!</span>`;
+    return;
+  }
+
+  // D. GHI SỰ KIỆN ĐẾM NGÀY TỪ CHAT (VD: "Đếm ngày: Thi học kỳ 25/12/2026" hoặc "Sự kiện: Sinh nhật 2026-12-25")
+  const cdMatch = raw.match(/^(đếm ngày|sự kiện)\s*[:\-]?\s*(.+)$/i);
+  if (cdMatch) {
+    let content = cdMatch[2].trim();
+    let targetISO = '';
+
+    const dmy = content.match(/(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})/);
+    const ymd = content.match(/(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})/);
+
+    if (dmy) {
+      const dd = String(dmy[1]).padStart(2, '0');
+      const mm = String(dmy[2]).padStart(2, '0');
+      const yyyy = dmy[3];
+      targetISO = `${yyyy}-${mm}-${dd}`;
+      content = content.replace(dmy[0], '').replace(/vào ngày|ngày/i, '').trim();
+    } else if (ymd) {
+      const yyyy = ymd[1];
+      const mm = String(ymd[2]).padStart(2, '0');
+      const dd = String(ymd[3]).padStart(2, '0');
+      targetISO = `${yyyy}-${mm}-${dd}`;
+      content = content.replace(ymd[0], '').replace(/vào ngày|ngày/i, '').trim();
+    } else {
+      const plusDays = content.match(/(\d+)\s*ngày nữa/i);
+      if (plusDays) {
+        const d = new Date();
+        d.setDate(d.getDate() + (parseInt(plusDays[1], 10) || 1));
+        targetISO = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+        content = content.replace(plusDays[0], '').trim();
+      }
+    }
+
+    if (!targetISO) {
+      fbEl.innerHTML = `<span style="color:var(--danger);">🤖 Hãy ghi kèm ngày tháng (VD: "Đếm ngày: Thi tốt nghiệp 25/06/2027" hoặc "Đếm ngày: Thi thử 15 ngày nữa")!</span>`;
+      return;
+    }
+
+    const title = content || 'Sự kiện quan trọng';
+    appState.countdowns.push({ id: uid(), title, targetDate: targetISO });
+    inputEl.value = '';
+    saveState();
+    renderCountdowns();
+    fbEl.innerHTML = `<span style="color:var(--success);font-weight:700;">🤖 Trợ Lý đã tạo sự kiện Đếm ngày: "${esc(title)}" vào ngày ${formatDateVN(targetISO)}!</span>`;
+    return;
+  }
+
+  // E. GHI THU / CHI TIỀN TỪ CHAT (VD: "Chi 30k ăn sáng", "Thu 500k tiền thưởng")
   const moneyMatch = lower.match(/^(chi|tiêu|mua|thu|nhận)\s+([\d.,]+)\s*(k|nghìn|ngàn|tr|triệu|đ|d)?\s*(.*)$/i);
   if (moneyMatch) {
     const verb = moneyMatch[1].toLowerCase();
@@ -1864,7 +2164,7 @@ function executeAICommand() {
 
     const amount = Math.round(num);
     if (amount <= 0) {
-      fbEl.innerHTML = `<span style="color:var(--danger);">🤖 Không nhận diện được số tiền hợp lệ trong câu lệnh!</span>`;
+      fbEl.innerHTML = `<span style="color:var(--danger);">🤖 Không nhận diện được số tiền hợp lệ!</span>`;
       return;
     }
 
@@ -1894,10 +2194,11 @@ function executeAICommand() {
     inputEl.value = '';
     saveState();
     renderExpenses();
-    fbEl.innerHTML = `<span style="color:var(--success);font-weight:700;">🤖 Đã tự động ghi ${isIncome ? 'Khoản Thu (+Két)' : 'Khoản Chi (-Quỹ Tiêu)'}: ${formatVND(amount)} vào mục [${category}] (${esc(noteRaw)})!</span>`;
+    fbEl.innerHTML = `<span style="color:var(--success);font-weight:700;">🤖 Trợ Lý đã ghi ${isIncome ? 'Khoản Thu (+Két)' : 'Khoản Chi (-Quỹ Tiêu)'}: ${formatVND(amount)} vào mục [${category}]!</span>`;
     return;
   }
 
+  // F. MẶC ĐỊNH: TẠO NHIỆM VỤ (HỖ TRỢ TỪ KHOÁ "KHẨN CẤP" & STACK)
   let statType = 'str';
   if (/(trí tuệ|học|đọc|đề|từ vựng|toán|anh|code|bài|nghiên cứu)/.test(lower)) statType = 'int';
   else if (/(sức khỏe|ngủ|uống nước|thiền|ăn sạch|nghỉ|thuốc|giãn cơ)/.test(lower)) statType = 'hp';
@@ -1909,9 +2210,11 @@ function executeAICommand() {
     stackMax = Math.max(1, Math.min(500, parseInt(stackMatch[1], 10) || 1));
   }
 
+  const isEmergency = /(khẩn cấp|đột xuất)/.test(lower);
+
   let cleanTitle = raw
-    .replace(/^(tạo nhiệm vụ|thêm nhiệm vụ|nhiệm vụ|thêm việc|làm)\s+/i, '')
-    .replace(/\s*(thể lực|trí tuệ|sức khỏe)\s*$/i, '')
+    .replace(/^(tạo nhiệm vụ|thêm nhiệm vụ|nhiệm vụ|thêm việc|làm)\s*[:\-]?\s*/i, '')
+    .replace(/\s*(thể lực|trí tuệ|sức khỏe|khẩn cấp)\s*$/i, '')
     .trim();
   if (!cleanTitle) cleanTitle = raw;
 
@@ -1921,9 +2224,11 @@ function executeAICommand() {
     statType,
     stackCount: 0,
     stackMax,
-    priority: 'medium',
+    priority: isEmergency ? 'high' : 'medium',
     dueDate: getTodayISO(),
     remindTime: '',
+    isEmergency,
+    failed: false,
     done: false,
     notifiedDate: ''
   });
@@ -1933,52 +2238,25 @@ function executeAICommand() {
   renderTasks();
   populateScheduleTaskSelect();
   const statLabel = statType === 'str' ? '💪 Thể lực' : (statType === 'int' ? '🧠 Trí tuệ' : '❤️ Sức khỏe');
-  fbEl.innerHTML = `<span style="color:var(--success);font-weight:700;">🤖 Đã tạo nhiệm vụ: "${esc(cleanTitle)}" | Hệ: ${statLabel} | Stack: 0/${stackMax}!</span>`;
+  fbEl.innerHTML = `<span style="color:var(--success);font-weight:700;">🤖 Trợ Lý đã tạo nhiệm vụ: "${esc(cleanTitle)}" | Hệ: ${statLabel} | Stack: 0/${stackMax} ${isEmergency ? '| 🚨 Chế độ Khẩn cấp (Giảm 50% phạt)' : ''}!</span>`;
 }
 
 function aiAnalyzeMistakeInput() {
   const what = (document.getElementById('mkWhat').value || '').trim();
   if (!what) {
-    alert('Hãy gõ ngắn gọn lỗi sai vào ô "1. Chuyện gì đã xảy ra?" trước rồi bấm nút này để AI bắt bệnh!');
+    alert('Hãy gõ ngắn gọn lỗi sai vào ô "1. Chuyện gì đã xảy ra?" trước rồi bấm nút này để Trợ Lý bắt bệnh!');
     return;
   }
-
-  const lower = what.toLowerCase();
-  let cause = '';
-  let lesson = '';
-  let fix = '';
-
-  if (/(thức khuya|ngủ muộn|dậy muộn|dậy trễ|ngủ quên)/.test(lower)) {
-    cause = 'Cầm điện thoại lên giường ban đêm hoặc không đặt giới hạn giờ ngắt màn hình, dẫn đến trượt dài cảm xúc.';
-    lesson = 'Ý chí vào ban đêm rất thấp, kỷ luật giấc ngủ phải được thiết lập từ lúc 22h00 chứ không phải khi đã nằm lên giường.';
-    fix = 'Đúng 22h30 cắm sạc điện thoại ở bàn học cách xa giường 3 mét và đặt chuông báo thức cố định.';
-  } else if (/(điện thoại|tiktok|youtube|facebook|lướt|mạng xã hội|game|chơi)/.test(lower)) {
-    cause = 'Não bộ tìm kiếm dopamine rẻ tiền khi gặp việc khó hoặc khi rảnh rỗi không có kế hoạch rõ ràng.';
-    lesson = 'Chỉ "xem 5 phút" là cái bẫy lớn nhất làm đứt gãy hoàn toàn sự tập trung trong ngày.';
-    fix = 'Bật chế độ Không làm phiền và cất điện thoại sang phòng khác/trong cặp khi ngồi vào bàn học (Tập trung 45 phút).';
-  } else if (/(trì hoãn|lười|bỏ tập|không làm|ngại|chần chừ)/.test(lower)) {
-    cause = 'Đặt mục tiêu lúc bắt đầu quá nặng nề khiến não bộ sinh tâm lý ngại khó và né tránh.';
-    lesson = 'Hành động tạo ra động lực chứ không phải chờ có hứng mới làm. Chia nhỏ việc thành các Stack nhỏ sẽ dễ bắt đầu hơn.';
-    fix = 'Áp dụng quy tắc 2 phút: Bắt tay làm ngay 1 hiệp Stack đầu tiên mà không suy nghĩ.';
-  } else if (/(tiêu hoang|mua|trà sữa|ăn vặt|nạp|hết tiền|vung tay)/.test(lower)) {
-    cause = 'Mua sắm theo cảm xúc nhất thời mà không đối chiếu với công sức cày Điểm Kiên Trì (💎).';
-    lesson = 'Mỗi đồng tiền tiêu hoang đều lấy đi tự do tài chính và làm tăng áp lực nợ Điểm Kiên Trì.';
-    fix = 'Trì hoãn mọi quyết định mua đồ không thiết yếu tối thiểu 24 giờ và chỉ tiêu trong hạn mức Quỹ Được Phép Tiêu.';
-  } else {
-    cause = 'Thiếu sự chuẩn bị trước và để cảm xúc nhất thời lấn át quy tắc kỷ luật đã đề ra.';
-    lesson = 'Nhận diện thẳng thắn lỗi sai ngay trong ngày là bước đầu tiên để nâng cấp bản thân.';
-    fix = 'Thiết lập 1 nhiệm vụ khắc phục cụ thể vào Thời gian biểu sáng mai và hoàn thành đủ 100% Stack.';
-  }
-
-  document.getElementById('mkCause').value = cause;
-  document.getElementById('mkLesson').value = lesson;
-  document.getElementById('mkFix').value = fix;
+  const auto = generateMistakeAnalysis(what);
+  document.getElementById('mkCause').value = auto.cause;
+  document.getElementById('mkLesson').value = auto.lesson;
+  document.getElementById('mkFix').value = auto.fix;
 }
 
 function turnMistakeFixIntoTask() {
   const fix = (document.getElementById('mkFix').value || '').trim();
   if (!fix) {
-    alert('Ô "4. Cách sửa cụ thể" đang trống! Hãy nhập hoặc bấm nút 🤖 AI Bắt Bệnh trước.');
+    alert('Ô "4. Cách sửa cụ thể" đang trống! Hãy nhập hoặc bấm nút 🤖 Trợ Lý Bắt Bệnh trước.');
     return;
   }
   appState.tasks.push({
@@ -1990,6 +2268,8 @@ function turnMistakeFixIntoTask() {
     priority: 'high',
     dueDate: getTodayISO(),
     remindTime: '',
+    isEmergency: false,
+    failed: false,
     done: false,
     notifiedDate: ''
   });
@@ -2000,7 +2280,7 @@ function turnMistakeFixIntoTask() {
 }
 
 /* =========================================================================
-   5. CẬP NHẬT HEADER, BANNER & TRANG CHÍNH
+   5. CẬP NHẬT HEADER, BANNER (NHẮC THỜI GIAN BIỂU TRỐNG & HỎI LỖI HÔM QUA)
    ========================================================================= */
 function switchTab(tabId) {
   document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
@@ -2039,7 +2319,7 @@ function updateAllHeaderAndRPG() {
   const streaks = calcStreaks();
   document.getElementById('stStreak').textContent = `🔥 ${streaks.current} ngày`;
 
-  const gems = appState.rpg.perseverance || 0;
+  const gems = fmtNum(appState.rpg.perseverance || 0);
   document.getElementById('stPerseverance').textContent = `💎 ${gems}`;
   document.getElementById('stSpendable').textContent = formatVND(appState.expenses.spendableBalance || 0);
 
@@ -2071,10 +2351,22 @@ function updateAllHeaderAndRPG() {
   document.getElementById('totHp').textContent = `Tổng: ${info.hp.totalExp} EXP`;
 
   renderHomeQuickTasks();
+  renderYesterdayMistakeFollowUp();
 
   const alerts = [];
   if (storageErrorMessage) {
     alerts.push(`<div class="banner banner-danger"><span>⚠️ ${esc(storageErrorMessage)}</span></div>`);
+  }
+
+  // Nhắc nhở khi Thời gian biểu hôm nay đang trống
+  const todaySch = appState.schedules[today] || [];
+  if (todaySch.length === 0) {
+    alerts.push(`
+      <div class="banner banner-warn">
+        <span>🕒 <strong>🤖 Trợ Lý nhắc nhở:</strong> Hôm nay bạn chưa lập Thời gian biểu! Hãy phân bổ nhiệm vụ vào 4 buổi Sáng/Trưa/Chiều/Tối.</span>
+        <button class="btn btn-sm" onclick="switchTab('tab-schedule')">Lập Thời gian biểu</button>
+      </div>
+    `);
   }
 
   let needBackup = false;
@@ -2093,7 +2385,7 @@ function updateAllHeaderAndRPG() {
     `);
   }
 
-  const dueTasks = appState.tasks.filter(t => !t.done && t.dueDate && t.dueDate <= today);
+  const dueTasks = appState.tasks.filter(t => !t.done && !t.failed && t.dueDate && t.dueDate <= today);
   if (dueTasks.length > 0) {
     alerts.push(`
       <div class="banner banner-danger">
@@ -2108,18 +2400,18 @@ function updateAllHeaderAndRPG() {
 
 function renderHomeQuickTasks() {
   const today = getTodayISO();
-  const list = appState.tasks.filter(t => !t.done && t.dueDate <= today);
+  const list = appState.tasks.filter(t => !t.done && !t.failed && t.dueDate <= today);
   const el = document.getElementById('homeQuickTasks');
   if (!el) return;
   if (list.length === 0) {
-    el.innerHTML = '<div class="empty-msg">Hôm nay không còn nhiệm vụ nào tồn đọng. Hãy vào mục Nhiệm vụ hoặc dùng lệnh nhanh AI ở trên để tạo mới!</div>';
+    el.innerHTML = '<div class="empty-msg">Hôm nay không còn nhiệm vụ nào tồn đọng. Hãy vào mục Nhiệm vụ hoặc gõ vào khung Trợ Lý ở trên để tạo mới!</div>';
     return;
   }
   el.innerHTML = list.map(t => renderSingleTaskRowHTML(t)).join('');
 }
 
 /* =========================================================================
-   6. TRANG 1: NHIỆM VỤ (HỖ TRỢ STACK + NHIỆM VỤ VƯỢT CẤP CUỐI TUẦN)
+   6. TRANG 1: NHIỆM VỤ (STACK + KHẨN CẤP GIẢM 50% PHẠT + XOÁ KHÔNG LÝ DO RESET LEVEL)
    ========================================================================= */
 function resetTaskForm() {
   document.getElementById('taskEditId').value = '';
@@ -2129,7 +2421,8 @@ function resetTaskForm() {
   document.getElementById('taskPriority').value = 'medium';
   document.getElementById('taskDueDate').value = getTodayISO();
   document.getElementById('taskRemindTime').value = '';
-  document.getElementById('taskFormTitle').textContent = 'Tạo nhiệm vụ mới (Có hỗ trợ Stack)';
+  document.getElementById('taskIsEmergency').value = 'no';
+  document.getElementById('taskFormTitle').textContent = 'Tạo nhiệm vụ mới (Hỗ trợ Stack & Chế độ Khẩn cấp)';
   document.getElementById('btnCancelEditTask').style.display = 'none';
 }
 
@@ -2141,6 +2434,7 @@ function saveTask() {
   const priority = document.getElementById('taskPriority').value;
   const dueDate = document.getElementById('taskDueDate').value || getTodayISO();
   const remindTime = document.getElementById('taskRemindTime').value;
+  const isEmergency = document.getElementById('taskIsEmergency').value === 'yes';
 
   if (!title) {
     alert('Vui lòng nhập tên nhiệm vụ!');
@@ -2158,6 +2452,7 @@ function saveTask() {
       t.priority = priority;
       t.dueDate = dueDate;
       t.remindTime = remindTime;
+      t.isEmergency = isEmergency;
     }
   } else {
     appState.tasks.push({
@@ -2169,6 +2464,8 @@ function saveTask() {
       priority,
       dueDate,
       remindTime,
+      isEmergency,
+      failed: false,
       done: false,
       notifiedDate: ''
     });
@@ -2182,7 +2479,7 @@ function saveTask() {
 
 function stepTaskStack(taskId, delta) {
   const t = appState.tasks.find(x => x.id === taskId);
-  if (!t) return;
+  if (!t || t.failed) return;
   const oldCount = t.stackCount || 0;
   const max = t.stackMax || 1;
   const newCount = Math.max(0, Math.min(max, oldCount + delta));
@@ -2200,7 +2497,7 @@ function stepTaskStack(taskId, delta) {
 
 function toggleTaskCheckbox(taskId) {
   const t = appState.tasks.find(x => x.id === taskId);
-  if (!t) return;
+  if (!t || t.failed) return;
   const oldCount = t.stackCount || 0;
   const max = t.stackMax || 1;
 
@@ -2221,6 +2518,39 @@ function toggleTaskCheckbox(taskId) {
   renderMainCalendar();
 }
 
+// Bật/tắt chế độ Khẩn cấp (Bận đột xuất) trên nhiệm vụ: Khi không hoàn thành chỉ trừ 50% điểm phạt
+function toggleTaskEmergencyMode(taskId) {
+  const t = appState.tasks.find(x => x.id === taskId);
+  if (!t || t.done || t.failed) return;
+  t.isEmergency = !t.isEmergency;
+  saveState();
+  renderTasks();
+}
+
+// Đánh dấu nhiệm vụ Không hoàn thành: Nếu bình thường trừ 100% số Stack còn thiếu; nếu Khẩn cấp chỉ trừ 50%!
+function markTaskAsFailed(taskId) {
+  const t = appState.tasks.find(x => x.id === taskId);
+  if (!t || t.done || t.failed) return;
+
+  const remainingStack = Math.max(1, (t.stackMax || 1) - (t.stackCount || 0));
+  const fullPenalty = remainingStack;
+  const actualPenalty = t.isEmergency ? fmtNum(fullPenalty * 0.5) : fullPenalty;
+
+  const msg = t.isEmergency
+    ? `🚨 Nhiệm vụ "${t.title}" đang ở chế độ KHẨN CẤP (Giảm 50% phạt).\nKhi xác nhận không hoàn thành, bạn chỉ bị trừ -${actualPenalty} EXP & -${actualPenalty} 💎 (thay vì -${fullPenalty}). Xác nhận?`
+    : `⚠️ Nhiệm vụ "${t.title}" ở chế độ Bình thường.\nKhi xác nhận không hoàn thành, bạn sẽ bị trừ 100% số Stack còn thiếu là -${actualPenalty} EXP & -${actualPenalty} 💎 (Mẹo: Nếu bạn bận việc khẩn cấp ngoài ý muốn, hãy bấm nút "🚨 Khẩn cấp" trước để được giảm 50% phạt). Xác nhận chịu phạt?`;
+
+  if (!confirm(msg)) return;
+
+  t.failed = true;
+  t.penaltyApplied = actualPenalty;
+  addRpgExpAndGems(t.statType, -actualPenalty, true);
+
+  saveState();
+  renderTasks();
+  renderSchedule();
+}
+
 function editTask(id) {
   const t = appState.tasks.find(x => x.id === id);
   if (!t) return;
@@ -2231,14 +2561,63 @@ function editTask(id) {
   document.getElementById('taskPriority').value = t.priority || 'medium';
   document.getElementById('taskDueDate').value = t.dueDate;
   document.getElementById('taskRemindTime').value = t.remindTime || '';
+  document.getElementById('taskIsEmergency').value = t.isEmergency ? 'yes' : 'no';
   document.getElementById('taskFormTitle').textContent = 'Đang sửa nhiệm vụ';
   document.getElementById('btnCancelEditTask').style.display = 'inline-flex';
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+// LUẬT KỶ LUẬT THÉP: Xoá nhiệm vụ bắt buộc phải nhập lý do. Không có lý do -> RESET LEVEL VỀ 1!
 function deleteTask(id) {
-  if (!confirm('Xoá nhiệm vụ này?')) return;
+  const t = appState.tasks.find(x => x.id === id);
+  if (!t) return;
+
+  const reason = prompt(
+    `⚠️ QUY TẮC KỶ LUẬT THÉP:\n` +
+    `Bạn đang yêu cầu xoá nhiệm vụ: "${t.title}".\n` +
+    `Hãy nhập LÝ DO tại sao lại xoá nhiệm vụ này (CẢNH BÁO: Nếu để trống lý do mà vẫn xoá, toàn bộ Level của bạn sẽ bị RESET VỀ LEVEL 1!):`
+  );
+
+  // Nếu người dùng bấm Cancel trên hộp prompt
+  if (reason === null) return;
+
+  const cleanReason = reason.trim();
+  if (!cleanReason) {
+    const confirmPunish = confirm(
+      `🚨 BẠN KHÔNG NHẬP LÝ DO XOÁ NHIỆM VỤ!\n\n` +
+      `Theo luật kỷ luật đã đặt ra: Xoá nhiệm vụ mà không có lý do sẽ bị RESET TOÀN BỘ LEVEL (Thể lực, Trí tuệ, Sức khỏe, Kỷ luật) và Điểm Kiên Trì về Lv.1 (0 EXP)!\n\n` +
+      `Bấm OK để chấp nhận bị Reset Level và xoá, hoặc bấm Cancel để giữ lại nhiệm vụ.`
+    );
+    if (!confirmPunish) return;
+
+    // Thực thi hình phạt Reset toàn bộ Level về Lv.1 (0 EXP, 0 💎)
+    appState.rpg.strExp = 0;
+    appState.rpg.intExp = 0;
+    appState.rpg.hpExp = 0;
+    appState.rpg.perseverance = 0;
+    appState.tasks = appState.tasks.filter(x => x.id !== id);
+    appState.deletedTaskLogs.unshift({
+      id: uid(),
+      title: t.title,
+      reason: '❌ KHÔNG CÓ LÝ DO (Đã bị phạt Reset toàn bộ Level về Lv.1)',
+      date: getTodayISO()
+    });
+
+    saveState();
+    renderTasks();
+    populateScheduleTaskSelect();
+    alert('💥 HÌNH PHẠT ĐÃ THỰC THI: Vì xoá nhiệm vụ không có lý do, toàn bộ Level của bạn đã bị Reset về Level 1 (0 EXP, 0 💎)!');
+    return;
+  }
+
+  // Có nhập lý do hợp lệ
   appState.tasks = appState.tasks.filter(x => x.id !== id);
+  appState.deletedTaskLogs.unshift({
+    id: uid(),
+    title: t.title,
+    reason: cleanReason,
+    date: getTodayISO()
+  });
   saveState();
   renderTasks();
   populateScheduleTaskSelect();
@@ -2253,7 +2632,7 @@ function getStatBadgeHTML(statType) {
 
 function renderSingleTaskRowHTML(t) {
   const today = getTodayISO();
-  const isOverdue = !t.done && t.dueDate < today;
+  const isOverdue = !t.done && !t.failed && t.dueDate < today;
   const prioMap = { high: 'Ưu tiên Cao', medium: 'Vừa', low: 'Thấp' };
   const c = t.stackCount || 0;
   const m = t.stackMax || 1;
@@ -2261,10 +2640,12 @@ function renderSingleTaskRowHTML(t) {
   return `
     <div class="item-row">
       <label class="check-wrap">
-        <input type="checkbox" ${t.done ? 'checked' : ''} onchange="toggleTaskCheckbox('${t.id}')">
+        <input type="checkbox" ${t.done ? 'checked' : ''} ${t.failed ? 'disabled' : ''} onchange="toggleTaskCheckbox('${t.id}')">
         <div>
-          <div class="${t.done ? 'done-text' : ''}" style="font-weight:700;">
+          <div class="${t.done || t.failed ? 'done-text' : ''}" style="font-weight:700;">
             ${esc(t.title)}
+            ${t.isEmergency ? '<span class="badge badge-medium" style="margin-left:4px;">🚨 Khẩn cấp (-50% phạt)</span>' : ''}
+            ${t.failed ? `<span class="badge badge-high" style="margin-left:4px;">❌ Không hoàn thành (-${t.penaltyApplied || 0} EXP)</span>` : ''}
           </div>
           <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:4px;font-size:0.8em;color:var(--text-muted);">
             ${getStatBadgeHTML(t.statType)}
@@ -2276,12 +2657,20 @@ function renderSingleTaskRowHTML(t) {
         </div>
       </label>
 
-      <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:flex-end;">
-        <div class="stack-box" title="Stack nhiệm vụ: Mỗi lần +1 sẽ cộng ngay 1 EXP & 1 Kiên Trì">
-          <button class="btn btn-sm btn-outline" style="padding:2px 6px;min-height:24px;" onclick="stepTaskStack('${t.id}', -1)">-</button>
-          <span>📦 ${c}/${m}</span>
-          <button class="btn btn-sm btn-success" style="padding:2px 6px;min-height:24px;" onclick="stepTaskStack('${t.id}', 1)">+1</button>
-        </div>
+      <div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap;justify-content:flex-end;">
+        ${!t.done && !t.failed ? `
+          <div class="stack-box" title="Stack nhiệm vụ: Mỗi lần +1 sẽ cộng ngay 1 EXP & 1 Kiên Trì">
+            <button class="btn btn-sm btn-outline" style="padding:2px 6px;min-height:24px;" onclick="stepTaskStack('${t.id}', -1)">-</button>
+            <span>📦 ${c}/${m}</span>
+            <button class="btn btn-sm btn-success" style="padding:2px 6px;min-height:24px;" onclick="stepTaskStack('${t.id}', 1)">+1</button>
+          </div>
+          <button class="btn btn-sm ${t.isEmergency ? 'btn-warn' : 'btn-outline'}" title="Bật/tắt chế độ Khẩn cấp để chỉ bị trừ 50% điểm khi không hoàn thành" onclick="toggleTaskEmergencyMode('${t.id}')">
+            🚨 ${t.isEmergency ? 'Đang Khẩn cấp' : 'Khẩn cấp'}
+          </button>
+          <button class="btn btn-sm btn-outline" style="color:var(--danger);" onclick="markTaskAsFailed('${t.id}')">
+            Không xong
+          </button>
+        ` : ''}
         <button class="btn btn-sm btn-outline" onclick="editTask('${t.id}')">Sửa</button>
         <button class="btn btn-sm btn-danger" onclick="deleteTask('${t.id}')">Xoá</button>
       </div>
@@ -2289,7 +2678,7 @@ function renderSingleTaskRowHTML(t) {
   `;
 }
 
-/* ================= NHIỆM VỤ VƯỢT CẤP CUỐI TUẦN (X2 ĐIỂM HOẶC PHẠT) ================= */
+/* ================= NHIỆM VỤ VƯỢT CẤP CUỐI TUẦN (HỖ TRỢ KHẨN CẤP GIẢM 50% PHẠT) ================= */
 function getCurrentWeekendSundayISO() {
   const now = new Date();
   const day = now.getDay();
@@ -2306,10 +2695,12 @@ function processExpiredWeekendPenalties() {
   let penalized = [];
   appState.weekendTasks.forEach(wt => {
     if (wt.accepted && !wt.done && !wt.penalized && wt.sundayDeadline < today) {
-      const penalty = wt.statType === 'int' ? 2 : 1;
-      addRpgExpAndGems(wt.statType, -penalty, false);
+      const basePen = wt.statType === 'int' ? 2 : 1;
+      const actualPen = wt.isEmergency ? fmtNum(basePen * 0.5) : basePen;
+      addRpgExpAndGems(wt.statType, -actualPen, false);
       wt.penalized = true;
-      penalized.push(`${wt.title} (-${penalty} EXP)`);
+      wt.penaltyApplied = actualPen;
+      penalized.push(`${wt.title} (-${actualPen} EXP${wt.isEmergency ? ' [Khẩn cấp -50%]' : ''})`);
     }
   });
   if (penalized.length > 0) {
@@ -2333,6 +2724,7 @@ function addWeekendTask() {
     statType,
     stackMax,
     accepted: false,
+    isEmergency: false,
     done: false,
     penalized: false,
     sundayDeadline: getCurrentWeekendSundayISO()
@@ -2347,6 +2739,14 @@ function acceptWeekendTask(id) {
   const wt = appState.weekendTasks.find(x => x.id === id);
   if (!wt) return;
   wt.accepted = true;
+  saveState();
+  renderTasks();
+}
+
+function toggleWeekendEmergency(id) {
+  const wt = appState.weekendTasks.find(x => x.id === id);
+  if (!wt || wt.done || wt.penalized) return;
+  wt.isEmergency = !wt.isEmergency;
   saveState();
   renderTasks();
 }
@@ -2366,6 +2766,18 @@ function completeWeekendTask(id) {
 }
 
 function deleteWeekendTask(id) {
+  const wt = appState.weekendTasks.find(x => x.id === id);
+  if (!wt) return;
+  const reason = prompt(`⚠️ Nhập lý do xoá nhiệm vụ vượt cấp "${wt.title}" (Để trống sẽ bị Reset Level về Lv.1!):`);
+  if (reason === null) return;
+  if (!reason.trim()) {
+    if (!confirm('🚨 Bạn không nhập lý do! Xác nhận chịu phạt Reset toàn bộ Level về Lv.1?')) return;
+    appState.rpg.strExp = 0;
+    appState.rpg.intExp = 0;
+    appState.rpg.hpExp = 0;
+    appState.rpg.perseverance = 0;
+    alert('💥 Đã Reset toàn bộ Level về Lv.1 vì xoá nhiệm vụ không có lý do!');
+  }
   appState.weekendTasks = appState.weekendTasks.filter(x => x.id !== id);
   saveState();
   renderTasks();
@@ -2387,16 +2799,22 @@ function renderTasks() {
   } else {
     wkContainer.innerHTML = appState.weekendTasks.map(wt => {
       const reward = (wt.stackMax || 1) * 2;
-      const pen = wt.statType === 'int' ? -2 : -1;
+      const basePen = wt.statType === 'int' ? 2 : 1;
+      const pen = wt.isEmergency ? fmtNum(basePen * 0.5) : basePen;
       let actionHtml = '';
       if (wt.done) {
         actionHtml = `<span class="badge badge-low">✅ Đã xong (+${reward} EXP & +${reward} 💎)</span>`;
       } else if (wt.penalized) {
-        actionHtml = `<span class="badge badge-high">❌ Thất bại (Đã trừ ${pen} EXP)</span>`;
+        actionHtml = `<span class="badge badge-high">❌ Thất bại (Đã trừ -${wt.penaltyApplied || pen} EXP)</span>`;
       } else if (!wt.accepted) {
         actionHtml = `<button class="btn btn-sm btn-warn" onclick="acceptWeekendTask('${wt.id}')">⚡ Đồng ý nhận</button>`;
       } else {
-        actionHtml = `<button class="btn btn-sm btn-success" onclick="completeWeekendTask('${wt.id}')">✅ Hoàn thành nhận +${reward} EXP</button>`;
+        actionHtml = `
+          <button class="btn btn-sm ${wt.isEmergency ? 'btn-warn' : 'btn-outline'}" onclick="toggleWeekendEmergency('${wt.id}')">
+            🚨 ${wt.isEmergency ? 'Đang Khẩn cấp (-50% phạt)' : 'Khẩn cấp'}
+          </button>
+          <button class="btn btn-sm btn-success" onclick="completeWeekendTask('${wt.id}')">✅ Hoàn thành (+${reward} EXP)</button>
+        `;
       }
 
       return `
@@ -2406,11 +2824,11 @@ function renderTasks() {
             <div style="font-size:0.8em;color:var(--text-muted);margin-top:3px;">
               ${getStatBadgeHTML(wt.statType)}
               <span>Thưởng x2: <strong>+${reward} EXP & 💎</strong></span> |
-              <span>Phạt nếu thua: <strong style="color:var(--danger);">${pen} EXP</strong></span> |
+              <span>Phạt nếu thua: <strong style="color:var(--danger);">-${pen} EXP</strong></span> |
               <span>Hạn: ${formatDateVN(wt.sundayDeadline)}</span>
             </div>
           </div>
-          <div style="display:flex;gap:6px;align-items:center;">
+          <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
             ${actionHtml}
             <button class="btn btn-sm btn-danger" onclick="deleteWeekendTask('${wt.id}')">Xoá</button>
           </div>
@@ -2424,7 +2842,7 @@ function renderTasks() {
   let list = [...appState.tasks];
 
   if (filter === 'today') list = list.filter(t => t.dueDate <= today);
-  else if (filter === 'pending') list = list.filter(t => !t.done);
+  else if (filter === 'pending') list = list.filter(t => !t.done && !t.failed);
   else if (filter === 'done') list = list.filter(t => t.done);
 
   const prioWeight = { high: 1, medium: 2, low: 3 };
@@ -2437,9 +2855,27 @@ function renderTasks() {
   const container = document.getElementById('taskList');
   if (list.length === 0) {
     container.innerHTML = '<div class="empty-msg">Chưa có nhiệm vụ nào trong mục này.</div>';
-    return;
+  } else {
+    container.innerHTML = list.map(t => renderSingleTaskRowHTML(t)).join('');
   }
-  container.innerHTML = list.map(t => renderSingleTaskRowHTML(t)).join('');
+
+  // Hiển thị nhật ký xoá nhiệm vụ
+  const logsEl = document.getElementById('deletedTaskLogsList');
+  if (logsEl) {
+    const logs = appState.deletedTaskLogs || [];
+    if (logs.length === 0) {
+      logsEl.innerHTML = '<div class="empty-msg" style="padding:6px;">Chưa có nhiệm vụ nào bị xoá.</div>';
+    } else {
+      logsEl.innerHTML = logs.slice(0, 15).map(l => `
+        <div class="item-row" style="font-size:0.84em;">
+          <div>
+            <strong>${esc(l.title)}</strong> <span style="color:var(--text-muted);">(${formatDateVN(l.date)})</span>
+            <div style="color:var(--text-muted);">Lý do xoá: <strong>${esc(l.reason)}</strong></div>
+          </div>
+        </div>
+      `).join('');
+    }
+  }
 }
 
 /* =========================================================================
@@ -2768,7 +3204,7 @@ function addMistake() {
     return;
   }
 
-  appState.mistakes.unshift({ id: uid(), date, what, cause, lesson, fix });
+  appState.mistakes.unshift({ id: uid(), date, what, cause, lesson, fix, followedUpOn: '' });
   document.getElementById('mkWhat').value = '';
   document.getElementById('mkCause').value = '';
   document.getElementById('mkLesson').value = '';
@@ -2791,6 +3227,7 @@ function clearMistakeFilter() {
 }
 
 function renderMistakes() {
+  renderYesterdayMistakeFollowUp();
   const q = document.getElementById('mkSearch').value.trim().toLowerCase();
   const fDate = document.getElementById('mkFilterDate').value;
 
@@ -2917,9 +3354,7 @@ function deleteScheduleItem(date, itemId) {
 
 function copyYesterdaySchedule() {
   const today = getTodayISO();
-  const d = new Date(today + 'T00:00:00');
-  d.setDate(d.getDate() - 1);
-  const yISO = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  const yISO = getYesterdayISO();
 
   const yList = appState.schedules[yISO] || [];
   if (yList.length === 0) {
@@ -3033,6 +3468,8 @@ function addQuickTaskFromCal() {
     priority: 'medium',
     dueDate: selectedCalDate,
     remindTime: '',
+    isEmergency: false,
+    failed: false,
     done: false,
     notifiedDate: ''
   });
@@ -3092,7 +3529,7 @@ function renderMainCalendar() {
 }
 
 /* =========================================================================
-   13. TRANG 8: CHI TIÊU, KHOÁ QUỸ, ĐỔI ĐIỂM & VAY LÃI 20%/NGÀY (+ AI GÁC CỔNG)
+   13. TRANG 8: CHI TIÊU, KHOÁ QUỸ, ĐỔI ĐIỂM & VAY LÃI 20%/NGÀY
    ========================================================================= */
 function setVaultBalance() {
   const val = Number(document.getElementById('vaultSetInput').value);
@@ -3125,7 +3562,7 @@ function redeemGemsToCash() {
     return;
   }
 
-  appState.rpg.perseverance -= gemsToUse;
+  appState.rpg.perseverance = fmtNum(appState.rpg.perseverance - gemsToUse);
   appState.expenses.vaultBalance -= cashUnlock;
   appState.expenses.spendableBalance = (appState.expenses.spendableBalance || 0) + cashUnlock;
 
@@ -3155,16 +3592,16 @@ function takeEmergencyLoan() {
   const impulseRegex = /(trà sữa|cafe|cà phê|game|nạp|skin|đi chơi|nhậu|xem phim|quần áo|giày|mua sắm|ăn vặt|lẩu|nướng|bida|net|chơi|thèm)/i;
   if (impulseRegex.test(reason) || reason.length < 4) {
     const warnMsg =
-      `🤖 HỆ THỐNG AI GÁC CỔNG CẢNH BÁO:\n\n` +
+      `🤖 TRỢ LÝ GÁC CỔNG CẢNH BÁO:\n\n` +
       `Lý do "${reason}" có dấu hiệu tiêu xài cảm tính, KHÔNG PHẢI tình huống khẩn cấp!\n` +
       `- Số tiền rút: ${formatVND(amount)}\n` +
       `- Nợ gốc: ${baseGems} 💎\n` +
-      `- Lãi phạt mỗi ngày (20%): +${dailyInterestGems} 💎/ngày (Ngay hôm nay tổng nợ sẽ là ${baseGems + dailyInterestGems} 💎).\n\n` +
-      `Hệ thống khuyên bạn bấm Cancel (Huỷ) và quay lại làm ${baseGems} hiệp nhiệm vụ để đổi tiền đường hoàng. Bạn có thực sự muốn CƯỠNG CHẾ VAY không?`;
+      `- Lãi phạt mỗi ngày (20%): +${dailyInterestGems} 💎/ngày.\n\n` +
+      `Trợ Lý khuyên bạn bấm Cancel (Huỷ) và quay lại làm ${baseGems} hiệp nhiệm vụ để đổi tiền đường hoàng. Bạn có thực sự muốn CƯỠNG CHẾ VAY không?`;
     if (!confirm(warnMsg)) return;
   } else {
     const confirmNormal =
-      `🤖 AI Xác nhận khoản vay khẩn cấp:\n` +
+      `🤖 Trợ Lý xác nhận khoản vay khẩn cấp:\n` +
       `- Rút từ Két: ${formatVND(amount)} (Lý do: ${reason})\n` +
       `- Nợ gốc: ${baseGems} 💎 + Lãi 20%/ngày (+${dailyInterestGems} 💎/ngày).\n` +
       `Xác nhận thực hiện khoản vay này?`;
@@ -3195,7 +3632,7 @@ function calcLoanTotalOwedGems(loan) {
   const diffDays = Math.max(1, Math.round((todayMs - startMs) / 86400000) + 1);
   const interestGems = Math.ceil(loan.baseGems * 0.20 * diffDays);
   const totalGems = loan.baseGems + interestGems;
-  const remainingGems = Math.max(0, totalGems - (loan.paidGems || 0));
+  const remainingGems = Math.max(0, fmtNum(totalGems - (loan.paidGems || 0)));
   return { diffDays, interestGems, totalGems, remainingGems };
 }
 
@@ -3211,14 +3648,14 @@ function payLoanWithGems(loanId) {
   }
 
   const payAmount = Math.min(availGems, calc.remainingGems);
-  appState.rpg.perseverance -= payAmount;
-  loan.paidGems = (loan.paidGems || 0) + payAmount;
+  appState.rpg.perseverance = fmtNum(appState.rpg.perseverance - payAmount);
+  loan.paidGems = fmtNum((loan.paidGems || 0) + payAmount);
 
   if (loan.paidGems >= calc.totalGems) {
     appState.expenses.loans = appState.expenses.loans.filter(x => x.id !== loanId);
     alert('🎉 Bạn đã tất toán xong toàn bộ gốc và lãi của khoản vay khẩn cấp này!');
   } else {
-    alert(`Đã trả ${payAmount} 💎. Vẫn còn nợ ${calc.totalGems - loan.paidGems} 💎.`);
+    alert(`Đã trả ${payAmount} 💎. Vẫn còn nợ ${fmtNum(calc.totalGems - loan.paidGems)} 💎.`);
   }
 
   saveState();
@@ -3292,7 +3729,7 @@ function renderExpenses() {
     `Lv.${discInfo.level} Kỷ Luật: 1 💎 = ${formatVND(discInfo.exchangeRate)}`;
   document.getElementById('vaultBalanceTxt').textContent = formatVND(appState.expenses.vaultBalance || 0);
   document.getElementById('spendableBalanceTxt').textContent = formatVND(appState.expenses.spendableBalance || 0);
-  document.getElementById('expGemsTxt').textContent = `${appState.rpg.perseverance || 0} 💎`;
+  document.getElementById('expGemsTxt').textContent = `${fmtNum(appState.rpg.perseverance || 0)} 💎`;
 
   const loansEl = document.getElementById('activeLoansList');
   if (!appState.expenses.loans || appState.expenses.loans.length === 0) {
@@ -3417,7 +3854,7 @@ function drawExpensePieChart(catSums, totalOut) {
 }
 
 /* =========================================================================
-   14. TRANG 9: NHẮC NHỞ, CHUÔNG BÁO MÁY TÍNH (WEB AUDIO) & XUẤT LỊCH .ICS
+   14. TRANG 9: NHẮC NHỞ, CHUÔNG BÁO MÁY TÍNH & XUẤT LỊCH .ICS
    ========================================================================= */
 function playAlarmBeep() {
   try {
@@ -3452,7 +3889,7 @@ function renderRemindersTab() {
   }
 
   const today = getTodayISO();
-  const due = appState.tasks.filter(t => !t.done && t.dueDate && t.dueDate <= today);
+  const due = appState.tasks.filter(t => !t.done && !t.failed && t.dueDate && t.dueDate <= today);
   const el = document.getElementById('dueTasksReminderList');
 
   if (due.length === 0) {
@@ -3483,7 +3920,7 @@ function checkActiveReminders() {
 
   let changed = false;
   appState.tasks.forEach(t => {
-    if (!t.done && t.dueDate === today && t.remindTime) {
+    if (!t.done && !t.failed && t.dueDate === today && t.remindTime) {
       if (t.remindTime <= curHM && t.notifiedDate !== today) {
         t.notifiedDate = today;
         changed = true;
@@ -3510,7 +3947,7 @@ function exportICS() {
   ];
   const stamp = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
 
-  appState.tasks.filter(t => !t.done && t.dueDate).forEach(t => {
+  appState.tasks.filter(t => !t.done && !t.failed && t.dueDate).forEach(t => {
     const dClean = t.dueDate.replace(/-/g, '');
     let dtStart = `DTSTART;VALUE=DATE:${dClean}`;
     if (t.remindTime) {
@@ -3789,7 +4226,6 @@ function importAllDataJSON(event) {
   reader.readAsText(file);
 }
 
-// Chế độ Reset 1: Đặt lại tiến độ về Level 1 nhưng GIỮ NGUYÊN giao diện và ảnh nền
 function resetProgressKeepTheme() {
   if (!confirm('🔄 Bắt đầu lại từ Level 1 (Giữ lại giao diện & ảnh nền)?\nToàn bộ EXP, Điểm Kiên Trì, Nhiệm vụ, Điểm danh và Quỹ sẽ về 0.')) return;
   const savedUI = JSON.parse(JSON.stringify(appState.ui));
@@ -3801,7 +4237,6 @@ function resetProgressKeepTheme() {
   alert('✅ Đã đặt lại toàn bộ Level, Nhiệm vụ và Quỹ về 0 (Giữ nguyên giao diện của bạn)!');
 }
 
-// Chế độ Reset 2: Xoá trắng toàn bộ 100% về mặc định gốc
 async function resetAllDataToLevel1() {
   if (!confirm('⚠️ CẢNH BÁO: Bạn có chắc chắn muốn XOÁ TRẮNG 100% (Kể cả giao diện & ảnh nền) để bắt đầu lại từ Level 1 không?')) return;
   if (!confirm('Xác nhận lần cuối: Mọi nhiệm vụ, chuỗi điểm danh, quỹ và chủ đề sẽ về 0. Tiếp tục Reset?')) return;
@@ -3815,7 +4250,7 @@ async function resetAllDataToLevel1() {
 }
 
 /* =========================================================================
-   16. KHỞI TẠO MANIFEST PWA & CHẠY ỨNG DỤNG
+   16. KHỞI TẠO AN TOÀN CHỐNG TREO NÚT BẤM
    ========================================================================= */
 function setupDynamicManifest() {
   try {
@@ -3835,22 +4270,22 @@ function setupDynamicManifest() {
   } catch (e) {}
 }
 
-window.addEventListener('DOMContentLoaded', async () => {
-  loadState();
-  setupDynamicManifest();
+window.addEventListener('DOMContentLoaded', () => {
+  try { loadState(); } catch (e) { console.error(e); }
+  try { setupDynamicManifest(); } catch (e) {}
 
   const today = getTodayISO();
-  document.getElementById('taskDueDate').value = today;
-  document.getElementById('cdDate').value = today;
-  document.getElementById('mkDate').value = today;
-  document.getElementById('schDate').value = today;
-  document.getElementById('expDate').value = today;
-  document.getElementById('expMonthFilter').value = today.slice(0, 7);
+  ['taskDueDate', 'cdDate', 'mkDate', 'schDate', 'expDate'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = today;
+  });
+  const mEl = document.getElementById('expMonthFilter');
+  if (mEl) mEl.value = today.slice(0, 7);
 
-  processExpiredWeekendPenalties();
-  await applySavedAppearance();
-  updateAllHeaderAndRPG();
-  populateScheduleTaskSelect();
+  try { processExpiredWeekendPenalties(); } catch (e) {}
+  try { updateAllHeaderAndRPG(); } catch (e) {}
+  try { populateScheduleTaskSelect(); } catch (e) {}
+  try { applySavedAppearance(); } catch (e) {}
 
   setInterval(checkActiveReminders, 30000);
 });
