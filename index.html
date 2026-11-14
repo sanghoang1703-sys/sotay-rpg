@@ -9,7 +9,7 @@
 <title>Life RPG - Sổ Tay Kỷ Luật Cá Nhân</title>
 <style>
 /* =========================================================================
-   1. BIẾN CSS, CHẾ ĐỘ SÁNG/TỐI & PHONG CÁCH MINECRAFT PIXEL ĐỒNG BỘ 100%
+   1. BIẾN CSS, CHẾ ĐỘ SÁNG/TỐI, XÃ HỘI CHỦ NGHĨA (☭) & MINECRAFT PIXEL
    ========================================================================= */
 :root {
   --primary: #2563eb;
@@ -39,6 +39,123 @@
   --bg-overlay: rgba(15, 23, 42, 0.65);
 }
 
+/* =========================================================================
+   CHỦ ĐỀ XÃ HỘI CHỦ NGHĨA - CỘNG SẢN CÙNG BÚA LIỀM (☭ ★)
+   ========================================================================= */
+[data-style="socialist"] {
+  --bg: #5a0404;
+  --card-bg: rgba(139, 0, 0, 0.96);
+  --sub-bg: #6e0505;
+  --text: #fff9db;
+  --text-muted: #fde047;
+  --border: #ffd700;
+  --primary: #ffd700;
+  --danger: #ff4d4d;
+  --success: #4ade80;
+  --warning: #fbbf24;
+  --purple: #ffd700;
+  --bg-overlay: rgba(90, 4, 4, 0.65);
+}
+
+[data-style="socialist"] body {
+  background-image: radial-gradient(circle at 50% 18%, #990000 0%, #4a0202 100%);
+}
+
+[data-style="socialist"] #topHeader {
+  background: linear-gradient(90deg, #7f0000, #b71c1c, #7f0000) !important;
+  border-bottom: 3px solid #ffd700 !important;
+  box-shadow: 0 3px 12px rgba(255, 215, 0, 0.35) !important;
+}
+
+[data-style="socialist"] .card {
+  background: linear-gradient(145deg, rgba(145, 5, 5, 0.96), rgba(105, 3, 3, 0.96)) !important;
+  border: 2px solid #ffd700 !important;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.45), inset 0 0 8px rgba(255, 215, 0, 0.15) !important;
+  color: #fff9db !important;
+}
+
+[data-style="socialist"] .card-title::before {
+  content: "☭ ";
+  color: #ffd700;
+  font-size: 1.15em;
+  text-shadow: 0 0 6px rgba(255, 215, 0, 0.8);
+}
+
+[data-style="socialist"] .sub-panel,
+[data-style="socialist"] .rpg-stat-card,
+[data-style="socialist"] .rpg-master-box,
+[data-style="socialist"] .ai-box,
+[data-style="socialist"] .stat-pill,
+[data-style="socialist"] .cal-cell {
+  background: #680404 !important;
+  border: 1px solid #ffd700 !important;
+  color: #fff9db !important;
+}
+
+[data-style="socialist"] .btn,
+[data-style="socialist"] .nav-btn.active,
+[data-style="socialist"] .sub-tab.active {
+  background: linear-gradient(180deg, #ffd700, #f59e0b) !important;
+  color: #7f0000 !important;
+  font-weight: 800 !important;
+  border: 1px solid #fffbeb !important;
+  text-shadow: none !important;
+}
+
+[data-style="socialist"] .nav-btn,
+[data-style="socialist"] .sub-tab,
+[data-style="socialist"] .btn-outline {
+  background: #7f0000 !important;
+  color: #ffd700 !important;
+  border: 1px solid #ffd700 !important;
+  font-weight: 700 !important;
+}
+
+[data-style="socialist"] .btn-danger {
+  background: #b91c1c !important;
+  color: #ffd700 !important;
+  border: 2px solid #ffd700 !important;
+}
+
+[data-style="socialist"] .btn-success {
+  background: #15803d !important;
+  color: #ffffff !important;
+  border: 1px solid #ffd700 !important;
+}
+
+[data-style="socialist"] input,
+[data-style="socialist"] select,
+[data-style="socialist"] textarea {
+  background: #450202 !important;
+  color: #ffd700 !important;
+  border: 1px solid #ffd700 !important;
+}
+
+[data-style="socialist"] input::placeholder,
+[data-style="socialist"] textarea::placeholder {
+  color: rgba(255, 215, 0, 0.6) !important;
+}
+
+[data-style="socialist"] .prog-track,
+[data-style="socialist"] .mini-progress {
+  background: #3b0202 !important;
+  border: 1px solid #ffd700 !important;
+}
+
+[data-style="socialist"] .prog-fill,
+[data-style="socialist"] .mini-progress-bar {
+  background: linear-gradient(90deg, #ffd700, #fef08a) !important;
+}
+
+[data-style="socialist"] .badge {
+  background: #450202 !important;
+  color: #ffd700 !important;
+  border: 1px solid #ffd700 !important;
+}
+
+/* =========================================================================
+   CHỦ ĐỀ KHỐI PIXEL MINECRAFT
+   ========================================================================= */
 [data-style="minecraft"] {
   --bg: #2b2b2b;
   --card-bg: #c6c6c6;
@@ -299,6 +416,40 @@ html, body {
 .banner-warn { background: rgba(217, 119, 6, 0.16); border-color: var(--warning); }
 .banner-danger { background: rgba(220, 38, 38, 0.16); border-color: var(--danger); }
 .banner-purple { background: rgba(124, 58, 237, 0.14); border-color: var(--purple); }
+
+/* Khung Trợ Lý nhắc nhở các mục đang trống ở đầu trang */
+.assistant-top-checklist {
+  background: var(--card-bg);
+  border: 2px solid var(--warning);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  margin-bottom: 12px;
+}
+
+.missing-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.missing-item-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 10px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border-radius: 7px;
+  border: 1px solid var(--danger);
+  background: rgba(220, 38, 38, 0.12);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.missing-item-btn:hover {
+  opacity: 0.9;
+}
 
 .card {
   background: var(--card-bg);
@@ -674,7 +825,7 @@ textarea {
 
 <!-- KHUNG NỘI DUNG CHÍNH -->
 <main id="mainContainer">
-  <!-- Khu vực hiển thị Banner cảnh báo & Hỏi lại lỗi sai hôm qua -->
+  <!-- Khu vực hiển thị Banner Trợ Lý nhắc các mục đang trống ở ngay trên cùng -->
   <div id="alertArea"></div>
 
   <!-- ================= TRANG 0: 🏠 TRANG CHÍNH (LEVEL, CẨM NANG & TRỢ LÝ) ================= -->
@@ -821,7 +972,7 @@ textarea {
       </div>
     </div>
 
-    <!-- Khung 2: 🤖 TRỢ LÝ ĐA NĂNG (KIỂM TRA LỖI HÔM QUA, NHẮC THỜI GIAN BIỂU, GHI MỤC TIÊU/ĐẾM NGÀY/QUỸ) -->
+    <!-- Khung 2: 🤖 TRỢ LÝ ĐA NĂNG -->
     <div class="card" style="border:2px solid var(--purple);">
       <div class="card-title">
         <span>🤖 Trợ Lý (Điều khiển toàn diện & Kiểm tra kỷ luật)</span>
@@ -831,12 +982,12 @@ textarea {
         </div>
       </div>
 
-      <!-- Khung hỏi lại lỗi sai ngày hôm qua (Tự động hiện nếu hôm qua có ghi lỗi sai) -->
+      <!-- Khung hỏi lại lỗi sai ngày hôm qua -->
       <div id="yesterdayMistakeFollowUpBox"></div>
 
       <!-- Kết quả phân tích trạng thái của Trợ Lý -->
       <div id="aiAnalysisOutput" class="ai-box">
-        Xin chào! Tôi là <strong>🤖 Trợ Lý</strong> của bạn. Hãy bấm <strong>"🔍 Kiểm tra tổng quát hôm nay"</strong> hoặc dùng khung chat bên dưới để ghi nhanh <em>Nhiệm vụ, Mục tiêu, Lỗi sai, Đếm ngày, Chi tiêu</em> và xem <em>Hướng dẫn Quỹ</em>!
+        Xin chào! Tôi là <strong>🤖 Trợ Lý</strong> của bạn. Hãy xem bảng nhắc các mục đang trống ở trên cùng hoặc bấm <strong>"🔍 Kiểm tra tổng quát hôm nay"</strong> và dùng khung chat bên dưới để ghi nhanh <em>Nhiệm vụ, Mục tiêu, Lỗi sai, Đếm ngày, Chi tiêu</em>!
       </div>
 
       <!-- Ô nhập lệnh đa năng bằng tiếng Việt -->
@@ -930,7 +1081,7 @@ textarea {
       </div>
       <button class="btn btn-block" onclick="saveTask()">💾 Lưu nhiệm vụ</button>
       <div style="font-size:0.8em;color:var(--danger);margin-top:6px;">
-        ⚠️ <strong>Quy tắc Kỷ Luật Thép:</strong> Khi bấm <strong>Xoá</strong> nhiệm vụ, bạn bắt buộc phải nhập lý do chính đáng. Nếu xoá không lý do sẽ bị <strong>RESET TOÀN BỘ LEVEL VỀ LV.1</strong>! Nếu không hoàn thành nhiệm vụ có thể bấm <strong>"Không hoàn thành"</strong> (Bật <em>🚨 Khẩn cấp</em> sẽ được giảm 50% điểm phạt).
+        ⚠️ <strong>Quy tắc Kỷ Luật Thép:</strong> Khi bấm <strong>Xoá</strong> nhiệm vụ, bạn bắt buộc phải nhập lý do chính đáng. Nếu xoá không lý do sẽ bị <strong>RESET TOÀN BỘ LEVEL VỀ LV.1</strong>! Nếu không hoàn thành nhiệm vụ có thể bấm <strong>"Không xong"</strong> (Bật <em>🚨 Khẩn cấp</em> sẽ được giảm 50% điểm phạt).
       </div>
     </div>
 
@@ -1089,7 +1240,6 @@ textarea {
 
   <!-- ================= TRANG 5: 📓 GHI LỖI SAI HÔM NAY (+ TRỢ LÝ BẮT BỆNH & HỎI LẠI HÔM SAU) ================= -->
   <section id="tab-mistakes" class="tab-pane">
-    <!-- Khung hỏi lại lỗi sai hôm qua ngay trong tab Lỗi sai -->
     <div id="mistakeTabFollowUpBox"></div>
 
     <div class="card">
@@ -1430,7 +1580,7 @@ textarea {
     </div>
   </section>
 
-  <!-- ================= TRANG 10: ⚙️ GIAO DIỆN TUỲ CHỈNH, SAO LƯU & RESET LEVEL 1 ================= -->
+  <!-- ================= TRANG 10: ⚙️ GIAO DIỆN TUỲ CHỈNH (CÓ ☭ XÃ HỘI CHỦ NGHĨA), SAO LƯU & RESET ================= -->
   <section id="tab-settings" class="tab-pane">
     <div class="card">
       <div class="card-title">🎨 Giao diện tuỳ chỉnh (Có sẵn mẫu & Chọn ảnh nền)</div>
@@ -1438,7 +1588,7 @@ textarea {
       <label>Chọn nhanh phong cách thiết kế</label>
       <div class="form-row-3" style="margin-bottom:12px;">
         <button class="btn btn-outline" onclick="applyQuickStyle('light')">☀️ Sáng Hiện Đại</button>
-        <button class="btn btn-outline" onclick="applyQuickStyle('dark')">🌙 Tối RPG</button>
+        <button class="btn btn-danger" style="border:2px solid #ffd700;color:#ffd700;background:#8b0000;" onclick="applyQuickStyle('socialist')">☭ Xã Hội Chủ Nghĩa</button>
         <button class="btn btn-outline" onclick="applyQuickStyle('minecraft')">⛏️ Khối Pixel Minecraft</button>
       </div>
 
@@ -1481,7 +1631,7 @@ textarea {
       <div style="border-top:1px solid var(--border);padding-top:10px;margin-top:6px;">
         <label>Lưu cấu hình hiện tại (Ảnh nền + Màu + Phong cách) thành Chủ đề riêng</label>
         <div class="form-row" style="margin-bottom:8px;">
-          <input type="text" id="presetThemeName" placeholder="Tên chủ đề (VD: Minecraft Đêm, Tối giản...)">
+          <input type="text" id="presetThemeName" placeholder="Tên chủ đề (VD: Cờ Đỏ Búa Liềm, Minecraft...)">
           <button class="btn" onclick="saveThemePreset()">💾 Lưu chủ đề</button>
         </div>
         <div id="presetThemeList"></div>
@@ -1718,7 +1868,7 @@ async function idbDeleteImage(key) {
 }
 
 /* =========================================================================
-   3. CÔNG THỨC LEVEL RPG (HỖ TRỢ ĐIỂM LẺ 0.5 EXP KHI GIẢM 50% PHẠT KHẨN CẤP)
+   3. CÔNG THỨC LEVEL RPG
    ========================================================================= */
 function calcStatLevelInfo(totalExp) {
   let exp = Math.max(0, Math.round((Number(totalExp) || 0) * 10) / 10);
@@ -1783,7 +1933,7 @@ function addRpgExpAndGems(statType, amount, affectGems = true) {
 }
 
 /* =========================================================================
-   4. 🤖 HỆ THỐNG "TRỢ LÝ" ĐA NĂNG (HỎI LẠI LỖI SAI HÔM QUA, NHẮC LỊCH, GHI ĐA NĂNG)
+   4. 🤖 HỆ THỐNG "TRỢ LÝ" ĐA NĂNG & KIỂM TRA CÁC MỤC ĐANG TRỐNG Ở ĐẦU TRANG
    ========================================================================= */
 function toggleManualBox() {
   const box = document.getElementById('manualBox');
@@ -1796,6 +1946,136 @@ function fillAssistantSample(text) {
   if (!el) return;
   el.value = text;
   el.focus();
+}
+
+// Chuyển nhanh tới tab Mục tiêu và mở đúng kỳ Tuần / Tháng / Năm đang trống
+function jumpToGoalScope(scope) {
+  switchTab('tab-goals');
+  switchGoalScope(scope);
+}
+
+// Quét toàn bộ các mục đang trống để hiện nhắc nhở "Hãy làm ngay!" ở trên cùng
+function buildAssistantEmptySectionsHTML() {
+  const today = getTodayISO();
+  const missingItems = [];
+
+  // 1. Điểm danh hôm nay
+  if (!appState.checkins.includes(today)) {
+    missingItems.push({
+      label: '🔥 Điểm danh hôm nay chưa bấm — Điểm danh ngay!',
+      action: "switchTab('tab-checkin')"
+    });
+  }
+
+  // 2. Nhiệm vụ hôm nay
+  const todayTasks = appState.tasks.filter(t => t.dueDate === today);
+  if (todayTasks.length === 0) {
+    missingItems.push({
+      label: '☑️ Nhiệm vụ hôm nay đang trống — Hãy ghi ngay!',
+      action: "switchTab('tab-tasks')"
+    });
+  } else {
+    const pendingToday = todayTasks.filter(t => !t.done && !t.failed);
+    if (pendingToday.length > 0) {
+      missingItems.push({
+        label: `☑️ Còn ${pendingToday.length} nhiệm vụ hôm nay chưa xong — Làm ngay!`,
+        action: "switchTab('tab-tasks')"
+      });
+    }
+  }
+
+  // 3. Nhiệm vụ của cả tuần (các ngày khác trong tuần & Nhiệm vụ Vượt cấp cuối tuần)
+  const futureWeekTasks = appState.tasks.filter(t => t.dueDate > today);
+  if (futureWeekTasks.length === 0 && appState.weekendTasks.length === 0) {
+    missingItems.push({
+      label: '📅 Nhiệm vụ của cả tuần & Cuối tuần chưa ghi — Lên kế hoạch ngay!',
+      action: "switchTab('tab-tasks')"
+    });
+  }
+
+  // 4. Mục tiêu Tuần đang trống
+  const wkPeriod = getCurrentPeriodKey('week').key;
+  const wkGoals = (appState.goals.week || []).filter(g => g.periodKey === wkPeriod);
+  if (wkGoals.length === 0) {
+    missingItems.push({
+      label: '🎯 Mục tiêu Tuần đang trống — Hãy đặt ngay!',
+      action: "jumpToGoalScope('week')"
+    });
+  }
+
+  // 5. Mục tiêu Tháng đang trống
+  const moPeriod = getCurrentPeriodKey('month').key;
+  const moGoals = (appState.goals.month || []).filter(g => g.periodKey === moPeriod);
+  if (moGoals.length === 0) {
+    missingItems.push({
+      label: '🎯 Mục tiêu Tháng đang trống — Hãy đặt ngay!',
+      action: "jumpToGoalScope('month')"
+    });
+  }
+
+  // 6. Mục tiêu Năm đang trống
+  const yrPeriod = getCurrentPeriodKey('year').key;
+  const yrGoals = (appState.goals.year || []).filter(g => g.periodKey === yrPeriod);
+  if (yrGoals.length === 0) {
+    missingItems.push({
+      label: '🎯 Mục tiêu Năm đang trống — Hãy đặt ngay!',
+      action: "jumpToGoalScope('year')"
+    });
+  }
+
+  // 7. Đếm ngày đang trống
+  if (!appState.countdowns || appState.countdowns.length === 0) {
+    missingItems.push({
+      label: '⏳ Sự kiện Đếm ngày đang trống — Hãy thêm ngay!',
+      action: "switchTab('tab-countdown')"
+    });
+  }
+
+  // 8. Lỗi sai hôm nay đang trống
+  const todayMistakes = (appState.mistakes || []).filter(m => m.date === today);
+  if (todayMistakes.length === 0) {
+    missingItems.push({
+      label: '📓 Lỗi sai hôm nay đang trống — Hãy phản tỉnh & ghi ngay!',
+      action: "switchTab('tab-mistakes')"
+    });
+  }
+
+  // 9. Thời gian biểu hôm nay đang trống
+  const todaySchedule = appState.schedules[today] || [];
+  if (todaySchedule.length === 0) {
+    missingItems.push({
+      label: '🕒 Thời gian biểu hôm nay đang trống — Hãy lập ngay!',
+      action: "switchTab('tab-schedule')"
+    });
+  }
+
+  if (missingItems.length === 0) {
+    return `
+      <div class="banner" style="background:rgba(22,163,74,0.15);border-color:var(--success);">
+        <span>🎉 <strong>🤖 Trợ Lý khen ngợi:</strong> Bạn đã điền đầy đủ mọi mục (Nhiệm vụ, Mục tiêu Tuần/Tháng/Năm, Đếm ngày, Lỗi sai, Thời gian biểu & Điểm danh)!</span>
+      </div>
+    `;
+  }
+
+  const buttonsHtml = missingItems.map(item => `
+    <button class="missing-item-btn" onclick="${item.action}">
+      ${item.label} ➔
+    </button>
+  `).join('');
+
+  return `
+    <div class="assistant-top-checklist">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
+        <strong style="color:var(--danger);font-size:0.92rem;">
+          🤖 Trợ Lý Nhắc Nhở: Phát hiện ${missingItems.length} mục đang trống hoặc chưa làm — Hãy làm ngay!
+        </strong>
+        <span class="badge badge-medium">Bấm vào mục bên dưới để mở ngay</span>
+      </div>
+      <div class="missing-grid">
+        ${buttonsHtml}
+      </div>
+    </div>
+  `;
 }
 
 // 4.1. Kiểm tra và hiển thị câu hỏi: "Bạn có lặp lại lỗi sai ngày hôm qua không?"
@@ -1847,7 +2127,6 @@ function answerYesterdayMistake(mistakeId, repeated) {
     renderMistakes();
     alert('🎉 Tuyệt vời! Bạn đã không lặp lại lỗi sai hôm qua. Trợ Lý thưởng cho bạn +2 💎 Điểm Kiên Trì!');
   } else {
-    // Ghi nhận lại lỗi sai vào ngày hôm nay và tạo nhiệm vụ khắc phục
     const fixText = m.fix || ('Khắc phục triệt để lỗi: ' + m.what);
     appState.tasks.push({
       id: uid(),
@@ -1893,7 +2172,7 @@ function toggleFundGuideInTab() {
   el.style.display = (el.style.display === 'none' || !el.style.display) ? 'block' : 'none';
 }
 
-// 4.3. Kiểm tra tổng quát hôm nay (Level, Điểm danh, Thời gian biểu trống, Nợ, Lỗi sai hôm qua)
+// 4.3. Kiểm tra tổng quát hôm nay
 function runAssistantFullCheck() {
   const today = getTodayISO();
   const info = getDisciplineInfo();
@@ -1992,7 +2271,7 @@ function aiQuickAddSuggestedTask(title, statType, stackMax) {
   alert(`🤖 Trợ Lý đã thêm nhiệm vụ "${title}" (Stack 0/${stackMax}) vào danh sách hôm nay!`);
 }
 
-// 4.4. Bộ phân tích lỗi sai tự động dùng chung cho cả Chat Trợ Lý và Tab Lỗi Sai
+// 4.4. Bộ phân tích lỗi sai tự động
 function generateMistakeAnalysis(whatText) {
   const lower = whatText.toLowerCase();
   if (/(thức khuya|ngủ muộn|dậy muộn|dậy trễ|ngủ quên)/.test(lower)) {
@@ -2047,7 +2326,7 @@ function executeAICommand() {
     return;
   }
 
-  // B. GHI MỤC TIÊU TỪ CHAT (VD: "Mục tiêu tuần: Giải 5 đề thi | Phạt: Hít đất 100 cái")
+  // B. GHI MỤC TIÊU TỪ CHAT
   const goalMatch = raw.match(/^mục tiêu\s*(tuần|tháng|năm)?\s*[:\-]?\s*(.+)$/i);
   if (goalMatch) {
     const scopeWord = (goalMatch[1] || 'tuần').toLowerCase();
@@ -2083,7 +2362,7 @@ function executeAICommand() {
     return;
   }
 
-  // C. GHI LỖI SAI TỪ CHAT (VD: "Lỗi sai: Thức khuya lướt điện thoại")
+  // C. GHI LỖI SAI TỪ CHAT
   const mistakeMatch = raw.match(/^(lỗi sai|ghi lỗi|lỗi hôm nay|sai lầm)\s*[:\-]?\s*(.+)$/i);
   if (mistakeMatch) {
     const whatText = mistakeMatch[2].trim();
@@ -2105,7 +2384,7 @@ function executeAICommand() {
     return;
   }
 
-  // D. GHI SỰ KIỆN ĐẾM NGÀY TỪ CHAT (VD: "Đếm ngày: Thi học kỳ 25/12/2026" hoặc "Sự kiện: Sinh nhật 2026-12-25")
+  // D. GHI SỰ KIỆN ĐẾM NGÀY TỪ CHAT
   const cdMatch = raw.match(/^(đếm ngày|sự kiện)\s*[:\-]?\s*(.+)$/i);
   if (cdMatch) {
     let content = cdMatch[2].trim();
@@ -2150,7 +2429,7 @@ function executeAICommand() {
     return;
   }
 
-  // E. GHI THU / CHI TIỀN TỪ CHAT (VD: "Chi 30k ăn sáng", "Thu 500k tiền thưởng")
+  // E. GHI THU / CHI TIỀN TỪ CHAT
   const moneyMatch = lower.match(/^(chi|tiêu|mua|thu|nhận)\s+([\d.,]+)\s*(k|nghìn|ngàn|tr|triệu|đ|d)?\s*(.*)$/i);
   if (moneyMatch) {
     const verb = moneyMatch[1].toLowerCase();
@@ -2198,7 +2477,7 @@ function executeAICommand() {
     return;
   }
 
-  // F. MẶC ĐỊNH: TẠO NHIỆM VỤ (HỖ TRỢ TỪ KHOÁ "KHẨN CẤP" & STACK)
+  // F. MẶC ĐỊNH: TẠO NHIỆM VỤ
   let statType = 'str';
   if (/(trí tuệ|học|đọc|đề|từ vựng|toán|anh|code|bài|nghiên cứu)/.test(lower)) statType = 'int';
   else if (/(sức khỏe|ngủ|uống nước|thiền|ăn sạch|nghỉ|thuốc|giãn cơ)/.test(lower)) statType = 'hp';
@@ -2280,7 +2559,7 @@ function turnMistakeFixIntoTask() {
 }
 
 /* =========================================================================
-   5. CẬP NHẬT HEADER, BANNER (NHẮC THỜI GIAN BIỂU TRỐNG & HỎI LỖI HÔM QUA)
+   5. CẬP NHẬT HEADER & BANNER TRỢ LÝ NHẮC CÁC MỤC ĐANG TRỐNG Ở TRÊN CÙNG
    ========================================================================= */
 function switchTab(tabId) {
   document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
@@ -2354,19 +2633,12 @@ function updateAllHeaderAndRPG() {
   renderYesterdayMistakeFollowUp();
 
   const alerts = [];
+
+  // 1. Bảng Trợ Lý nhắc nhở tất cả các mục đang trống ở ngay trên cùng
+  alerts.push(buildAssistantEmptySectionsHTML());
+
   if (storageErrorMessage) {
     alerts.push(`<div class="banner banner-danger"><span>⚠️ ${esc(storageErrorMessage)}</span></div>`);
-  }
-
-  // Nhắc nhở khi Thời gian biểu hôm nay đang trống
-  const todaySch = appState.schedules[today] || [];
-  if (todaySch.length === 0) {
-    alerts.push(`
-      <div class="banner banner-warn">
-        <span>🕒 <strong>🤖 Trợ Lý nhắc nhở:</strong> Hôm nay bạn chưa lập Thời gian biểu! Hãy phân bổ nhiệm vụ vào 4 buổi Sáng/Trưa/Chiều/Tối.</span>
-        <button class="btn btn-sm" onclick="switchTab('tab-schedule')">Lập Thời gian biểu</button>
-      </div>
-    `);
   }
 
   let needBackup = false;
@@ -2381,16 +2653,6 @@ function updateAllHeaderAndRPG() {
       <div class="banner banner-warn">
         <span>💾 Đã quá 7 ngày bạn chưa xuất file JSON sao lưu dữ liệu.</span>
         <button class="btn btn-sm" onclick="switchTab('tab-settings')">Sao lưu</button>
-      </div>
-    `);
-  }
-
-  const dueTasks = appState.tasks.filter(t => !t.done && !t.failed && t.dueDate && t.dueDate <= today);
-  if (dueTasks.length > 0) {
-    alerts.push(`
-      <div class="banner banner-danger">
-        <span>⏰ Bạn có <strong>${dueTasks.length}</strong> nhiệm vụ đến hạn hôm nay hoặc đã quá hạn!</span>
-        <button class="btn btn-sm btn-danger" onclick="switchTab('tab-reminders')">Xem ngay</button>
       </div>
     `);
   }
@@ -2518,7 +2780,6 @@ function toggleTaskCheckbox(taskId) {
   renderMainCalendar();
 }
 
-// Bật/tắt chế độ Khẩn cấp (Bận đột xuất) trên nhiệm vụ: Khi không hoàn thành chỉ trừ 50% điểm phạt
 function toggleTaskEmergencyMode(taskId) {
   const t = appState.tasks.find(x => x.id === taskId);
   if (!t || t.done || t.failed) return;
@@ -2527,7 +2788,6 @@ function toggleTaskEmergencyMode(taskId) {
   renderTasks();
 }
 
-// Đánh dấu nhiệm vụ Không hoàn thành: Nếu bình thường trừ 100% số Stack còn thiếu; nếu Khẩn cấp chỉ trừ 50%!
 function markTaskAsFailed(taskId) {
   const t = appState.tasks.find(x => x.id === taskId);
   if (!t || t.done || t.failed) return;
@@ -2567,7 +2827,6 @@ function editTask(id) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// LUẬT KỶ LUẬT THÉP: Xoá nhiệm vụ bắt buộc phải nhập lý do. Không có lý do -> RESET LEVEL VỀ 1!
 function deleteTask(id) {
   const t = appState.tasks.find(x => x.id === id);
   if (!t) return;
@@ -2578,7 +2837,6 @@ function deleteTask(id) {
     `Hãy nhập LÝ DO tại sao lại xoá nhiệm vụ này (CẢNH BÁO: Nếu để trống lý do mà vẫn xoá, toàn bộ Level của bạn sẽ bị RESET VỀ LEVEL 1!):`
   );
 
-  // Nếu người dùng bấm Cancel trên hộp prompt
   if (reason === null) return;
 
   const cleanReason = reason.trim();
@@ -2590,7 +2848,6 @@ function deleteTask(id) {
     );
     if (!confirmPunish) return;
 
-    // Thực thi hình phạt Reset toàn bộ Level về Lv.1 (0 EXP, 0 💎)
     appState.rpg.strExp = 0;
     appState.rpg.intExp = 0;
     appState.rpg.hpExp = 0;
@@ -2610,7 +2867,6 @@ function deleteTask(id) {
     return;
   }
 
-  // Có nhập lý do hợp lệ
   appState.tasks = appState.tasks.filter(x => x.id !== id);
   appState.deletedTaskLogs.unshift({
     id: uid(),
@@ -2678,7 +2934,7 @@ function renderSingleTaskRowHTML(t) {
   `;
 }
 
-/* ================= NHIỆM VỤ VƯỢT CẤP CUỐI TUẦN (HỖ TRỢ KHẨN CẤP GIẢM 50% PHẠT) ================= */
+/* ================= NHIỆM VỤ VƯỢT CẤP CUỐI TUẦN ================= */
 function getCurrentWeekendSundayISO() {
   const now = new Date();
   const day = now.getDay();
@@ -2859,7 +3115,6 @@ function renderTasks() {
     container.innerHTML = list.map(t => renderSingleTaskRowHTML(t)).join('');
   }
 
-  // Hiển thị nhật ký xoá nhiệm vụ
   const logsEl = document.getElementById('deletedTaskLogsList');
   if (logsEl) {
     const logs = appState.deletedTaskLogs || [];
@@ -3817,7 +4072,7 @@ function drawExpensePieChart(catSums, totalOut) {
 
   const entries = Object.entries(catSums).sort((a, b) => b[1] - a[1]);
   if (totalOut <= 0 || entries.length === 0) {
-    ctx.fillStyle = '#64748b';
+    ctx.fillStyle = '#94a3b8';
     ctx.font = '14px sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText('Chưa có dữ liệu chi tiêu trong tháng', canvas.width / 2, canvas.height / 2);
@@ -3825,7 +4080,7 @@ function drawExpensePieChart(catSums, totalOut) {
     return;
   }
 
-  const colors = ['#2563eb', '#dc2626', '#16a34a', '#d97706', '#7c3aed', '#0891b2', '#db2777', '#64748b'];
+  const colors = ['#ffd700', '#dc2626', '#16a34a', '#2563eb', '#7c3aed', '#0891b2', '#db2777', '#64748b'];
   const cx = canvas.width / 2, cy = canvas.height / 2;
   const r = Math.min(cx, cy) - 14;
   let start = -Math.PI / 2;
@@ -3993,7 +4248,7 @@ function exportICS() {
 }
 
 /* =========================================================================
-   15. TRANG 10: GIAO DIỆN TUỲ CHỈNH, SAO LƯU JSON & 2 CHẾ ĐỘ RESET LEVEL 1
+   15. TRANG 10: GIAO DIỆN TUỲ CHỈNH (CÓ ☭ XÃ HỘI CHỦ NGHĨA), SAO LƯU & RESET
    ========================================================================= */
 async function applySavedAppearance() {
   const ui = appState.ui;
@@ -4004,13 +4259,16 @@ async function applySavedAppearance() {
   document.documentElement.style.setProperty('--bg-blur', (ui.blur || 0) + 'px');
 
   const dimPct = (ui.dim !== undefined ? ui.dim : 45) / 100;
-  const overlayCol = ui.mode === 'dark'
+  let overlayCol = ui.mode === 'dark'
     ? `rgba(15, 23, 42, ${dimPct})`
     : `rgba(241, 245, 249, ${dimPct})`;
+  if (ui.style === 'socialist') {
+    overlayCol = `rgba(90, 4, 4, ${dimPct})`;
+  }
   document.documentElement.style.setProperty('--bg-overlay', overlayCol);
 
   const meta = document.getElementById('metaThemeColor');
-  if (meta) meta.setAttribute('content', ui.primary || '#2563eb');
+  if (meta) meta.setAttribute('content', ui.style === 'socialist' ? '#8b0000' : (ui.primary || '#2563eb'));
 
   const bgData = await idbGetImage(ui.currentBgId || 'active_bg');
   const bgLayer = document.getElementById('bgLayer');
@@ -4022,10 +4280,10 @@ function applyQuickStyle(presetType) {
     appState.ui.mode = 'light';
     appState.ui.style = 'modern';
     appState.ui.primary = '#2563eb';
-  } else if (presetType === 'dark') {
+  } else if (presetType === 'socialist') {
     appState.ui.mode = 'dark';
-    appState.ui.style = 'modern';
-    appState.ui.primary = '#3b82f6';
+    appState.ui.style = 'socialist';
+    appState.ui.primary = '#ffd700';
   } else if (presetType === 'minecraft') {
     appState.ui.mode = 'dark';
     appState.ui.style = 'minecraft';
@@ -4164,18 +4422,23 @@ function renderSettingsTab() {
   if (!ui.presets || ui.presets.length === 0) {
     pEl.innerHTML = '<div class="empty-msg" style="padding:6px;">Chưa có chủ đề riêng nào được lưu.</div>';
   } else {
-    pEl.innerHTML = ui.presets.map(p => `
-      <div class="item-row">
-        <div>
-          <strong>${esc(p.name)}</strong>
-          <span style="font-size:0.8em;color:var(--text-muted);">(${p.style === 'minecraft' ? 'Minecraft' : (p.mode === 'dark' ? 'Tối' : 'Sáng')}${p.hasImage ? ', Có ảnh nền' : ''})</span>
+    pEl.innerHTML = ui.presets.map(p => {
+      const styleLabel = p.style === 'minecraft'
+        ? 'Minecraft'
+        : (p.style === 'socialist' ? '☭ Xã Hội Chủ Nghĩa' : (p.mode === 'dark' ? 'Tối' : 'Sáng'));
+      return `
+        <div class="item-row">
+          <div>
+            <strong>${esc(p.name)}</strong>
+            <span style="font-size:0.8em;color:var(--text-muted);">(${styleLabel}${p.hasImage ? ', Có ảnh nền' : ''})</span>
+          </div>
+          <div style="display:flex;gap:4px;">
+            <button class="btn btn-sm" onclick="applyThemePreset('${p.id}')">Áp dụng</button>
+            <button class="btn btn-sm btn-danger" onclick="deleteThemePreset('${p.id}')">Xoá</button>
+          </div>
         </div>
-        <div style="display:flex;gap:4px;">
-          <button class="btn btn-sm" onclick="applyThemePreset('${p.id}')">Áp dụng</button>
-          <button class="btn btn-sm btn-danger" onclick="deleteThemePreset('${p.id}')">Xoá</button>
-        </div>
-      </div>
-    `).join('');
+      `;
+    }).join('');
   }
 }
 
