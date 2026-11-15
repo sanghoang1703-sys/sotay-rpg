@@ -1115,8 +1115,29 @@ textarea {
           </select>
         </div>
       </div>
+<!-- Tuỳ chọn chia đều Stack ra nhiều buổi trong ngày -->
+      <div class="sub-panel" style="margin-bottom:10px;padding:9px 10px;">
+        <label style="color:var(--primary);font-weight:700;margin-bottom:6px;">
+          ✂️ Chia đều Stack nhiệm vụ này vào Thời gian biểu hôm nay (VD: Stack 10 chọn Sáng & Chiều ➔ mỗi buổi 5 hiệp):
+        </label>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;font-size:0.86em;">
+          <label style="display:inline-flex;align-items:center;gap:4px;color:var(--text);cursor:pointer;">
+            <input type="checkbox" class="split-session-chk" value="Sáng" data-time="07:30"> 🌅 Sáng (07:30)
+          </label>
+          <label style="display:inline-flex;align-items:center;gap:4px;color:var(--text);cursor:pointer;">
+            <input type="checkbox" class="split-session-chk" value="Trưa" data-time="12:00"> ☀️ Trưa (12:00)
+          </label>
+          <label style="display:inline-flex;align-items:center;gap:4px;color:var(--text);cursor:pointer;">
+            <input type="checkbox" class="split-session-chk" value="Chiều" data-time="16:00"> 🌇 Chiều (16:00)
+          </label>
+          <label style="display:inline-flex;align-items:center;gap:4px;color:var(--text);cursor:pointer;">
+            <input type="checkbox" class="split-session-chk" value="Tối" data-time="20:00"> 🌙 Tối (20:00)
+          </label>
+        </div>
+      </div>
 
       <button class="btn btn-block" onclick="saveTask()">💾 Lưu nhiệm vụ vào danh sách</button>
+
 
       <div style="font-size:0.8em;color:var(--danger);margin-top:6px;">
         ⚠️ <strong>Quy tắc Kỷ Luật:</strong>
@@ -2877,8 +2898,9 @@ function saveTask() {
       t.priority = priority;
     }
   } else {
+    const newId = uid();
     appState.tasks.push({
-      id: uid(),
+      id: newId,
       title,
       statType,
       stackCount: 0,
@@ -2889,6 +2911,34 @@ function saveTask() {
       failed: false,
       done: false
     });
+
+    // Kiểm tra xem người dùng có tick chọn chia Stack ra các buổi không
+    const checkedBoxes = Array.from(document.querySelectorAll('.split-session-chk:checked'));
+    if (checkedBoxes.length > 0) {
+      if (!appState.schedules[today]) appState.schedules[today] = [];
+      const countSessions = checkedBoxes.length;
+      const baseStack = Math.floor(stackMax / countSessions);
+      let remainder = stackMax % countSessions;
+
+      checkedBoxes.forEach((chk) => {
+        const partStack = baseStack + (remainder > 0 ? 1 : 0);
+        if (remainder > 0) remainder--;
+        if (partStack > 0) {
+          appState.schedules[today].push({
+            id: uid(),
+            session: chk.value,
+            time: chk.getAttribute('data-time') || '07:30',
+            title: `${title} (${chk.value}: ${partStack} hiệp)`,
+            done: false,
+            stackCount: 0,
+            stackMax: partStack,
+            statType,
+            linkedTaskId: newId
+          });
+        }
+        chk.checked = false;
+      });
+    }
   }
 
   saveState();
@@ -4683,6 +4733,27 @@ function requestNotifPermission() {
   });
 }
 
+// Hàm đẩy tin nhắn thông báo chuẩn hệ thống điện thoại (Kèm rung & hiện trên thanh trạng thái)
+function sendMobileSystemNotification(titleText, bodyText) {
+  if (!('Notification' in window) || Notification.permission !== 'granted') return;
+  const options = {
+    body: bodyText,
+    vibrate: [300, 150, 300, 150, 400],
+    requireInteraction: true,
+    tag: 'liferpg-' + Date.now()
+  };
+  try {
+    if (navigator.serviceWorker && navigator.serviceWorker.ready) {
+      navigator.serviceWorker.ready.then(reg => {
+        if (reg && reg.showNotification) reg.showNotification(titleText, options);
+        else new Notification(titleText, options);
+      }).catch(() => new Notification(titleText, options));
+    } else {
+      new Notification(titleText, options);
+    }
+  } catch (e) {}
+}
+
 function checkActiveReminders() {
   const today = getTodayISO();
   const now = new Date();
@@ -4698,17 +4769,37 @@ function checkActiveReminders() {
       playAlarmBeep();
       pushMessageToInbox(`⏰ Nhắc lịch [${item.session} - ${item.time}]`, msg, item.time);
       showFloatingMsgModal(item.time, msg);
-      if ('Notification' in window && Notification.permission === 'granted') {
-        try {
-          new Notification(`⏰ [${item.time}] ${item.title}`, { body: msg });
-        } catch (e) {}
-      }
+      sendMobileSystemNotification(`📩 Tin nhắn Trợ Lý [${item.time}]`, msg);
     }
   });
 
   if (changed) saveState();
 }
 
+// KÍCH HOẠT TIN NHẮN NGAY KHI BẤM THOÁT / ẨN CHROME TRÊN ĐIỆN THOẠI
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'hidden') {
+    // 1. Quét ngay lập tức các việc đã tới giờ
+    checkActiveReminders();
+
+    // 2. Nếu trong buổi hiện tại còn việc chưa xong, bắn tin nhắn nhắc ngay khi vừa thoát Chrome
+    const today = getTodayISO();
+    const now = new Date();
+    const curHM = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+    const curSession = detectSessionFromTime(curHM);
+    const pendingInSession = (appState.schedules[today] || []).filter(s => !s.done && s.session === curSession);
+
+    if (pendingInSession.length > 0) {
+      const names = pendingInSession.map(s => `${s.title} (${s.stackCount || 0}/${s.stackMax || 1})`).join(', ');
+      sendMobileSystemNotification(
+        `⚠️ Trợ Lý nhắc: Bạn còn ${pendingInSession.length} việc buổi ${curSession}!`,
+        `Đừng quên hoàn thành: ${names}`
+      );
+    }
+  } else if (document.visibilityState === 'visible') {
+    checkActiveReminders();
+  }
+});
 function exportICS() {
   const lines = [
     'BEGIN:VCALENDAR',
