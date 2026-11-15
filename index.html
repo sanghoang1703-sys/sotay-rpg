@@ -803,17 +803,6 @@ textarea {
   margin-top: 6px;
 }
 
-/* Popup Tin nhắn thông báo nổi giữa màn hình */
-# floatingMsgModal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  z-index: 999;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-}
 .msg-modal-box {
   max-width: 440px;
   width: 100%;
@@ -925,8 +914,8 @@ textarea {
         <div class="manual-section">
           <h4>2. Cơ chế Nhiệm vụ, Stack, Khẩn cấp (Cho nợ) & Luật Xoá Nhiệm Vụ</h4>
           <ul>
-            <li><strong>📦 Stack nhiệm vụ (Gộp hiệp):</strong> Nhập số hiệp vào ô <strong>Số lượng Stack</strong> (VD: <em>"Hít đất 13 cái"</em> với Stack = 10). Mỗi hiệp tập xong bấm nút <strong>[+1]</strong> sẽ cộng ngay 1 EXP & 1 💎; hoặc ấn ô <strong>[✓]</strong> để hoàn thành cả cụm.</li>
-            <li><strong>🚨 Nút Khẩn Cấp (Cho nợ sang hôm sau):</strong> Khi bận việc đột xuất, bấm nút <strong>"🚨 Khẩn cấp (Cho nợ)"</strong> trên nhiệm vụ để dời nhiệm vụ và lịch sang ngày mai với nhãn <strong>[📌 Nợ từ hôm qua]</strong> mà không bị trừ điểm hôm nay. Lưu ý: Mỗi nhiệm vụ chỉ được khất nợ 1 lần; nếu ngày mai vẫn không hoàn thành sẽ bị <strong>phạt gấp đôi (x2 EXP & 💎)</strong>.</li>
+            <li><strong>📦 Tạo nhiệm vụ mẫu (Không cần điền giờ):</strong> Bạn chỉ cần tạo nhiệm vụ kèm số hiệp <strong>Stack</strong> (VD: <em>"Hít đất 13 cái"</em>, Stack = 10). Sau đó sang trang <strong>🕒 Thời gian biểu</strong> để gán nhiệm vụ đó vào bất kỳ ngày nào (hôm nay, ngày mai, ngày kia) hoặc chép cho cả tuần/tháng.</li>
+            <li><strong>🚨 Nút Khẩn Cấp (Cho nợ sang hôm sau):</strong> Khi bận việc đột xuất, bấm nút <strong>"🚨 Khẩn cấp (Cho nợ)"</strong> trên nhiệm vụ để dời nhiệm vụ và lịch sang ngày mai với nhãn <strong>[📌 Đang nợ]</strong> mà không bị trừ điểm hôm nay. Lưu ý: Mỗi nhiệm vụ chỉ được khất nợ 1 lần; nếu ngày mai vẫn không hoàn thành sẽ bị <strong>phạt gấp đôi (x2 EXP & 💎)</strong>.</li>
             <li><strong>⚠️ Luật Xoá Nhiệm Vụ Khắc Nghiệt:</strong> Khi bấm Xoá nhiệm vụ, bạn bắt buộc phải ghi rõ lý do chính đáng. <strong>Nếu không nhập lý do, hệ thống sẽ lập tức RESET TOÀN BỘ LEVEL VỀ LV.1!</strong></li>
             <li><strong>🔥 Nhiệm vụ Vượt Cấp Cuối Tuần (Thứ 7 & Chủ Nhật):</strong> Hoàn thành trong cuối tuần được <strong>x2 EXP & x2 💎</strong>; nếu thất bại bị trừ điểm (-1 EXP Thể lực/Sức khỏe, -2 EXP Trí tuệ).</li>
           </ul>
@@ -1049,21 +1038,21 @@ textarea {
 
       <!-- Kết quả phân tích trạng thái của Trợ Lý -->
       <div id="aiAnalysisOutput" class="ai-box">
-        Xin chào! Tôi là <strong>🤖 Trợ Lý</strong> của bạn. Bạn có thể gõ 1 câu lệnh để <strong>vừa tạo nhiệm vụ vừa đưa thẳng vào Thời gian biểu</strong> (VD: <em>"Thêm nhiệm vụ hít đất 13 cái 5 hiệp thể lực vào 7h30 sáng hôm nay"</em> hoặc ghi kèm ngày cụ thể)!
+        Xin chào! Tôi là <strong>🤖 Trợ Lý</strong> của bạn. Bạn có thể gõ 1 câu lệnh để <strong>vừa tạo nhiệm vụ vừa đưa thẳng vào Thời gian biểu</strong> của hôm nay, ngày mai hoặc ngày cụ thể (VD: <em>"Thêm nhiệm vụ hít đất 13 cái 5 hiệp thể lực vào 7h30 sáng ngày mai"</em>)!
       </div>
 
       <!-- Ô nhập lệnh đa năng bằng tiếng Việt -->
       <div style="margin-top:10px;">
         <label style="color:var(--purple);font-weight:700;">💬 Chat giao việc cho Trợ Lý (Hỗ trợ gộp Nhiệm vụ + Giờ/Buổi/Ngày Thời gian biểu):</label>
         <div style="display:flex;gap:6px;margin-top:4px;">
-          <input type="text" id="aiCmdInput" placeholder="VD: Thêm nhiệm vụ hít đất 13 cái 5 hiệp thể lực vào 7h30 sáng hôm nay..." onkeydown="if(event.key==='Enter') executeAICommand()">
+          <input type="text" id="aiCmdInput" placeholder="VD: Thêm nhiệm vụ hít đất 13 cái 5 hiệp thể lực vào 7h30 sáng ngày mai..." onkeydown="if(event.key==='Enter') executeAICommand()">
           <button class="btn btn-purple" onclick="executeAICommand()" style="white-space:nowrap;">⚡ Gửi</button>
         </div>
 
         <!-- Nút điền mẫu lệnh 1 chạm -->
         <div class="quick-chip-bar">
           <button class="btn btn-sm btn-outline" onclick="fillAssistantSample('Thêm nhiệm vụ hít đất 13 cái 5 hiệp thể lực vào 07:30 sáng hôm nay')">+ Mẫu Việc + Lịch hôm nay</button>
-          <button class="btn btn-sm btn-outline" onclick="fillAssistantSample('Thêm nhiệm vụ giải đề 2 hiệp trí tuệ vào 19h30 tối 20/11/2026')">+ Mẫu Việc + Ngày cụ thể</button>
+          <button class="btn btn-sm btn-outline" onclick="fillAssistantSample('Thêm nhiệm vụ giải đề 2 hiệp trí tuệ vào 19h30 tối ngày mai')">+ Mẫu Việc + Lịch ngày mai</button>
           <button class="btn btn-sm btn-outline" onclick="fillAssistantSample('Mục tiêu ngày: Hoàn thành 100% lịch hôm nay | Phạt: Thụt dầu 50 cái')">+ Mẫu Mục tiêu Ngày</button>
           <button class="btn btn-sm btn-outline" onclick="fillAssistantSample('Mục tiêu tuần: Giải xong 5 đề thi | Phạt: Hít đất 100 cái')">+ Mẫu Mục tiêu Tuần</button>
           <button class="btn btn-sm btn-outline" onclick="fillAssistantSample('Lỗi sai: Thức khuya tới 1h sáng lướt điện thoại')">+ Mẫu Lỗi sai</button>
@@ -1072,7 +1061,7 @@ textarea {
         </div>
 
         <div id="aiCmdFeedback" style="font-size:0.84em;margin-top:6px;color:var(--text-muted);">
-          Mẹo: Ghi kèm <strong>"vào 7h30 sáng hôm nay"</strong> hoặc <strong>"vào 19h30 ngày 16/11/2026"</strong> để Trợ Lý xếp thẳng nhiệm vụ vào Thời gian biểu!
+          Mẹo: Ghi kèm <strong>"vào 7h30 sáng hôm nay"</strong>, <strong>"vào 8h sáng mai"</strong> hoặc <strong>"vào 19h30 ngày 16/11/2026"</strong> để Trợ Lý xếp thẳng nhiệm vụ vào Thời gian biểu!
         </div>
       </div>
     </div>
@@ -1091,11 +1080,11 @@ textarea {
     </div>
   </section>
 
-  <!-- ================= TRANG 1: ☑️ NHIỆM VỤ (ĐÃ RÚT GỌN FORM + KHẨN CẤP CHO NỢ SANG HÔM SAU) ================= -->
+  <!-- ================= TRANG 1: ☑️ NHIỆM VỤ (KHÔNG ĐỂ THỜI GIAN - DÙNG ĐỂ ĐƯA VÀO THỜI GIAN BIỂU MỌI NGÀY) ================= -->
   <section id="tab-tasks" class="tab-pane">
     <div class="card">
       <div class="card-title">
-        <span id="taskFormTitle">Tạo nhiệm vụ mới (Đã rút gọn - Xếp giờ trực tiếp ở Thời gian biểu)</span>
+        <span id="taskFormTitle">Tạo nhiệm vụ mới (Tạo xong sang Thời gian biểu chọn ngày/giờ bất kỳ)</span>
         <button class="btn btn-sm btn-outline" id="btnCancelEditTask" style="display:none;" onclick="resetTaskForm()">Huỷ sửa</button>
       </div>
       <input type="hidden" id="taskEditId">
@@ -1127,21 +1116,13 @@ textarea {
         </div>
       </div>
 
-      <!-- Tuỳ chọn đưa thẳng vào Thời gian biểu hôm nay ngay khi tạo -->
-      <div class="form-row">
-        <div>
-          <label>🕒 Xếp luôn vào Thời gian biểu hôm nay (Tuỳ chọn giờ - Để trống nếu xếp sau)</label>
-          <input type="time" id="taskQuickScheduleTime">
-        </div>
-        <div style="display:flex;align-items:flex-end;">
-          <button class="btn btn-block" onclick="saveTask()">💾 Lưu nhiệm vụ</button>
-        </div>
-      </div>
+      <button class="btn btn-block" onclick="saveTask()">💾 Lưu nhiệm vụ vào danh sách</button>
 
-      <div style="font-size:0.8em;color:var(--danger);margin-top:4px;">
+      <div style="font-size:0.8em;color:var(--danger);margin-top:6px;">
         ⚠️ <strong>Quy tắc Kỷ Luật:</strong>
-        1. Bấm <strong>"🚨 Khẩn cấp (Cho nợ)"</strong> trên nhiệm vụ sẽ cho phép dời nhiệm vụ đó sang ngày mai (Tối đa nợ 1 lần; nếu ngày mai vẫn bỏ sẽ bị <strong>phạt x2 điểm</strong>).
-        2. Khi bấm <strong>Xoá</strong> nhiệm vụ, bắt buộc phải nhập lý do; nếu bỏ trống lý do sẽ bị <strong>RESET TOÀN BỘ LEVEL VỀ LV.1</strong>!
+        1. Nhiệm vụ tạo tại đây không gắn cứng giờ để bạn thoải mái sang <strong>🕒 Thời gian biểu</strong> thêm vào hôm nay, ngày mai hoặc ngày kia.
+        2. Bấm <strong>"🚨 Khẩn cấp (Cho nợ)"</strong> trên nhiệm vụ sẽ cho phép dời nhiệm vụ đó sang ngày mai (Tối đa nợ 1 lần; nếu ngày mai vẫn bỏ sẽ bị <strong>phạt x2 điểm</strong>).
+        3. Khi bấm <strong>Xoá</strong> nhiệm vụ, bắt buộc phải nhập lý do; nếu bỏ trống lý do sẽ bị <strong>RESET TOÀN BỘ LEVEL VỀ LV.1</strong>!
       </div>
     </div>
 
@@ -1375,7 +1356,7 @@ textarea {
       <div class="sub-panel" style="margin-bottom:10px;">
         <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
           <label style="color:var(--primary);font-weight:700;margin:0;">
-            🔍 Chọn Nhiệm vụ đưa vào Thời gian biểu (Nhiệm vụ đã cho vào ngày này sẽ tự mờ đi)
+            🔍 Chọn Nhiệm vụ đưa vào Thời gian biểu ngày đang xem (Nhiệm vụ đã cho vào sẽ tự mờ đi)
           </label>
           <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
             <select id="schLinkSession" style="width:auto;padding:5px 8px;font-size:0.84em;">
@@ -2377,7 +2358,7 @@ function aiQuickAddSuggestedTask(title, statType, stackMax) {
   saveState();
   renderTasks();
   renderScheduleTaskPicker();
-  alert(`🤖 Trợ Lý đã thêm nhiệm vụ "${title}" (Stack 0/${stackMax}) vào danh sách hôm nay!`);
+  alert(`🤖 Trợ Lý đã thêm nhiệm vụ "${title}" (Stack 0/${stackMax}) vào danh sách!`);
 }
 
 // 4.4. Bộ phân tích lỗi sai tự động
@@ -2597,7 +2578,7 @@ function executeAICommand() {
     stackMax = Math.max(1, Math.min(500, parseInt(stackMatch[1], 10) || 1));
   }
 
-  // Bóc tách ngày mục tiêu (hôm nay / ngày mai / mốt / dd/mm/yyyy)
+  // Bóc tách ngày mục tiêu (hôm nay / ngày mai / ngày kia / mốt / dd/mm/yyyy)
   let targetDate = getTodayISO();
   let hasScheduleIntent = /(thời gian biểu|lịch|vào lúc|lúc|buổi sáng|buổi trưa|buổi chiều|buổi tối|\bsáng\b|\btrưa\b|\bchiều\b|\btối\b)/.test(lower);
 
@@ -2610,10 +2591,10 @@ function executeAICommand() {
     const curY = new Date().getFullYear();
     targetDate = `${curY}-${String(dmShortMatch[2]).padStart(2, '0')}-${String(dmShortMatch[1]).padStart(2, '0')}`;
     hasScheduleIntent = true;
-  } else if (/(ngày mai|\bmai\b)/.test(lower)) {
+  } else if (/(ngày mai|hôm sau|\bmai\b)/.test(lower)) {
     targetDate = getTomorrowISO();
     hasScheduleIntent = true;
-  } else if (/(ngày mốt|\bmốt\b)/.test(lower)) {
+  } else if (/(ngày kia|hôm kia|ngày mốt|\bmốt\b)/.test(lower)) {
     targetDate = getOffsetDateISO(getTodayISO(), 2);
     hasScheduleIntent = true;
   }
@@ -2655,7 +2636,7 @@ function executeAICommand() {
     .replace(/^(tạo nhiệm vụ|thêm nhiệm vụ|nhiệm vụ|thêm việc|làm)\s*[:\-]?\s*/i, '')
     .replace(/vào thời gian biểu|thời gian biểu/gi, '')
     .replace(/(?:vào lúc|lúc|vào)?\s*\d{1,2}\s*(?:h|giờ|:)\s*\d{0,2}\s*(?:sáng|trưa|chiều|tối)?/gi, '')
-    .replace(/\b(buổi sáng|buổi trưa|buổi chiều|buổi tối|hôm nay|ngày mai|ngày mốt)\b/gi, '')
+    .replace(/\b(buổi sáng|buổi trưa|buổi chiều|buổi tối|hôm nay|ngày mai|hôm sau|ngày kia|hôm kia|ngày mốt)\b/gi, '')
     .replace(/(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})/g, '')
     .replace(/ngày\s+\d{1,2}[\/\-]\d{1,2}/gi, '')
     .replace(/\s*(thể lực|trí tuệ|sức khỏe)\s*/gi, ' ')
@@ -2736,7 +2717,7 @@ function turnMistakeFixIntoTask() {
   saveState();
   renderTasks();
   renderScheduleTaskPicker();
-  alert('⚡ Đã biến "Cách sửa" thành Nhiệm vụ ưu tiên Cao trong hôm nay (+1 EXP Sức khỏe & +1 💎)!');
+  alert('⚡ Đã biến "Cách sửa" thành Nhiệm vụ ưu tiên Cao (+1 EXP Sức khỏe & +1 💎)!');
 }
 
 /* =========================================================================
@@ -2783,7 +2764,6 @@ function updateAllHeaderAndRPG() {
   document.getElementById('stPerseverance').textContent = `💎 ${gems}`;
   document.getElementById('stSpendable').textContent = formatVND(appState.expenses.spendableBalance || 0);
 
-  // Đếm số tin nhắn chưa đọc trên nút tab Nhắc nhở
   const unreadCount = (appState.notifications.inbox || []).filter(m => !m.read).length;
   const remBtn = document.getElementById('navBtnReminders');
   if (remBtn) {
@@ -2861,7 +2841,7 @@ function renderHomeQuickTasks() {
 }
 
 /* =========================================================================
-   6. TRANG 1: NHIỆM VỤ (FORM RÚT GỌN + KHẨN CẤP CHO NỢ SANG HÔM SAU + LUẬT XOÁ)
+   6. TRANG 1: NHIỆM VỤ (KHÔNG ĐỂ THỜI GIAN - DÙNG ĐỂ ĐƯA VÀO THỜI GIAN BIỂU MỌI NGÀY)
    ========================================================================= */
 function resetTaskForm() {
   document.getElementById('taskEditId').value = '';
@@ -2869,8 +2849,7 @@ function resetTaskForm() {
   document.getElementById('taskStatType').value = 'str';
   document.getElementById('taskStackMax').value = '1';
   document.getElementById('taskPriority').value = 'medium';
-  document.getElementById('taskQuickScheduleTime').value = '';
-  document.getElementById('taskFormTitle').textContent = 'Tạo nhiệm vụ mới (Đã rút gọn - Xếp giờ trực tiếp ở Thời gian biểu)';
+  document.getElementById('taskFormTitle').textContent = 'Tạo nhiệm vụ mới (Tạo xong sang Thời gian biểu chọn ngày/giờ bất kỳ)';
   document.getElementById('btnCancelEditTask').style.display = 'none';
 }
 
@@ -2880,7 +2859,6 @@ function saveTask() {
   const statType = document.getElementById('taskStatType').value;
   const stackMax = Math.max(1, parseInt(document.getElementById('taskStackMax').value, 10) || 1);
   const priority = document.getElementById('taskPriority').value;
-  const quickTime = document.getElementById('taskQuickScheduleTime').value;
   const today = getTodayISO();
 
   if (!title) {
@@ -2899,9 +2877,8 @@ function saveTask() {
       t.priority = priority;
     }
   } else {
-    const newId = uid();
     appState.tasks.push({
-      id: newId,
+      id: uid(),
       title,
       statType,
       stackCount: 0,
@@ -2912,23 +2889,6 @@ function saveTask() {
       failed: false,
       done: false
     });
-
-    // Nếu người dùng chọn giờ ở ô xếp nhanh vào Thời gian biểu hôm nay
-    if (quickTime) {
-      const session = detectSessionFromTime(quickTime);
-      if (!appState.schedules[today]) appState.schedules[today] = [];
-      appState.schedules[today].push({
-        id: uid(),
-        session,
-        time: quickTime,
-        title,
-        done: false,
-        stackCount: 0,
-        stackMax,
-        statType,
-        linkedTaskId: newId
-      });
-    }
   }
 
   saveState();
@@ -2950,7 +2910,6 @@ function stepTaskStack(taskId, delta) {
   t.done = (t.stackCount >= max);
   addRpgExpAndGems(t.statType, diff, true);
 
-  // Đồng bộ trạng thái vào Thời gian biểu của ngày hạn nhiệm vụ
   const dList = appState.schedules[t.dueDate] || [];
   dList.forEach(item => {
     if (item.linkedTaskId === t.id) {
@@ -2995,7 +2954,7 @@ function toggleTaskCheckbox(taskId) {
   renderMainCalendar();
 }
 
-// NÚT KHẨN CẤP MỚI: Cho phép khất nợ nhiệm vụ (và lịch trong Thời gian biểu) sang ngày hôm sau (Tối đa 1 lần)
+// NÚT KHẨN CẤP: Cho phép khất nợ nhiệm vụ (và lịch trong Thời gian biểu) sang ngày hôm sau (Tối đa 1 lần)
 function deferTaskEmergencyToTomorrow(taskId) {
   const t = appState.tasks.find(x => x.id === taskId);
   if (!t || t.done || t.failed) return;
@@ -3016,7 +2975,6 @@ function deferTaskEmergencyToTomorrow(taskId) {
   t.deferredCount = (t.deferredCount || 0) + 1;
   t.deferredReason = cleanReason;
 
-  // Nếu nhiệm vụ đang nằm trong Thời gian biểu của ngày cũ thì chuyển sang ngày mai luôn
   if (appState.schedules[oldDate]) {
     const movingItems = appState.schedules[oldDate].filter(s => s.linkedTaskId === t.id);
     appState.schedules[oldDate] = appState.schedules[oldDate].filter(s => s.linkedTaskId !== t.id);
@@ -3034,7 +2992,6 @@ function deferTaskEmergencyToTomorrow(taskId) {
   alert(`📌 Đã cho nợ nhiệm vụ "${t.title}" sang ngày mai (${formatDateVN(nextDate)}). Hãy hoàn thành vào ngày mai để không bị phạt x2!`);
 }
 
-// Đánh dấu Không hoàn thành: Nếu nhiệm vụ đang nợ từ hôm qua mà vẫn bỏ -> Phạt gấp đôi (x2)!
 function markTaskAsFailed(taskId) {
   const t = appState.tasks.find(x => x.id === taskId);
   if (!t || t.done || t.failed) return;
@@ -3071,7 +3028,6 @@ function editTask(id) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// LUẬT KỶ LUẬT THÉP: Xoá nhiệm vụ bắt buộc phải nhập lý do. Không có lý do -> RESET LEVEL VỀ 1!
 function deleteTask(id) {
   const t = appState.tasks.find(x => x.id === id);
   if (!t) return;
@@ -3132,8 +3088,6 @@ function getStatBadgeHTML(statType) {
 }
 
 function renderSingleTaskRowHTML(t) {
-  const today = getTodayISO();
-  const isOverdue = !t.done && !t.failed && t.dueDate < today;
   const prioMap = { high: 'Ưu tiên Cao', medium: 'Vừa', low: 'Thấp' };
   const c = t.stackCount || 0;
   const m = t.stackMax || 1;
@@ -3152,8 +3106,6 @@ function renderSingleTaskRowHTML(t) {
           <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:4px;font-size:0.8em;color:var(--text-muted);">
             ${getStatBadgeHTML(t.statType)}
             <span class="badge badge-${t.priority}">${prioMap[t.priority] || 'Vừa'}</span>
-            <span>📅 Ngày thực hiện: ${formatDateVN(t.dueDate)}</span>
-            ${isOverdue ? `<strong style="color:var(--danger);">(Quá hạn)</strong>` : ''}
           </div>
         </div>
       </label>
@@ -3355,7 +3307,6 @@ function renderTasks() {
   const prioWeight = { high: 1, medium: 2, low: 3 };
   list.sort((a, b) => {
     if (a.done !== b.done) return a.done ? 1 : -1;
-    if (a.dueDate !== b.dueDate) return a.dueDate.localeCompare(b.dueDate);
     return (prioWeight[a.priority] || 2) - (prioWeight[b.priority] || 2);
   });
 
@@ -3902,7 +3853,6 @@ function addScheduleFreeItem() {
   renderSchedule();
 }
 
-// Bấm [+1] hoặc [-1] Stack trực tiếp trong Thời gian biểu (Độc lập từng ngày!)
 function stepScheduleItemStack(date, itemId, delta) {
   const list = appState.schedules[date] || [];
   const item = list.find(x => x.id === itemId);
@@ -3921,7 +3871,6 @@ function stepScheduleItemStack(date, itemId, delta) {
   item.done = (newCount >= max);
   addRpgExpAndGems(statType, diff, true);
 
-  // Nếu ngày đang bấm trùng với ngày hạn của nhiệm vụ gốc thì đồng bộ sang trang Nhiệm vụ
   if (linkedTask && date === linkedTask.dueDate) {
     linkedTask.stackCount = newCount;
     linkedTask.done = item.done;
@@ -3970,7 +3919,6 @@ function deleteScheduleItem(date, itemId) {
   renderSchedule();
 }
 
-// Nút 1: Chép từ ngày liền trước của ngày đang chọn (Fix triệt để lỗi chuyển sang ngày mai bấm chép)
 function copyPreviousDaySchedule() {
   const selectedDate = document.getElementById('schDate').value || getTodayISO();
   const prevDate = getOffsetDateISO(selectedDate, -1);
@@ -4001,7 +3949,6 @@ function copyPreviousDaySchedule() {
   alert(`📥 Đã chép ${prevList.length} việc từ ngày ${formatDateVN(prevDate)} sang ngày ${formatDateVN(selectedDate)}!`);
 }
 
-// Nút 2: Chép lịch của ngày đang chọn cho CẢ TUẦN (7 ngày tiếp theo)
 function copyScheduleForWeek() {
   const baseDate = document.getElementById('schDate').value || getTodayISO();
   const sourceList = appState.schedules[baseDate] || [];
@@ -4032,7 +3979,6 @@ function copyScheduleForWeek() {
   alert(`🎉 Đã chép lịch mẫu ngày ${formatDateVN(baseDate)} cho trọn vẹn 7 ngày tiếp theo!`);
 }
 
-// Nút 3: Chép lịch của ngày đang chọn cho CẢ THÁNG
 function copyScheduleForMonth() {
   const baseDate = document.getElementById('schDate').value || getTodayISO();
   const sourceList = appState.schedules[baseDate] || [];
@@ -4605,7 +4551,6 @@ function pushMessageToInbox(title, body, timeStr) {
     body,
     read: false
   });
-  // Giữ tối đa 50 tin nhắn gần nhất cho nhẹ máy
   if (appState.notifications.inbox.length > 50) {
     appState.notifications.inbox = appState.notifications.inbox.slice(0, 50);
   }
@@ -4738,7 +4683,6 @@ function requestNotifPermission() {
   });
 }
 
-// Quét tự động theo giờ của Thời gian biểu hôm nay để phát Chuông + Gửi Tin Nhắn Thông Báo
 function checkActiveReminders() {
   const today = getTodayISO();
   const now = new Date();
@@ -4774,7 +4718,6 @@ function exportICS() {
   ];
   const stamp = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
 
-  // Xuất toàn bộ lịch trong Thời gian biểu có giờ cụ thể ra file .ics
   Object.keys(appState.schedules).forEach(dateISO => {
     const dClean = dateISO.replace(/-/g, '');
     (appState.schedules[dateISO] || []).filter(s => !s.done && s.time).forEach(s => {
